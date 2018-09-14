@@ -1,0 +1,22 @@
+﻿@model IEnumerable<SchedureDTO.SpeciaDTO>
+
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DANH SÁCH CÁC CHUYÊN KHOA</h2>
+<hr />
+<P>Vui lòng chọn chuyên khoa </P>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("Detail",new { id = item.IDSpecia})">
+                <img src="@item.Avatar" alt="@item.Avatar" />
+                <span>@item.Name.ToUpper()</span>
+            </a>
+        </li>
+    }
+</ul>

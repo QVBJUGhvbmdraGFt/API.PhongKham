@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SchedureDTO.DoctorDTO>
+
+@{
+    var specia = ViewBag.specia as SchedureDTO.SpeciaDTO;
+    ViewBag.Title = ("ĐĂNG KÍ KHÁM BỆNH - " + specia.Name).ToUpper();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<table class="table table-bordered" s>
+    <tr>
+        <td>Ảnh đại diện</td>
+        <td>Bác sĩ</td>
+        <td>Giới thiệu</td>
+        <td></td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td><img src="@item.Avatar" alt="@item.Avatar" style="width: 100px" /></td>
+            <td>        <label class="label label-info">@item.FullName</label></td>
+            <td><p>@item.Sumary</p></td>
+            <td><p><a href="@Url.Action("Create","Register",new { idSpecia = specia.IDSpecia })">Đăng kí</a></p></td>
+        </tr>
+
+    }
+</table>

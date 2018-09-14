@@ -1,0 +1,44 @@
+﻿@model SchedureDTO.RegisterDTO
+
+@{
+    var sepecia = ViewBag.sepecia as SchedureDTO.SpeciaDTO;
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ĐĂNG KÍ KHÁM TẠI KHOA: @sepecia.Name</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(q => q.IDRegister)
+        @Html.HiddenFor(q => q.CreateDate)
+        @Html.HiddenFor(q => q.Status)
+
+        <div class="form-group">
+            @Html.Label("Bác sĩ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IDDoctor, ViewBag.doctors as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IDDoctor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Tin nhắn", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Message, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Đăng kí" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+

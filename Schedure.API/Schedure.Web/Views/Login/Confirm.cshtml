@@ -1,0 +1,9 @@
+﻿@model SchedureDTO.AccountDTO
+
+@{
+    ViewBag.Title = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>Đăng kí thành công, vui lòng xác nhận tài khoản trong hòm thư mail <b>@Model.Email</b></p>
+<p>Bạn có thê đăng nhập <a href="@Url.Action("Index","Login")">tại đây</a></p>

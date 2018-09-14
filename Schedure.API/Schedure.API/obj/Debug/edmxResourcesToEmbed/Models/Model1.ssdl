@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchedureModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="IDAccount" />
+    </Key>
+    <Property Name="IDAccount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Male" Type="bit" />
+    <Property Name="Birthday" Type="date" />
+    <Property Name="Adress" Type="nvarchar" MaxLength="50" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="TieuSu" Type="nvarchar(max)" />
+    <Property Name="POSITION" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CTToaThuoc">
+    <Key>
+      <PropertyRef Name="IDCT" />
+    </Key>
+    <Property Name="IDCT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDToaThuoc" Type="int" Nullable="false" />
+    <Property Name="IDThuoc" Type="int" />
+    <Property Name="SoLuong" Type="int" />
+    <Property Name="GiaTien" Type="int" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="IDDoctor" />
+    </Key>
+    <Property Name="IDDoctor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDSpecia" Type="int" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
+    <Property Name="Sumary" Type="nvarchar(max)" />
+    <Property Name="TrainingProcess" Type="nvarchar(max)" />
+    <Property Name="Study" Type="nvarchar(max)" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="HistoryKhamBenh">
+    <Key>
+      <PropertyRef Name="IDHistory" />
+    </Key>
+    <Property Name="IDHistory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDRegister" Type="int" />
+    <Property Name="IDDoctor" Type="int" />
+    <Property Name="ICD" Type="int" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="Mach" Type="int" />
+    <Property Name="NhipTho" Type="int" />
+    <Property Name="ChieuCao" Type="int" />
+    <Property Name="NhieuDo" Type="int" />
+    <Property Name="HuyetApTT" Type="int" />
+    <Property Name="HuyetApTD" Type="int" />
+    <Property Name="CanNang" Type="int" />
+    <Property Name="TrieuChungLS" Type="nvarchar(max)" />
+    <Property Name="ChuanDoanSoBo" Type="nvarchar(max)" />
+    <Property Name="CachGiaiQuyet" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="InfoHospital">
+    <Key>
+      <PropertyRef Name="IDInfoHospital" />
+    </Key>
+    <Property Name="IDInfoHospital" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
+    <Property Name="Adress" Type="nvarchar" MaxLength="500" />
+    <Property Name="Hotline" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="WorkStart" Type="time" Precision="7" />
+    <Property Name="WorkEnd" Type="time" Precision="7" />
+  </EntityType>
+  <EntityType Name="Register">
+    <Key>
+      <PropertyRef Name="IDRegister" />
+    </Key>
+    <Property Name="IDRegister" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDAccount" Type="int" />
+    <Property Name="IDDoctor" Type="int" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="Message" Type="nvarchar" MaxLength="500" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Specia">
+    <Key>
+      <PropertyRef Name="IDSpecia" />
+    </Key>
+    <Property Name="IDSpecia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="TimeUse" Type="int" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Thuoc">
+    <Key>
+      <PropertyRef Name="IDThuoc" />
+    </Key>
+    <Property Name="IDThuoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="DonVi" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="GiaTien" Type="int" />
+  </EntityType>
+  <EntityType Name="ToaThuoc">
+    <Key>
+      <PropertyRef Name="IDToaThuoc" />
+    </Key>
+    <Property Name="IDToaThuoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDHistory" Type="int" />
+    <Property Name="CachDung" Type="nvarchar" MaxLength="50" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
+    <Property Name="Gia" Type="int" />
+  </EntityType>
+  <Association Name="FK_CTToaThuoc_Thuoc">
+    <End Role="Thuoc" Type="Self.Thuoc" Multiplicity="0..1" />
+    <End Role="CTToaThuoc" Type="Self.CTToaThuoc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Thuoc">
+        <PropertyRef Name="IDThuoc" />
+      </Principal>
+      <Dependent Role="CTToaThuoc">
+        <PropertyRef Name="IDThuoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CTToaThuoc_ToaThuoc">
+    <End Role="ToaThuoc" Type="Self.ToaThuoc" Multiplicity="1" />
+    <End Role="CTToaThuoc" Type="Self.CTToaThuoc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ToaThuoc">
+        <PropertyRef Name="IDToaThuoc" />
+      </Principal>
+      <Dependent Role="CTToaThuoc">
+        <PropertyRef Name="IDToaThuoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_Specia">
+    <End Role="Specia" Type="Self.Specia" Multiplicity="0..1" />
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specia">
+        <PropertyRef Name="IDSpecia" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="IDSpecia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoryKhamBenh_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="HistoryKhamBenh" Type="Self.HistoryKhamBenh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDDoctor" />
+      </Principal>
+      <Dependent Role="HistoryKhamBenh">
+        <PropertyRef Name="IDDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoryKhamBenh_Register">
+    <End Role="Register" Type="Self.Register" Multiplicity="0..1" />
+    <End Role="HistoryKhamBenh" Type="Self.HistoryKhamBenh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Register">
+        <PropertyRef Name="IDRegister" />
+      </Principal>
+      <Dependent Role="HistoryKhamBenh">
+        <PropertyRef Name="IDRegister" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Register_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="Register" Type="Self.Register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="IDAccount" />
+      </Principal>
+      <Dependent Role="Register">
+        <PropertyRef Name="IDAccount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Register_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+    <End Role="Register" Type="Self.Register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDDoctor" />
+      </Principal>
+      <Dependent Role="Register">
+        <PropertyRef Name="IDDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ToaThuoc_HistoryKhamBenh">
+    <End Role="HistoryKhamBenh" Type="Self.HistoryKhamBenh" Multiplicity="0..1" />
+    <End Role="ToaThuoc" Type="Self.ToaThuoc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HistoryKhamBenh">
+        <PropertyRef Name="IDHistory" />
+      </Principal>
+      <Dependent Role="ToaThuoc">
+        <PropertyRef Name="IDHistory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="SchedureModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CTToaThuoc" EntityType="Self.CTToaThuoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HistoryKhamBenh" EntityType="Self.HistoryKhamBenh" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InfoHospital" EntityType="Self.InfoHospital" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Register" EntityType="Self.Register" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Specia" EntityType="Self.Specia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Thuoc" EntityType="Self.Thuoc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ToaThuoc" EntityType="Self.ToaThuoc" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CTToaThuoc_Thuoc" Association="Self.FK_CTToaThuoc_Thuoc">
+      <End Role="Thuoc" EntitySet="Thuoc" />
+      <End Role="CTToaThuoc" EntitySet="CTToaThuoc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CTToaThuoc_ToaThuoc" Association="Self.FK_CTToaThuoc_ToaThuoc">
+      <End Role="ToaThuoc" EntitySet="ToaThuoc" />
+      <End Role="CTToaThuoc" EntitySet="CTToaThuoc" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_Specia" Association="Self.FK_Doctor_Specia">
+      <End Role="Specia" EntitySet="Specia" />
+      <End Role="Doctor" EntitySet="Doctor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoryKhamBenh_Doctor" Association="Self.FK_HistoryKhamBenh_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenh" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoryKhamBenh_Register" Association="Self.FK_HistoryKhamBenh_Register">
+      <End Role="Register" EntitySet="Register" />
+      <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenh" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Register_Account" Association="Self.FK_Register_Account">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Register" EntitySet="Register" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Register_Doctor" Association="Self.FK_Register_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="Register" EntitySet="Register" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ToaThuoc_HistoryKhamBenh" Association="Self.FK_ToaThuoc_HistoryKhamBenh">
+      <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenh" />
+      <End Role="ToaThuoc" EntitySet="ToaThuoc" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,103 @@
+﻿@model List<SchedureDTO.HistoryKhamBenhFakeDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            MÃ ĐĂNG KÍ
+        </th>
+        <th>
+            THỜI GIAN ĐĂNG KÍ
+        </th>
+        <th>
+            BÁC SĨ KHÁM
+        </th>
+        <th>
+            THỜI GIAN KHÁM
+        </th>
+        <th>
+            TRIỆU CHỨNG LÂM SÀN
+        </th>
+        <th>
+            CHẨN ĐOÁN SƠ BỘ
+        </th>
+        <th>
+            CÁCH GIẢI QUYẾT
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDRegister)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Register_CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor_FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrieuChungLS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChuanDoanSoBo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CachGiaiQuyet)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    <p>Để tiếp tục xem lịch sử, bạn vui lòng nhập Mã xác nhận đã được gửi trong Email của bạn tại đây</p>
+    <p><i>Nếu mã sai bạn có thể gửi lại.</i></p>
+    <p>
+        @using (Html.BeginForm())
+        {
+
+            for (int i = 0; i < Model.Count; i++)
+            {
+                @Html.HiddenFor(q => Model[i].CachGiaiQuyet);
+                @Html.HiddenFor(q => Model[i].CanNang);
+                @Html.HiddenFor(q => Model[i].ChieuCao);
+                @Html.HiddenFor(q => Model[i].ChuanDoanSoBo);
+                @Html.HiddenFor(q => Model[i].CreateTime);
+                @Html.HiddenFor(q => Model[i].Doctor_FullName);
+                @Html.HiddenFor(q => Model[i].HuyetApTD);
+                @Html.HiddenFor(q => Model[i].HuyetApTT);
+                @Html.HiddenFor(q => Model[i].ICD);
+                @Html.HiddenFor(q => Model[i].IDDoctor);
+                @Html.HiddenFor(q => Model[i].IDHistory);
+                @Html.HiddenFor(q => Model[i].IDRegister);
+                @Html.HiddenFor(q => Model[i].Mach);
+                @Html.HiddenFor(q => Model[i].NhietDo);
+                @Html.HiddenFor(q => Model[i].NhipTho);
+                @Html.HiddenFor(q => Model[i].Register_CreateTime);
+                @Html.HiddenFor(q => Model[i].Specia_Name);
+                @Html.HiddenFor(q => Model[i].Specia_Name);
+                @Html.HiddenFor(q => Model[i].TrieuChungLS);
+            }
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.Label("MÃ XÁC NHẬN")
+                </div>
+                <div class="col-md-10">
+                    <input type="text" name="key" class="form-control " />
+                </div>
+            </div>
+            <input type="submit" class="btn btn-success" name="name" value="Xác nhận" />
+        }
+    </p>
+</div>

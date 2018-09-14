@@ -1,0 +1,5 @@
+D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\SchedureDTO\bin\Debug\SchedureDTO.dll
+D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\SchedureDTO\bin\Debug\SchedureDTO.pdb
+D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\SchedureDTO\obj\Debug\SchedureDTO.csprojResolveAssemblyReference.cache
+D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\SchedureDTO\obj\Debug\SchedureDTO.dll
+D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\SchedureDTO\obj\Debug\SchedureDTO.pdb

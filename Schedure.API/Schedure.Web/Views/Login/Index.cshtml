@@ -1,0 +1,163 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Đăng nhập</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="main">
+        <form method="POST">
+            <h3 style="text-align:center; color: white">ĐĂNG NHẬP</h3>
+            <p>@Html.ValidationMessage("", new { @class = "text-danger" })</p>
+            <p><input type="text" placeholder="Username" name="Username" /></p>
+            <p><input type="password" placeholder="Password" name="Password" /></p>
+            <p><input type="submit" value="LOGIN" /></p>
+            <p><a href="@Url.Action("Register")">Đăng kí tài khoản.</a></p>
+        </form>
+    </div>
+
+    <style>
+
+        html {
+            background: #ecf0f1;
+        }
+
+        input {
+            border: none;
+            outline: none;
+            background: #34495e;
+            color: #fff;
+        }
+
+            input[type="submit"] {
+                background: #1abc9c;
+                color: #fff;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+
+        /* ----------- */
+
+        header {
+            position: relative;
+            height: 50px;
+            background: #2c3e50;
+        }
+
+        h1 {
+            position: absolute;
+            top: 0.5em;
+            left: 0.5em;
+            font-family: "Baumans";
+            font-size: 1.5em;
+            text-transform: uppercase;
+            color: #cef0f1;
+        }
+
+        a {
+            color: #cef0f1;
+            text-decoration: none;
+        }
+
+        header form {
+            position: absolute;
+            right: 1em;
+            top: 0.6em;
+        }
+
+        header input {
+            padding: 5px;
+            width: 100px;
+        }
+
+            header input:focus {
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            header input[type="submit"] {
+                font-weight: bold;
+            }
+
+
+        /* ----------- */
+
+        #main form {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #2c3e50;
+            box-shadow: 0 0.5em 0 #1c2833;
+        }
+
+        #main input {
+            position: relative;
+            display: block;
+            margin: 0 auto;
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 20px;
+        }
+
+            #main input:focus {
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            #main input[type="submit"] {
+                font-family: "Baumans";
+                font-size: 1.5em;
+                box-shadow: 0 0.2em 0 #12846e;
+                transition: all 0.1s;
+            }
+
+                #main input[type="submit"]:hover {
+                    top: 0.2em;
+                    box-shadow: none;
+                }
+
+        #main ::-webkit-input-placeholder {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #1abc9c;
+            text-align: center;
+            text-shadow: 1px 1px 0px black;
+        }
+
+        #main ::-moz-input-placeholder {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #1abc9c;
+            text-align: center;
+            text-shadow: 1px 1px 0px black;
+        }
+
+        #main ::-o-input-placeholder {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #1abc9c;
+            text-align: center;
+            text-shadow: 1px 1px 0px black;
+        }
+
+        #main ::-ms-input-placeholder {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #1abc9c;
+            text-align: center;
+            text-shadow: 1px 1px 0px black;
+        }
+
+        #main ::input-placeholder {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #1abc9c;
+            text-align: center;
+            text-shadow: 1px 1px 0px black;
+        }
+    </style>
+</body>
+</html>

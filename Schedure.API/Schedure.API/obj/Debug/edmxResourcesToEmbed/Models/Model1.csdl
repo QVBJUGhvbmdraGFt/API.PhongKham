@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchedureModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="SchedureEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(SchedureModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(SchedureModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="Accounts" EntityType="SchedureModel.Account" />
+    <EntitySet Name="CTToaThuocs" EntityType="SchedureModel.CTToaThuoc" />
+    <EntitySet Name="Doctors" EntityType="SchedureModel.Doctor" />
+    <EntitySet Name="HistoryKhamBenhs" EntityType="SchedureModel.HistoryKhamBenh" />
+    <EntitySet Name="InfoHospitals" EntityType="SchedureModel.InfoHospital" />
+    <EntitySet Name="Registers" EntityType="SchedureModel.Register" />
+    <EntitySet Name="Specias" EntityType="SchedureModel.Specia" />
+    <EntitySet Name="sysdiagrams" EntityType="SchedureModel.sysdiagram" />
+    <EntitySet Name="Thuocs" EntityType="SchedureModel.Thuoc" />
+    <EntitySet Name="ToaThuocs" EntityType="SchedureModel.ToaThuoc" />
+    <AssociationSet Name="FK_Register_Account" Association="SchedureModel.FK_Register_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Register" EntitySet="Registers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CTToaThuoc_Thuoc" Association="SchedureModel.FK_CTToaThuoc_Thuoc">
+      <End Role="Thuoc" EntitySet="Thuocs" />
+      <End Role="CTToaThuoc" EntitySet="CTToaThuocs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CTToaThuoc_ToaThuoc" Association="SchedureModel.FK_CTToaThuoc_ToaThuoc">
+      <End Role="ToaThuoc" EntitySet="ToaThuocs" />
+      <End Role="CTToaThuoc" EntitySet="CTToaThuocs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Doctor_Specia" Association="SchedureModel.FK_Doctor_Specia">
+      <End Role="Specia" EntitySet="Specias" />
+      <End Role="Doctor" EntitySet="Doctors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoryKhamBenh_Doctor" Association="SchedureModel.FK_HistoryKhamBenh_Doctor">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenhs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Register_Doctor" Association="SchedureModel.FK_Register_Doctor">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="Register" EntitySet="Registers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HistoryKhamBenh_Register" Association="SchedureModel.FK_HistoryKhamBenh_Register">
+      <End Role="Register" EntitySet="Registers" />
+      <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenhs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ToaThuoc_HistoryKhamBenh" Association="SchedureModel.FK_ToaThuoc_HistoryKhamBenh">
+      <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenhs" />
+      <End Role="ToaThuoc" EntitySet="ToaThuocs" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="IDAccount" />
+    </Key>
+    <Property Name="IDAccount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Male" Type="Boolean" />
+    <Property Name="Birthday" Type="DateTime" Precision="0" />
+    <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TieuSu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="POSITION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Registers" Relationship="SchedureModel.FK_Register_Account" FromRole="Account" ToRole="Register" />
+  </EntityType>
+  <EntityType Name="CTToaThuoc">
+    <Key>
+      <PropertyRef Name="IDCT" />
+    </Key>
+    <Property Name="IDCT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDToaThuoc" Type="Int32" Nullable="false" />
+    <Property Name="IDThuoc" Type="Int32" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="GiaTien" Type="Int32" />
+    <NavigationProperty Name="Thuoc" Relationship="SchedureModel.FK_CTToaThuoc_Thuoc" FromRole="CTToaThuoc" ToRole="Thuoc" />
+    <NavigationProperty Name="ToaThuoc" Relationship="SchedureModel.FK_CTToaThuoc_ToaThuoc" FromRole="CTToaThuoc" ToRole="ToaThuoc" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="IDDoctor" />
+    </Key>
+    <Property Name="IDDoctor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDSpecia" Type="Int32" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Sumary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TrainingProcess" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Study" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Specia" Relationship="SchedureModel.FK_Doctor_Specia" FromRole="Doctor" ToRole="Specia" />
+    <NavigationProperty Name="HistoryKhamBenhs" Relationship="SchedureModel.FK_HistoryKhamBenh_Doctor" FromRole="Doctor" ToRole="HistoryKhamBenh" />
+    <NavigationProperty Name="Registers" Relationship="SchedureModel.FK_Register_Doctor" FromRole="Doctor" ToRole="Register" />
+  </EntityType>
+  <EntityType Name="HistoryKhamBenh">
+    <Key>
+      <PropertyRef Name="IDHistory" />
+    </Key>
+    <Property Name="IDHistory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDRegister" Type="Int32" />
+    <Property Name="IDDoctor" Type="Int32" />
+    <Property Name="ICD" Type="Int32" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="Mach" Type="Int32" />
+    <Property Name="NhipTho" Type="Int32" />
+    <Property Name="ChieuCao" Type="Int32" />
+    <Property Name="NhieuDo" Type="Int32" />
+    <Property Name="HuyetApTT" Type="Int32" />
+    <Property Name="HuyetApTD" Type="Int32" />
+    <Property Name="CanNang" Type="Int32" />
+    <Property Name="TrieuChungLS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ChuanDoanSoBo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CachGiaiQuyet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Doctor" Relationship="SchedureModel.FK_HistoryKhamBenh_Doctor" FromRole="HistoryKhamBenh" ToRole="Doctor" />
+    <NavigationProperty Name="Register" Relationship="SchedureModel.FK_HistoryKhamBenh_Register" FromRole="HistoryKhamBenh" ToRole="Register" />
+    <NavigationProperty Name="ToaThuocs" Relationship="SchedureModel.FK_ToaThuoc_HistoryKhamBenh" FromRole="HistoryKhamBenh" ToRole="ToaThuoc" />
+  </EntityType>
+  <EntityType Name="InfoHospital">
+    <Key>
+      <PropertyRef Name="IDInfoHospital" />
+    </Key>
+    <Property Name="IDInfoHospital" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Adress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Hotline" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WorkStart" Type="Time" Precision="7" />
+    <Property Name="WorkEnd" Type="Time" Precision="7" />
+  </EntityType>
+  <EntityType Name="Register">
+    <Key>
+      <PropertyRef Name="IDRegister" />
+    </Key>
+    <Property Name="IDRegister" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDAccount" Type="Int32" />
+    <Property Name="IDDoctor" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Account" Relationship="SchedureModel.FK_Register_Account" FromRole="Register" ToRole="Account" />
+    <NavigationProperty Name="Doctor" Relationship="SchedureModel.FK_Register_Doctor" FromRole="Register" ToRole="Doctor" />
+    <NavigationProperty Name="HistoryKhamBenhs" Relationship="SchedureModel.FK_HistoryKhamBenh_Register" FromRole="Register" ToRole="HistoryKhamBenh" />
+  </EntityType>
+  <EntityType Name="Specia">
+    <Key>
+      <PropertyRef Name="IDSpecia" />
+    </Key>
+    <Property Name="IDSpecia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TimeUse" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Doctors" Relationship="SchedureModel.FK_Doctor_Specia" FromRole="Specia" ToRole="Doctor" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Thuoc">
+    <Key>
+      <PropertyRef Name="IDThuoc" />
+    </Key>
+    <Property Name="IDThuoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DonVi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GiaTien" Type="Int32" />
+    <NavigationProperty Name="CTToaThuocs" Relationship="SchedureModel.FK_CTToaThuoc_Thuoc" FromRole="Thuoc" ToRole="CTToaThuoc" />
+  </EntityType>
+  <EntityType Name="ToaThuoc">
+    <Key>
+      <PropertyRef Name="IDToaThuoc" />
+    </Key>
+    <Property Name="IDToaThuoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDHistory" Type="Int32" />
+    <Property Name="CachDung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Gia" Type="Int32" />
+    <NavigationProperty Name="CTToaThuocs" Relationship="SchedureModel.FK_CTToaThuoc_ToaThuoc" FromRole="ToaThuoc" ToRole="CTToaThuoc" />
+    <NavigationProperty Name="HistoryKhamBenh" Relationship="SchedureModel.FK_ToaThuoc_HistoryKhamBenh" FromRole="ToaThuoc" ToRole="HistoryKhamBenh" />
+  </EntityType>
+  <Association Name="FK_Register_Account">
+    <End Type="SchedureModel.Account" Role="Account" Multiplicity="0..1" />
+    <End Type="SchedureModel.Register" Role="Register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="IDAccount" />
+      </Principal>
+      <Dependent Role="Register">
+        <PropertyRef Name="IDAccount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CTToaThuoc_Thuoc">
+    <End Type="SchedureModel.Thuoc" Role="Thuoc" Multiplicity="0..1" />
+    <End Type="SchedureModel.CTToaThuoc" Role="CTToaThuoc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Thuoc">
+        <PropertyRef Name="IDThuoc" />
+      </Principal>
+      <Dependent Role="CTToaThuoc">
+        <PropertyRef Name="IDThuoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CTToaThuoc_ToaThuoc">
+    <End Type="SchedureModel.ToaThuoc" Role="ToaThuoc" Multiplicity="1" />
+    <End Type="SchedureModel.CTToaThuoc" Role="CTToaThuoc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ToaThuoc">
+        <PropertyRef Name="IDToaThuoc" />
+      </Principal>
+      <Dependent Role="CTToaThuoc">
+        <PropertyRef Name="IDToaThuoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Doctor_Specia">
+    <End Type="SchedureModel.Specia" Role="Specia" Multiplicity="0..1" />
+    <End Type="SchedureModel.Doctor" Role="Doctor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specia">
+        <PropertyRef Name="IDSpecia" />
+      </Principal>
+      <Dependent Role="Doctor">
+        <PropertyRef Name="IDSpecia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoryKhamBenh_Doctor">
+    <End Type="SchedureModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+    <End Type="SchedureModel.HistoryKhamBenh" Role="HistoryKhamBenh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDDoctor" />
+      </Principal>
+      <Dependent Role="HistoryKhamBenh">
+        <PropertyRef Name="IDDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Register_Doctor">
+    <End Type="SchedureModel.Doctor" Role="Doctor" Multiplicity="0..1" />
+    <End Type="SchedureModel.Register" Role="Register" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="IDDoctor" />
+      </Principal>
+      <Dependent Role="Register">
+        <PropertyRef Name="IDDoctor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HistoryKhamBenh_Register">
+    <End Type="SchedureModel.Register" Role="Register" Multiplicity="0..1" />
+    <End Type="SchedureModel.HistoryKhamBenh" Role="HistoryKhamBenh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Register">
+        <PropertyRef Name="IDRegister" />
+      </Principal>
+      <Dependent Role="HistoryKhamBenh">
+        <PropertyRef Name="IDRegister" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ToaThuoc_HistoryKhamBenh">
+    <End Type="SchedureModel.HistoryKhamBenh" Role="HistoryKhamBenh" Multiplicity="0..1" />
+    <End Type="SchedureModel.ToaThuoc" Role="ToaThuoc" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HistoryKhamBenh">
+        <PropertyRef Name="IDHistory" />
+      </Principal>
+      <Dependent Role="ToaThuoc">
+        <PropertyRef Name="IDHistory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,75 @@
+﻿@model SchedureDTO.HistoryKhamBenhDTO
+
+@{
+    var toaThuoc = ViewBag.toaThuoc as SchedureDTO.ToaThuocDTO;
+    var lst = ViewBag.ChiTietToaThuoc as List<SchedureDTO.CTToaThuocDTO>;
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">Thông tin đăng kí</div>
+    <div class="panel-body">
+        <ul>
+            <li>Mã đăng kí: @Model.IDRegister</li>
+            <li>Thời gian đăng kí: @Model.Register_CreateTime</li>
+        </ul>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Thông tin bác sĩ</div>
+    <div class="panel-body">
+        <ul>
+            <li>Chuyên khoa: @Model.Specia_Name</li>
+            <li>Bác sĩ: @Model.Doctor_FullName</li>
+        </ul>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Kết quả</div>
+    <div class="panel-body">
+        <ul>
+            <li>Mã ICD: @Model.ICD</li>
+            <li>Chiều cao: @Model.ChieuCao</li>
+            <li>Huyết áp: @($"{Model.HuyetApTT}/{Model.HuyetApTD}")</li>
+            <li>Cân nặng: @Model.CanNang</li>
+            <li>Mạch: @Model.Mach</li>
+            <li>Nhiệt độ: @Model.NhietDo</li>
+            <li>Nhịp thở: @Model.NhipTho</li>
+            <li>Triệu chứng lâm sàn: @Model.TrieuChungLS</li>
+            <li>Chuẩn đoán sơ bộ: @Model.ChuanDoanSoBo</li>
+            <li>Cách giải quyết: @Model.CachGiaiQuyet</li>
+        </ul>
+    </div>
+</div>
+
+@if (Model.CachGiaiQuyet == "CapDonThuoc")
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">Đơn thuốc</div>
+        <div class="panel-body">
+            <ul>
+                <li>Cách dùng: @toaThuoc.CachDung</li>
+                <li>Giá: @toaThuoc.Gia</li>
+                <li>Ghi chú: @toaThuoc.GhiChu</li>
+            </ul>
+            <table class="table table-bordered">
+                <tr>
+                    <td>Tên thuốc</td>
+                    <td>Đơn vị</td>
+                    <td>Số lượng</td>
+                </tr>
+                @foreach (var item in lst)
+                {
+                    <tr>
+                        <td>@item.Thuoc_Name</td>
+                        <td>@item.Thuoc_DonVi</td>
+                        <td>@item.SoLuong</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+
+<p><a href="@Url.Action("Index")">Lịch sử khám bệnh</a></p>
