@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
@@ -9,7 +10,7 @@ namespace Schedure.API.Models
     public static class MailHelper
     {
         //https://myaccount.google.com/lesssecureapps?pli=1
-        public static void SendMail(string to, string subject, string body)
+        public static bool SendMail(string to, string subject, string body)
         {
             try
             {
@@ -25,10 +26,12 @@ namespace Schedure.API.Models
                 };
 
                 client.Send(mail);
+                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Debug.WriteLine($"[ERROR] SendMail to {to}: {ex.Message}");
+                return false;
             }
         }
     }

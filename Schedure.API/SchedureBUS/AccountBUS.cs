@@ -15,35 +15,40 @@ namespace SchedureBUS
 
         const string controlerAPI = "Accounts";
 
-        public List<AccountDTO> GetAll()
+        public List<Account_BenhNhanDTO> GetAll()
         {
-            return API.GET<List<AccountDTO>>($"api/{controlerAPI}").Value ?? new List<AccountDTO>();
+            return API.GET<List<Account_BenhNhanDTO>>($"api/{controlerAPI}").Value ?? new List<Account_BenhNhanDTO>();
         }
 
-        public AccountDTO GetByID(int id)
+        public Account_BenhNhanDTO GetByID(int id)
         {
-            var res = API.GET<AccountDTO>($"api/{controlerAPI}/{id}");
+            var res = API.GET<Account_BenhNhanDTO>($"api/{controlerAPI}/{id}");
             return res.Key? res.Value: null;
         }
 
-        public bool Create(AccountDTO account)
+        public bool Create(Account_BenhNhanDTO account)
         {
             return API.POST<object>($"api/{controlerAPI}", account).Key;
         }
 
-        public bool Update(AccountDTO account)
+        public bool Update(Account_BenhNhanDTO account)
         {
-            return API.PUT<string>($"api/{controlerAPI}/{account.IDAccount}", account).Key;
+            return API.PUT<string>($"api/{controlerAPI}/{account.IDAccountBN}", account).Key;
         }
 
         public bool Delete(int id)
         {
-            return API.DELETE<AccountDTO>($"api/{controlerAPI}/{id}").Key;
+            return API.DELETE<Account_BenhNhanDTO>($"api/{controlerAPI}/{id}").Key;
         }
 
         public KeyValuePair<bool, string> ChangeAvatar(int iDAccount, byte[] imageData, string nameImage)
         {
             return API.UploadImage<string>($"apis/{controlerAPI}/ChangeAvatar/{iDAccount}", imageData, nameImage);
+        }
+
+        public Account_BenhNhanDTO FindBN(string MaYTe)
+        {
+            return API.GET<Account_BenhNhanDTO>($"apis/{controlerAPI}/FindBN?MaYTe={MaYTe}").Value;
         }
     }
 }

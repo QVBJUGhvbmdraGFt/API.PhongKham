@@ -11,7 +11,7 @@ using SchedureBUS;
 
 namespace Schedure.APP.Views
 {
-    public partial class frmLogin : BaseForm
+    public partial class frmLogin : FormBase
     {
         public frmLogin()
         {
@@ -26,11 +26,11 @@ namespace Schedure.APP.Views
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var resLogin = new AuthenticateBUS().Login(txtUsername.Text, txtPassword.Text);
+            var resLogin = new AuthenticateBUS().LoginNV(txtUsername.Text, txtPassword.Text);
             if (resLogin.Key)
             {
-                var acc = new AuthenticateBUS().GetAccount(resLogin.Value);
-                if (acc.POSITION == "BACSI" || acc.POSITION == "YTA" || acc.POSITION == "SA")
+                var acc = new AuthenticateBUS().GetAccountNV(resLogin.Value);
+                if ((new string[] { "BACSI", "YTA", "SA" }).Contains(acc.Position.Name))
                 {
                     COMMON.User = acc;
                     COMMON.TokenBasic = resLogin.Value;

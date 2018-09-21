@@ -13,11 +13,11 @@ namespace Schedure.Web.Controllers
         // GET: History
         public ActionResult Index()
         {
-            return View(new HistoryKhamBenhBUS(this).GetByAccount(Account.IDAccount));
+            return View(new HistoryKhamBenhBUS(this).GetByAccount(Account.IDAccountBN));
         }
 
         [HttpPost]
-        public ActionResult Index(string key, List<HistoryKhamBenhFakeDTO> list)
+        public ActionResult Index(string key, List<HistoryKhamBenhDTO> list)
         {
             return View("LichSu", new HistoryKhamBenhBUS(this).GiaiMaHistoryKhamBenhs(list, key));
         }

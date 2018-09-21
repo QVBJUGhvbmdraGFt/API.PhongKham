@@ -18,24 +18,37 @@ namespace Schedure.API.Controllers
     {
         private SchedureEntities db = new SchedureEntities();
 
-        private DoctorDTO ConvertToDoctorDTO(Doctor item)
+        public static DoctorDTO ConvertToDoctorDTO(Doctor item)
         {
+            if (item == null) return null;
             return new DoctorDTO
             {
                 Avatar = item.Avatar,
                 FullName = item.FullName,
                 IDDoctor = item.IDDoctor,
-                IDSpecia = item.IDSpecia,
                 Status = item.Status,
                 Study = item.Study,
                 Sumary = item.Sumary,
                 TrainingProcess = item.TrainingProcess,
+                IDChucDanh = item.IDChucDanh,
+                Male = item.Male,
+                IDPhongKham = item.IDPhongKham,
+
+                ChucDanh = ChucDanhsController.ConvertToChucDanhDTO(item.ChucDanh),
+                PhongKham = PhongKhamsController.ConvertToPhongKhamDTO(item.PhongKham)
             };
-
         }
-        // GET: api/Doctors
 
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        public static DoctorDTO ConvertToDoctorDTOFull(Doctor item)
+        {
+            if (item == null) return null;
+            var obj = ConvertToDoctorDTO(item);
+            obj.LichLamViecs = new HashSet<LichLamViecDTO>(item.LichLamViecs.ToList().Select(q => LichLamViecsController.ConvertToLichLamViecDTO(q)));
+            return obj;
+        }
+
+        // GET: api/Doctors
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         public List<DoctorDTO> GetDoctors()
         {
             var lst = new List<DoctorDTO>();
@@ -47,7 +60,7 @@ namespace Schedure.API.Controllers
         }
 
         // GET: api/Doctors/5
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         [ResponseType(typeof(DoctorDTO))]
         public async Task<IHttpActionResult> GetDoctor(int id)
         {
@@ -61,7 +74,7 @@ namespace Schedure.API.Controllers
         }
 
         // PUT: api/Doctors/5
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PutDoctor(int id, Doctor doctor)
         {
@@ -97,7 +110,7 @@ namespace Schedure.API.Controllers
         }
 
         [HttpPost]
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> ChangeAvatar(int id)
         {
@@ -119,7 +132,7 @@ namespace Schedure.API.Controllers
         }
 
         // POST: api/Doctors
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PostDoctor(Doctor doctor)
         {
@@ -150,7 +163,7 @@ namespace Schedure.API.Controllers
         }
 
         // DELETE: api/Doctors/5
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> DeleteDoctor(int id)
         {
@@ -180,19 +193,17 @@ namespace Schedure.API.Controllers
             return db.Doctors.Count(e => e.IDDoctor == id) > 0;
         }
 
-        [HttpPost]
-        [BasicAuthentication]
-        [ResponseType(typeof(List<DoctorDTO>))]
-        public List<DoctorDTO> GetBySpecia(int id)
-        {
-            var lst = new List<DoctorDTO>();
-            foreach (var item in db.Doctors.Where(q => q.IDSpecia == id))
-            {
-                lst.Add(ConvertToDoctorDTO(item));
-            }
-            return lst;
-        }
-
-
+        //[HttpPost]
+        //[AdminAuthentication]
+        //[ResponseType(typeof(List<DoctorDTO>))]
+        //public List<DoctorDTO> GetBySpecia(int id)
+        //{
+        //    var lst = new List<DoctorDTO>();
+        //    foreach (var item in db.Doctors.Where(q => q.IDSpecia == id))
+        //    {
+        //        lst.Add(ConvertToDoctorDTO(item));
+        //    }
+        //    return lst;
+        //}
     }
 }

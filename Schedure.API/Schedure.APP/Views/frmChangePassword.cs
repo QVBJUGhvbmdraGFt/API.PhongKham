@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Schedure.APP.Views
 {
-    public partial class frmChangePassword : BaseForm
+    public partial class frmChangePassword : FormBase
     {
         public frmChangePassword()
         {

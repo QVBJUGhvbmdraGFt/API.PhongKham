@@ -11,7 +11,7 @@ namespace SchedureDTO
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class ToaThuocDTO
     {
         public int IDToaThuoc { get; set; }

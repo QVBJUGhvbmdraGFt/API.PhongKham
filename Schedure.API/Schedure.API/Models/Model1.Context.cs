@@ -27,15 +27,23 @@ namespace Schedure.API.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Account_BenhNhan> Account_BenhNhan { get; set; }
+        public virtual DbSet<Account_NhanVien> Account_NhanVien { get; set; }
+        public virtual DbSet<ChucDanh> ChucDanhs { get; set; }
+        public virtual DbSet<ChuyenKhoa> ChuyenKhoas { get; set; }
         public virtual DbSet<CTToaThuoc> CTToaThuocs { get; set; }
+        public virtual DbSet<DM_BenhNhan> DM_BenhNhan { get; set; }
         public virtual DbSet<Doctor> Doctors { get; set; }
         public virtual DbSet<HistoryKhamBenh> HistoryKhamBenhs { get; set; }
         public virtual DbSet<InfoHospital> InfoHospitals { get; set; }
+        public virtual DbSet<LichLamViec> LichLamViecs { get; set; }
+        public virtual DbSet<NhanVien> NhanViens { get; set; }
+        public virtual DbSet<PhongKham> PhongKhams { get; set; }
+        public virtual DbSet<Position> Positions { get; set; }
         public virtual DbSet<Register> Registers { get; set; }
-        public virtual DbSet<Specia> Specias { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Thuoc> Thuocs { get; set; }
+        public virtual DbSet<TimeSlot> TimeSlots { get; set; }
         public virtual DbSet<ToaThuoc> ToaThuocs { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)

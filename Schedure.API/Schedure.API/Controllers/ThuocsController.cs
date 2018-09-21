@@ -19,7 +19,7 @@ namespace Schedure.API.Controllers
         private SchedureEntities db = new SchedureEntities();
 
         // GET: api/Thuocs
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         [ResponseType(typeof(List<ThuocDTO>))]
         public List<ThuocDTO> GetThuocs()
         {
@@ -31,7 +31,7 @@ namespace Schedure.API.Controllers
             return lst;
         }
 
-        private ThuocDTO ConvertToThuocDTO(Thuoc item)
+        public static ThuocDTO ConvertToThuocDTO(Thuoc item)
         {
             return new ThuocDTO
             {
@@ -44,8 +44,8 @@ namespace Schedure.API.Controllers
         }
 
         // GET: api/Thuocs/5
-        [BasicAuthentication]
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         public async Task<IHttpActionResult> GetThuoc(int id)
         {
             Thuoc thuoc = await db.Thuocs.FindAsync(id);
@@ -59,7 +59,7 @@ namespace Schedure.API.Controllers
         }
 
         // PUT: api/Thuocs/5
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PutThuoc(int id, Thuoc thuoc)
         {
@@ -95,7 +95,7 @@ namespace Schedure.API.Controllers
         }
 
         // POST: api/Thuocs
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PostThuoc(Thuoc thuoc)
         {
@@ -126,7 +126,7 @@ namespace Schedure.API.Controllers
         }
 
         // DELETE: api/Thuocs/5
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> DeleteThuoc(int id)
         {

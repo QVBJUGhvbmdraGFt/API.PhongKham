@@ -22,14 +22,16 @@ namespace Schedure.API.Models
     
         public int IDRegister { get; set; }
         public Nullable<int> IDAccount { get; set; }
-        public Nullable<int> IDDoctor { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public string Message { get; set; }
         public string Status { get; set; }
+        public int IDLich { get; set; }
+        public string Phone { get; set; }
+        public Nullable<System.DateTime> NgayKham { get; set; }
     
-        public virtual Account Account { get; set; }
-        public virtual Doctor Doctor { get; set; }
+        public virtual Account_BenhNhan Account_BenhNhan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistoryKhamBenh> HistoryKhamBenhs { get; set; }
+        public virtual LichLamViec LichLamViec { get; set; }
     }
 }

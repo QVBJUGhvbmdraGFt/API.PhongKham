@@ -20,7 +20,7 @@ namespace Schedure.API.Controllers
 
         // GET: api/ToaThuocs
         [ResponseType(typeof(List<ToaThuocDTO>))]
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         public List<ToaThuocDTO> GetToaThuocs()
         {
             var lst = new List<ToaThuocDTO>();
@@ -31,7 +31,7 @@ namespace Schedure.API.Controllers
             return lst;
         }
 
-        private ToaThuocDTO ConvertToToaThuocDTO(ToaThuoc item)
+        public static ToaThuocDTO ConvertToToaThuocDTO(ToaThuoc item)
         {
             return new ToaThuocDTO
             {
@@ -46,7 +46,7 @@ namespace Schedure.API.Controllers
         // GET: api/ToaThuocs/5
         [HttpGet]
         [ResponseType(typeof(ToaThuocDTO))]
-        [BasicAuthentication]
+        [AdminAuthentication]
         public async Task<IHttpActionResult> GetToaThuoc(int id)
         {
             ToaThuoc toaThuoc = await db.ToaThuocs.FindAsync(id);
@@ -56,14 +56,14 @@ namespace Schedure.API.Controllers
             }
 
             var acc = LoginHelper.GetAccount();
-            if (string.IsNullOrWhiteSpace(acc.POSITION) && acc.IDAccount != toaThuoc.HistoryKhamBenh.Register.IDAccount)
+            if ( acc.IDAccountBN != toaThuoc.HistoryKhamBenh.Register.IDAccount)
                 return NotFound();
 
             return Ok(toaThuoc);
         }
 
         [HttpPost]
-        [BasicAuthentication]
+        [AdminAuthentication]
         [ResponseType(typeof(ToaThuocDTO))]
         public async Task<IHttpActionResult> GetByIDHistory(int id)
         {
@@ -74,14 +74,14 @@ namespace Schedure.API.Controllers
             }
 
             var acc = LoginHelper.GetAccount();
-            if (string.IsNullOrWhiteSpace(acc.POSITION) && acc.IDAccount != toaThuoc.HistoryKhamBenh.Register.IDAccount)
+            if ( acc.IDAccountBN != toaThuoc.HistoryKhamBenh.Register.IDAccount)
                 return NotFound();
 
             return Ok(ConvertToToaThuocDTO(toaThuoc));
         }
 
         // PUT: api/ToaThuocs/5
-        [BasicAuthentication("SA", "BACSI")]
+        [AdminAuthentication("SA", "BACSI")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PutToaThuoc(int id, ToaThuoc toaThuoc)
         {
@@ -118,7 +118,7 @@ namespace Schedure.API.Controllers
 
         // POST: api/ToaThuocs
         [ResponseType(typeof(string))]
-        [BasicAuthentication("SA", "BACSI")]
+        [AdminAuthentication("SA", "BACSI")]
         public async Task<IHttpActionResult> PostToaThuoc(ToaThuoc toaThuoc)
         {
             if (!ModelState.IsValid)
@@ -148,7 +148,7 @@ namespace Schedure.API.Controllers
         }
 
         // DELETE: api/ToaThuocs/5
-        [BasicAuthentication("SA", "BACSI")]
+        [AdminAuthentication("SA", "BACSI")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> DeleteToaThuoc(int id)
         {

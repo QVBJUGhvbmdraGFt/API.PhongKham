@@ -5,11 +5,11 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SchedureModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Account">
+        <EntityType Name="Account_BenhNhan">
           <Key>
-            <PropertyRef Name="IDAccount" />
+            <PropertyRef Name="IDAccountBN" />
           </Key>
-          <Property Name="IDAccount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDAccountBN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
@@ -20,7 +20,37 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="TieuSu" Type="nvarchar(max)" />
-          <Property Name="POSITION" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="BenhNhan_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Account_NhanVien">
+          <Key>
+            <PropertyRef Name="IDAccountNV" />
+          </Key>
+          <Property Name="IDAccountNV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="NhanVien_Id" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDPosition" Type="int" />
+        </EntityType>
+        <EntityType Name="ChucDanh">
+          <Key>
+            <PropertyRef Name="IDChucDanh" />
+          </Key>
+          <Property Name="IDChucDanh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="MoTa" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ChuyenKhoa">
+          <Key>
+            <PropertyRef Name="IDChuyenKhoa" />
+          </Key>
+          <Property Name="IDChuyenKhoa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="TimeUse" Type="int" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CTToaThuoc">
@@ -33,18 +63,44 @@
           <Property Name="SoLuong" Type="int" />
           <Property Name="GiaTien" Type="int" />
         </EntityType>
+        <EntityType Name="DM_BenhNhan">
+          <Key>
+            <PropertyRef Name="BenhNhan_Id" />
+          </Key>
+          <Property Name="BenhNhan_Id" Type="int" Nullable="false" />
+          <Property Name="TenBenhNhan" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ho" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaYTe" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="GioiTinh" Type="nchar" MaxLength="10" />
+          <Property Name="SoTheBHYT" Type="nchar" MaxLength="10" />
+          <Property Name="SoVaoVien" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NgaySinh" Type="smalldatetime" />
+          <Property Name="NamSinh" Type="smallint" Nullable="false" />
+          <Property Name="CMND" Type="nchar" MaxLength="10" />
+          <Property Name="TenKhongDau" Type="nchar" MaxLength="50" />
+          <Property Name="GhiChu" Type="nvarchar(max)" />
+          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="NguoiTao_Id" Type="int" />
+          <Property Name="DiaChiThuongTru" Type="nvarchar(max)" />
+          <Property Name="DiaChiLienLac" Type="nvarchar(max)" />
+          <Property Name="SoDienThoai" Type="varchar" MaxLength="30" />
+          <Property Name="DiaChiCoQuan" Type="nvarchar" MaxLength="150" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Doctor">
           <Key>
             <PropertyRef Name="IDDoctor" />
           </Key>
           <Property Name="IDDoctor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDSpecia" Type="int" />
           <Property Name="FullName" Type="nvarchar" MaxLength="50" />
           <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
           <Property Name="Sumary" Type="nvarchar(max)" />
           <Property Name="TrainingProcess" Type="nvarchar(max)" />
           <Property Name="Study" Type="nvarchar(max)" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Male" Type="bit" />
+          <Property Name="IDChucDanh" Type="int" />
+          <Property Name="IDPhongKham" Type="int" />
         </EntityType>
         <EntityType Name="HistoryKhamBenh">
           <Key>
@@ -79,26 +135,65 @@
           <Property Name="WorkStart" Type="time" Precision="7" />
           <Property Name="WorkEnd" Type="time" Precision="7" />
         </EntityType>
+        <EntityType Name="LichLamViec">
+          <Key>
+            <PropertyRef Name="IDLich" />
+          </Key>
+          <Property Name="IDLich" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDDoctor" Type="int" />
+          <Property Name="Time" Type="time" Precision="7" />
+          <Property Name="IDTimeSlot" Type="int" />
+          <Property Name="Creater_Id" Type="int" />
+          <Property Name="CreaterDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="NhanVien_Id" />
+          </Key>
+          <Property Name="NhanVien_Id" Type="int" Nullable="false" />
+          <Property Name="MaNhanVien" Type="varchar" MaxLength="20" />
+          <Property Name="Ho" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ten" Type="nvarchar" MaxLength="50" />
+          <Property Name="TenTat" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgaySinh" Type="smalldatetime" />
+          <Property Name="GioiTinh" Type="bit" />
+          <Property Name="CMND" Type="varchar" MaxLength="20" />
+          <Property Name="NguoiTao_Id" Type="int" />
+          <Property Name="NgayTao" Type="datetime" />
+          <Property Name="DiaChi" Type="nvarchar(max)" />
+          <Property Name="TamNgung_Id" Type="bit" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PhongKham">
+          <Key>
+            <PropertyRef Name="IDPhongKham" />
+          </Key>
+          <Property Name="IDPhongKham" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDChuyenKhoa" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="IDPosition" />
+          </Key>
+          <Property Name="IDPosition" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="MoTa" Type="nvarchar" MaxLength="500" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Register">
           <Key>
             <PropertyRef Name="IDRegister" />
           </Key>
           <Property Name="IDRegister" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IDAccount" Type="int" />
-          <Property Name="IDDoctor" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="Message" Type="nvarchar" MaxLength="500" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Specia">
-          <Key>
-            <PropertyRef Name="IDSpecia" />
-          </Key>
-          <Property Name="IDSpecia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="TimeUse" Type="int" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDLich" Type="int" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="NgayKham" Type="date" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -120,6 +215,16 @@
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="GiaTien" Type="int" />
         </EntityType>
+        <EntityType Name="TimeSlot">
+          <Key>
+            <PropertyRef Name="IDTimeSlot" />
+          </Key>
+          <Property Name="IDTimeSlot" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="HourStart" Type="time" Precision="7" />
+          <Property Name="HourEnd" Type="time" Precision="7" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="ToaThuoc">
           <Key>
             <PropertyRef Name="IDToaThuoc" />
@@ -129,7 +234,44 @@
           <Property Name="CachDung" Type="nvarchar" MaxLength="50" />
           <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
           <Property Name="Gia" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Account_BenhNhan_DM_BenhNhan">
+          <End Role="DM_BenhNhan" Type="Self.DM_BenhNhan" Multiplicity="0..1" />
+          <End Role="Account_BenhNhan" Type="Self.Account_BenhNhan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_BenhNhan">
+              <PropertyRef Name="BenhNhan_Id" />
+            </Principal>
+            <Dependent Role="Account_BenhNhan">
+              <PropertyRef Name="BenhNhan_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_NhanVien_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="Account_NhanVien" Type="Self.Account_NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="NhanVien_Id" />
+            </Principal>
+            <Dependent Role="Account_NhanVien">
+              <PropertyRef Name="NhanVien_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_NhanVien_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="Account_NhanVien" Type="Self.Account_NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="IDPosition" />
+            </Principal>
+            <Dependent Role="Account_NhanVien">
+              <PropertyRef Name="IDPosition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CTToaThuoc_Thuoc">
           <End Role="Thuoc" Type="Self.Thuoc" Multiplicity="0..1" />
           <End Role="CTToaThuoc" Type="Self.CTToaThuoc" Multiplicity="*" />
@@ -154,15 +296,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Doctor_Specia">
-          <End Role="Specia" Type="Self.Specia" Multiplicity="0..1" />
+        <Association Name="FK_Doctor_ChucDanh">
+          <End Role="ChucDanh" Type="Self.ChucDanh" Multiplicity="0..1" />
           <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Specia">
-              <PropertyRef Name="IDSpecia" />
+            <Principal Role="ChucDanh">
+              <PropertyRef Name="IDChucDanh" />
             </Principal>
             <Dependent Role="Doctor">
-              <PropertyRef Name="IDSpecia" />
+              <PropertyRef Name="IDChucDanh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_PhongKham">
+          <End Role="PhongKham" Type="Self.PhongKham" Multiplicity="0..1" />
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhongKham">
+              <PropertyRef Name="IDPhongKham" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="IDPhongKham" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -190,27 +344,75 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LichLamViec_Account_NhanVien">
+          <End Role="Account_NhanVien" Type="Self.Account_NhanVien" Multiplicity="0..1" />
+          <End Role="LichLamViec" Type="Self.LichLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account_NhanVien">
+              <PropertyRef Name="IDAccountNV" />
+            </Principal>
+            <Dependent Role="LichLamViec">
+              <PropertyRef Name="Creater_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LichLamViec_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+          <End Role="LichLamViec" Type="Self.LichLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="IDDoctor" />
+            </Principal>
+            <Dependent Role="LichLamViec">
+              <PropertyRef Name="IDDoctor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LichLamViec_TimeSlot">
+          <End Role="TimeSlot" Type="Self.TimeSlot" Multiplicity="0..1" />
+          <End Role="LichLamViec" Type="Self.LichLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeSlot">
+              <PropertyRef Name="IDTimeSlot" />
+            </Principal>
+            <Dependent Role="LichLamViec">
+              <PropertyRef Name="IDTimeSlot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhongKham_ChuyenKhoa">
+          <End Role="ChuyenKhoa" Type="Self.ChuyenKhoa" Multiplicity="0..1" />
+          <End Role="PhongKham" Type="Self.PhongKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChuyenKhoa">
+              <PropertyRef Name="IDChuyenKhoa" />
+            </Principal>
+            <Dependent Role="PhongKham">
+              <PropertyRef Name="IDChuyenKhoa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Register_Account">
-          <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
+          <End Role="Account_BenhNhan" Type="Self.Account_BenhNhan" Multiplicity="0..1" />
           <End Role="Register" Type="Self.Register" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="IDAccount" />
+            <Principal Role="Account_BenhNhan">
+              <PropertyRef Name="IDAccountBN" />
             </Principal>
             <Dependent Role="Register">
               <PropertyRef Name="IDAccount" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Register_Doctor">
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
+        <Association Name="FK_Register_LichLamViec">
+          <End Role="LichLamViec" Type="Self.LichLamViec" Multiplicity="1" />
           <End Role="Register" Type="Self.Register" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Doctor">
-              <PropertyRef Name="IDDoctor" />
+            <Principal Role="LichLamViec">
+              <PropertyRef Name="IDLich" />
             </Principal>
             <Dependent Role="Register">
-              <PropertyRef Name="IDDoctor" />
+              <PropertyRef Name="IDLich" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -258,16 +460,36 @@
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="SchedureModelStoreContainer">
-          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Account_BenhNhan" EntityType="Self.Account_BenhNhan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Account_NhanVien" EntityType="Self.Account_NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChucDanh" EntityType="Self.ChucDanh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ChuyenKhoa" EntityType="Self.ChuyenKhoa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CTToaThuoc" EntityType="Self.CTToaThuoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DM_BenhNhan" EntityType="Self.DM_BenhNhan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HistoryKhamBenh" EntityType="Self.HistoryKhamBenh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InfoHospital" EntityType="Self.InfoHospital" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LichLamViec" EntityType="Self.LichLamViec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhongKham" EntityType="Self.PhongKham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Register" EntityType="Self.Register" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Specia" EntityType="Self.Specia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Thuoc" EntityType="Self.Thuoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeSlot" EntityType="Self.TimeSlot" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToaThuoc" EntityType="Self.ToaThuoc" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_BenhNhan_DM_BenhNhan" Association="Self.FK_Account_BenhNhan_DM_BenhNhan">
+            <End Role="DM_BenhNhan" EntitySet="DM_BenhNhan" />
+            <End Role="Account_BenhNhan" EntitySet="Account_BenhNhan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_NhanVien_NhanVien" Association="Self.FK_Account_NhanVien_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_NhanVien_Position" Association="Self.FK_Account_NhanVien_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
+          </AssociationSet>
           <AssociationSet Name="FK_CTToaThuoc_Thuoc" Association="Self.FK_CTToaThuoc_Thuoc">
             <End Role="Thuoc" EntitySet="Thuoc" />
             <End Role="CTToaThuoc" EntitySet="CTToaThuoc" />
@@ -276,8 +498,12 @@
             <End Role="ToaThuoc" EntitySet="ToaThuoc" />
             <End Role="CTToaThuoc" EntitySet="CTToaThuoc" />
           </AssociationSet>
-          <AssociationSet Name="FK_Doctor_Specia" Association="Self.FK_Doctor_Specia">
-            <End Role="Specia" EntitySet="Specia" />
+          <AssociationSet Name="FK_Doctor_ChucDanh" Association="Self.FK_Doctor_ChucDanh">
+            <End Role="ChucDanh" EntitySet="ChucDanh" />
+            <End Role="Doctor" EntitySet="Doctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_PhongKham" Association="Self.FK_Doctor_PhongKham">
+            <End Role="PhongKham" EntitySet="PhongKham" />
             <End Role="Doctor" EntitySet="Doctor" />
           </AssociationSet>
           <AssociationSet Name="FK_HistoryKhamBenh_Doctor" Association="Self.FK_HistoryKhamBenh_Doctor">
@@ -288,12 +514,28 @@
             <End Role="Register" EntitySet="Register" />
             <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenh" />
           </AssociationSet>
+          <AssociationSet Name="FK_LichLamViec_Account_NhanVien" Association="Self.FK_LichLamViec_Account_NhanVien">
+            <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
+            <End Role="LichLamViec" EntitySet="LichLamViec" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LichLamViec_Doctor" Association="Self.FK_LichLamViec_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="LichLamViec" EntitySet="LichLamViec" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LichLamViec_TimeSlot" Association="Self.FK_LichLamViec_TimeSlot">
+            <End Role="TimeSlot" EntitySet="TimeSlot" />
+            <End Role="LichLamViec" EntitySet="LichLamViec" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhongKham_ChuyenKhoa" Association="Self.FK_PhongKham_ChuyenKhoa">
+            <End Role="ChuyenKhoa" EntitySet="ChuyenKhoa" />
+            <End Role="PhongKham" EntitySet="PhongKham" />
+          </AssociationSet>
           <AssociationSet Name="FK_Register_Account" Association="Self.FK_Register_Account">
-            <End Role="Account" EntitySet="Account" />
+            <End Role="Account_BenhNhan" EntitySet="Account_BenhNhan" />
             <End Role="Register" EntitySet="Register" />
           </AssociationSet>
-          <AssociationSet Name="FK_Register_Doctor" Association="Self.FK_Register_Doctor">
-            <End Role="Doctor" EntitySet="Doctor" />
+          <AssociationSet Name="FK_Register_LichLamViec" Association="Self.FK_Register_LichLamViec">
+            <End Role="LichLamViec" EntitySet="LichLamViec" />
             <End Role="Register" EntitySet="Register" />
           </AssociationSet>
           <AssociationSet Name="FK_ToaThuoc_HistoryKhamBenh" Association="Self.FK_ToaThuoc_HistoryKhamBenh">
@@ -336,19 +578,51 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="Accounts" EntityType="SchedureModel.Account" />
+          <EntitySet Name="Account_BenhNhan" EntityType="SchedureModel.Account_BenhNhan" />
+          <EntitySet Name="Account_NhanVien" EntityType="SchedureModel.Account_NhanVien" />
+          <EntitySet Name="ChucDanhs" EntityType="SchedureModel.ChucDanh" />
+          <EntitySet Name="ChuyenKhoas" EntityType="SchedureModel.ChuyenKhoa" />
           <EntitySet Name="CTToaThuocs" EntityType="SchedureModel.CTToaThuoc" />
+          <EntitySet Name="DM_BenhNhan" EntityType="SchedureModel.DM_BenhNhan" />
           <EntitySet Name="Doctors" EntityType="SchedureModel.Doctor" />
           <EntitySet Name="HistoryKhamBenhs" EntityType="SchedureModel.HistoryKhamBenh" />
           <EntitySet Name="InfoHospitals" EntityType="SchedureModel.InfoHospital" />
+          <EntitySet Name="LichLamViecs" EntityType="SchedureModel.LichLamViec" />
+          <EntitySet Name="NhanViens" EntityType="SchedureModel.NhanVien" />
+          <EntitySet Name="PhongKhams" EntityType="SchedureModel.PhongKham" />
+          <EntitySet Name="Positions" EntityType="SchedureModel.Position" />
           <EntitySet Name="Registers" EntityType="SchedureModel.Register" />
-          <EntitySet Name="Specias" EntityType="SchedureModel.Specia" />
           <EntitySet Name="sysdiagrams" EntityType="SchedureModel.sysdiagram" />
           <EntitySet Name="Thuocs" EntityType="SchedureModel.Thuoc" />
+          <EntitySet Name="TimeSlots" EntityType="SchedureModel.TimeSlot" />
           <EntitySet Name="ToaThuocs" EntityType="SchedureModel.ToaThuoc" />
+          <AssociationSet Name="FK_Account_BenhNhan_DM_BenhNhan" Association="SchedureModel.FK_Account_BenhNhan_DM_BenhNhan">
+            <End Role="DM_BenhNhan" EntitySet="DM_BenhNhan" />
+            <End Role="Account_BenhNhan" EntitySet="Account_BenhNhan" />
+          </AssociationSet>
           <AssociationSet Name="FK_Register_Account" Association="SchedureModel.FK_Register_Account">
-            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Account_BenhNhan" EntitySet="Account_BenhNhan" />
             <End Role="Register" EntitySet="Registers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_NhanVien_NhanVien" Association="SchedureModel.FK_Account_NhanVien_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_NhanVien_Position" Association="SchedureModel.FK_Account_NhanVien_Position">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LichLamViec_Account_NhanVien" Association="SchedureModel.FK_LichLamViec_Account_NhanVien">
+            <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
+            <End Role="LichLamViec" EntitySet="LichLamViecs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Doctor_ChucDanh" Association="SchedureModel.FK_Doctor_ChucDanh">
+            <End Role="ChucDanh" EntitySet="ChucDanhs" />
+            <End Role="Doctor" EntitySet="Doctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhongKham_ChuyenKhoa" Association="SchedureModel.FK_PhongKham_ChuyenKhoa">
+            <End Role="ChuyenKhoa" EntitySet="ChuyenKhoas" />
+            <End Role="PhongKham" EntitySet="PhongKhams" />
           </AssociationSet>
           <AssociationSet Name="FK_CTToaThuoc_Thuoc" Association="SchedureModel.FK_CTToaThuoc_Thuoc">
             <End Role="Thuoc" EntitySet="Thuocs" />
@@ -358,17 +632,17 @@
             <End Role="ToaThuoc" EntitySet="ToaThuocs" />
             <End Role="CTToaThuoc" EntitySet="CTToaThuocs" />
           </AssociationSet>
-          <AssociationSet Name="FK_Doctor_Specia" Association="SchedureModel.FK_Doctor_Specia">
-            <End Role="Specia" EntitySet="Specias" />
+          <AssociationSet Name="FK_Doctor_PhongKham" Association="SchedureModel.FK_Doctor_PhongKham">
+            <End Role="PhongKham" EntitySet="PhongKhams" />
             <End Role="Doctor" EntitySet="Doctors" />
           </AssociationSet>
           <AssociationSet Name="FK_HistoryKhamBenh_Doctor" Association="SchedureModel.FK_HistoryKhamBenh_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
             <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenhs" />
           </AssociationSet>
-          <AssociationSet Name="FK_Register_Doctor" Association="SchedureModel.FK_Register_Doctor">
+          <AssociationSet Name="FK_LichLamViec_Doctor" Association="SchedureModel.FK_LichLamViec_Doctor">
             <End Role="Doctor" EntitySet="Doctors" />
-            <End Role="Register" EntitySet="Registers" />
+            <End Role="LichLamViec" EntitySet="LichLamViecs" />
           </AssociationSet>
           <AssociationSet Name="FK_HistoryKhamBenh_Register" Association="SchedureModel.FK_HistoryKhamBenh_Register">
             <End Role="Register" EntitySet="Registers" />
@@ -377,6 +651,14 @@
           <AssociationSet Name="FK_ToaThuoc_HistoryKhamBenh" Association="SchedureModel.FK_ToaThuoc_HistoryKhamBenh">
             <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenhs" />
             <End Role="ToaThuoc" EntitySet="ToaThuocs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LichLamViec_TimeSlot" Association="SchedureModel.FK_LichLamViec_TimeSlot">
+            <End Role="TimeSlot" EntitySet="TimeSlots" />
+            <End Role="LichLamViec" EntitySet="LichLamViecs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Register_LichLamViec" Association="SchedureModel.FK_Register_LichLamViec">
+            <End Role="LichLamViec" EntitySet="LichLamViecs" />
+            <End Role="Register" EntitySet="Registers" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -390,11 +672,11 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <EntityType Name="Account">
+        <EntityType Name="Account_BenhNhan">
           <Key>
-            <PropertyRef Name="IDAccount" />
+            <PropertyRef Name="IDAccountBN" />
           </Key>
-          <Property Name="IDAccount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDAccountBN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -405,9 +687,45 @@
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TieuSu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="POSITION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Registers" Relationship="SchedureModel.FK_Register_Account" FromRole="Account" ToRole="Register" />
+          <Property Name="BenhNhan_Id" Type="Int32" />
+          <NavigationProperty Name="DM_BenhNhan" Relationship="SchedureModel.FK_Account_BenhNhan_DM_BenhNhan" FromRole="Account_BenhNhan" ToRole="DM_BenhNhan" />
+          <NavigationProperty Name="Registers" Relationship="SchedureModel.FK_Register_Account" FromRole="Account_BenhNhan" ToRole="Register" />
+        </EntityType>
+        <EntityType Name="Account_NhanVien">
+          <Key>
+            <PropertyRef Name="IDAccountNV" />
+          </Key>
+          <Property Name="IDAccountNV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NhanVien_Id" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDPosition" Type="Int32" />
+          <NavigationProperty Name="NhanVien" Relationship="SchedureModel.FK_Account_NhanVien_NhanVien" FromRole="Account_NhanVien" ToRole="NhanVien" />
+          <NavigationProperty Name="Position" Relationship="SchedureModel.FK_Account_NhanVien_Position" FromRole="Account_NhanVien" ToRole="Position" />
+          <NavigationProperty Name="LichLamViecs" Relationship="SchedureModel.FK_LichLamViec_Account_NhanVien" FromRole="Account_NhanVien" ToRole="LichLamViec" />
+        </EntityType>
+        <EntityType Name="ChucDanh">
+          <Key>
+            <PropertyRef Name="IDChucDanh" />
+          </Key>
+          <Property Name="IDChucDanh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Doctors" Relationship="SchedureModel.FK_Doctor_ChucDanh" FromRole="ChucDanh" ToRole="Doctor" />
+        </EntityType>
+        <EntityType Name="ChuyenKhoa">
+          <Key>
+            <PropertyRef Name="IDChuyenKhoa" />
+          </Key>
+          <Property Name="IDChuyenKhoa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TimeUse" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PhongKhams" Relationship="SchedureModel.FK_PhongKham_ChuyenKhoa" FromRole="ChuyenKhoa" ToRole="PhongKham" />
         </EntityType>
         <EntityType Name="CTToaThuoc">
           <Key>
@@ -421,21 +739,49 @@
           <NavigationProperty Name="Thuoc" Relationship="SchedureModel.FK_CTToaThuoc_Thuoc" FromRole="CTToaThuoc" ToRole="Thuoc" />
           <NavigationProperty Name="ToaThuoc" Relationship="SchedureModel.FK_CTToaThuoc_ToaThuoc" FromRole="CTToaThuoc" ToRole="ToaThuoc" />
         </EntityType>
+        <EntityType Name="DM_BenhNhan">
+          <Key>
+            <PropertyRef Name="BenhNhan_Id" />
+          </Key>
+          <Property Name="BenhNhan_Id" Type="Int32" Nullable="false" />
+          <Property Name="TenBenhNhan" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ho" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaYTe" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SoTheBHYT" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SoVaoVien" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+          <Property Name="NamSinh" Type="Int16" Nullable="false" />
+          <Property Name="CMND" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TenKhongDau" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="NguoiTao_Id" Type="Int32" />
+          <Property Name="DiaChiThuongTru" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChiLienLac" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoai" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DiaChiCoQuan" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account_BenhNhan" Relationship="SchedureModel.FK_Account_BenhNhan_DM_BenhNhan" FromRole="DM_BenhNhan" ToRole="Account_BenhNhan" />
+        </EntityType>
         <EntityType Name="Doctor">
           <Key>
             <PropertyRef Name="IDDoctor" />
           </Key>
           <Property Name="IDDoctor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDSpecia" Type="Int32" />
           <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Sumary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TrainingProcess" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Study" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Specia" Relationship="SchedureModel.FK_Doctor_Specia" FromRole="Doctor" ToRole="Specia" />
+          <Property Name="Male" Type="Boolean" />
+          <Property Name="IDChucDanh" Type="Int32" />
+          <Property Name="IDPhongKham" Type="Int32" />
+          <NavigationProperty Name="ChucDanh" Relationship="SchedureModel.FK_Doctor_ChucDanh" FromRole="Doctor" ToRole="ChucDanh" />
+          <NavigationProperty Name="PhongKham" Relationship="SchedureModel.FK_Doctor_PhongKham" FromRole="Doctor" ToRole="PhongKham" />
           <NavigationProperty Name="HistoryKhamBenhs" Relationship="SchedureModel.FK_HistoryKhamBenh_Doctor" FromRole="Doctor" ToRole="HistoryKhamBenh" />
-          <NavigationProperty Name="Registers" Relationship="SchedureModel.FK_Register_Doctor" FromRole="Doctor" ToRole="Register" />
+          <NavigationProperty Name="LichLamViecs" Relationship="SchedureModel.FK_LichLamViec_Doctor" FromRole="Doctor" ToRole="LichLamViec" />
         </EntityType>
         <EntityType Name="HistoryKhamBenh">
           <Key>
@@ -473,30 +819,76 @@
           <Property Name="WorkStart" Type="Time" Precision="7" />
           <Property Name="WorkEnd" Type="Time" Precision="7" />
         </EntityType>
+        <EntityType Name="LichLamViec">
+          <Key>
+            <PropertyRef Name="IDLich" />
+          </Key>
+          <Property Name="IDLich" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDDoctor" Type="Int32" />
+          <Property Name="Time" Type="Time" Precision="7" />
+          <Property Name="IDTimeSlot" Type="Int32" />
+          <Property Name="Creater_Id" Type="Int32" />
+          <Property Name="CreaterDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Account_NhanVien" Relationship="SchedureModel.FK_LichLamViec_Account_NhanVien" FromRole="LichLamViec" ToRole="Account_NhanVien" />
+          <NavigationProperty Name="Doctor" Relationship="SchedureModel.FK_LichLamViec_Doctor" FromRole="LichLamViec" ToRole="Doctor" />
+          <NavigationProperty Name="TimeSlot" Relationship="SchedureModel.FK_LichLamViec_TimeSlot" FromRole="LichLamViec" ToRole="TimeSlot" />
+          <NavigationProperty Name="Registers" Relationship="SchedureModel.FK_Register_LichLamViec" FromRole="LichLamViec" ToRole="Register" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="NhanVien_Id" />
+          </Key>
+          <Property Name="NhanVien_Id" Type="Int32" Nullable="false" />
+          <Property Name="MaNhanVien" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Ho" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TenTat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+          <Property Name="GioiTinh" Type="Boolean" />
+          <Property Name="CMND" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NguoiTao_Id" Type="Int32" />
+          <Property Name="NgayTao" Type="DateTime" Precision="3" />
+          <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TamNgung_Id" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account_NhanVien" Relationship="SchedureModel.FK_Account_NhanVien_NhanVien" FromRole="NhanVien" ToRole="Account_NhanVien" />
+        </EntityType>
+        <EntityType Name="PhongKham">
+          <Key>
+            <PropertyRef Name="IDPhongKham" />
+          </Key>
+          <Property Name="IDPhongKham" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDChuyenKhoa" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChuyenKhoa" Relationship="SchedureModel.FK_PhongKham_ChuyenKhoa" FromRole="PhongKham" ToRole="ChuyenKhoa" />
+          <NavigationProperty Name="Doctors" Relationship="SchedureModel.FK_Doctor_PhongKham" FromRole="PhongKham" ToRole="Doctor" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="IDPosition" />
+          </Key>
+          <Property Name="IDPosition" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoTa" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account_NhanVien" Relationship="SchedureModel.FK_Account_NhanVien_Position" FromRole="Position" ToRole="Account_NhanVien" />
+        </EntityType>
         <EntityType Name="Register">
           <Key>
             <PropertyRef Name="IDRegister" />
           </Key>
           <Property Name="IDRegister" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDAccount" Type="Int32" />
-          <Property Name="IDDoctor" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Account" Relationship="SchedureModel.FK_Register_Account" FromRole="Register" ToRole="Account" />
-          <NavigationProperty Name="Doctor" Relationship="SchedureModel.FK_Register_Doctor" FromRole="Register" ToRole="Doctor" />
+          <Property Name="IDLich" Type="Int32" Nullable="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="NgayKham" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Account_BenhNhan" Relationship="SchedureModel.FK_Register_Account" FromRole="Register" ToRole="Account_BenhNhan" />
           <NavigationProperty Name="HistoryKhamBenhs" Relationship="SchedureModel.FK_HistoryKhamBenh_Register" FromRole="Register" ToRole="HistoryKhamBenh" />
-        </EntityType>
-        <EntityType Name="Specia">
-          <Key>
-            <PropertyRef Name="IDSpecia" />
-          </Key>
-          <Property Name="IDSpecia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TimeUse" Type="Int32" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Doctors" Relationship="SchedureModel.FK_Doctor_Specia" FromRole="Specia" ToRole="Doctor" />
+          <NavigationProperty Name="LichLamViec" Relationship="SchedureModel.FK_Register_LichLamViec" FromRole="Register" ToRole="LichLamViec" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -519,6 +911,17 @@
           <Property Name="GiaTien" Type="Int32" />
           <NavigationProperty Name="CTToaThuocs" Relationship="SchedureModel.FK_CTToaThuoc_Thuoc" FromRole="Thuoc" ToRole="CTToaThuoc" />
         </EntityType>
+        <EntityType Name="TimeSlot">
+          <Key>
+            <PropertyRef Name="IDTimeSlot" />
+          </Key>
+          <Property Name="IDTimeSlot" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HourStart" Type="Time" Precision="7" />
+          <Property Name="HourEnd" Type="Time" Precision="7" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LichLamViecs" Relationship="SchedureModel.FK_LichLamViec_TimeSlot" FromRole="TimeSlot" ToRole="LichLamViec" />
+        </EntityType>
         <EntityType Name="ToaThuoc">
           <Key>
             <PropertyRef Name="IDToaThuoc" />
@@ -528,18 +931,91 @@
           <Property Name="CachDung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gia" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CTToaThuocs" Relationship="SchedureModel.FK_CTToaThuoc_ToaThuoc" FromRole="ToaThuoc" ToRole="CTToaThuoc" />
           <NavigationProperty Name="HistoryKhamBenh" Relationship="SchedureModel.FK_ToaThuoc_HistoryKhamBenh" FromRole="ToaThuoc" ToRole="HistoryKhamBenh" />
         </EntityType>
+        <Association Name="FK_Account_BenhNhan_DM_BenhNhan">
+          <End Type="SchedureModel.DM_BenhNhan" Role="DM_BenhNhan" Multiplicity="0..1" />
+          <End Type="SchedureModel.Account_BenhNhan" Role="Account_BenhNhan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DM_BenhNhan">
+              <PropertyRef Name="BenhNhan_Id" />
+            </Principal>
+            <Dependent Role="Account_BenhNhan">
+              <PropertyRef Name="BenhNhan_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Register_Account">
-          <End Type="SchedureModel.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="SchedureModel.Account_BenhNhan" Role="Account_BenhNhan" Multiplicity="0..1" />
           <End Type="SchedureModel.Register" Role="Register" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="IDAccount" />
+            <Principal Role="Account_BenhNhan">
+              <PropertyRef Name="IDAccountBN" />
             </Principal>
             <Dependent Role="Register">
               <PropertyRef Name="IDAccount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_NhanVien_NhanVien">
+          <End Type="SchedureModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
+          <End Type="SchedureModel.Account_NhanVien" Role="Account_NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="NhanVien_Id" />
+            </Principal>
+            <Dependent Role="Account_NhanVien">
+              <PropertyRef Name="NhanVien_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_NhanVien_Position">
+          <End Type="SchedureModel.Position" Role="Position" Multiplicity="0..1" />
+          <End Type="SchedureModel.Account_NhanVien" Role="Account_NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="IDPosition" />
+            </Principal>
+            <Dependent Role="Account_NhanVien">
+              <PropertyRef Name="IDPosition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LichLamViec_Account_NhanVien">
+          <End Type="SchedureModel.Account_NhanVien" Role="Account_NhanVien" Multiplicity="0..1" />
+          <End Type="SchedureModel.LichLamViec" Role="LichLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account_NhanVien">
+              <PropertyRef Name="IDAccountNV" />
+            </Principal>
+            <Dependent Role="LichLamViec">
+              <PropertyRef Name="Creater_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Doctor_ChucDanh">
+          <End Type="SchedureModel.ChucDanh" Role="ChucDanh" Multiplicity="0..1" />
+          <End Type="SchedureModel.Doctor" Role="Doctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChucDanh">
+              <PropertyRef Name="IDChucDanh" />
+            </Principal>
+            <Dependent Role="Doctor">
+              <PropertyRef Name="IDChucDanh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhongKham_ChuyenKhoa">
+          <End Type="SchedureModel.ChuyenKhoa" Role="ChuyenKhoa" Multiplicity="0..1" />
+          <End Type="SchedureModel.PhongKham" Role="PhongKham" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChuyenKhoa">
+              <PropertyRef Name="IDChuyenKhoa" />
+            </Principal>
+            <Dependent Role="PhongKham">
+              <PropertyRef Name="IDChuyenKhoa" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -567,15 +1043,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Doctor_Specia">
-          <End Type="SchedureModel.Specia" Role="Specia" Multiplicity="0..1" />
+        <Association Name="FK_Doctor_PhongKham">
+          <End Type="SchedureModel.PhongKham" Role="PhongKham" Multiplicity="0..1" />
           <End Type="SchedureModel.Doctor" Role="Doctor" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Specia">
-              <PropertyRef Name="IDSpecia" />
+            <Principal Role="PhongKham">
+              <PropertyRef Name="IDPhongKham" />
             </Principal>
             <Dependent Role="Doctor">
-              <PropertyRef Name="IDSpecia" />
+              <PropertyRef Name="IDPhongKham" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -591,14 +1067,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Register_Doctor">
+        <Association Name="FK_LichLamViec_Doctor">
           <End Type="SchedureModel.Doctor" Role="Doctor" Multiplicity="0..1" />
-          <End Type="SchedureModel.Register" Role="Register" Multiplicity="*" />
+          <End Type="SchedureModel.LichLamViec" Role="LichLamViec" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Doctor">
               <PropertyRef Name="IDDoctor" />
             </Principal>
-            <Dependent Role="Register">
+            <Dependent Role="LichLamViec">
               <PropertyRef Name="IDDoctor" />
             </Dependent>
           </ReferentialConstraint>
@@ -624,6 +1100,30 @@
             </Principal>
             <Dependent Role="ToaThuoc">
               <PropertyRef Name="IDHistory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LichLamViec_TimeSlot">
+          <End Type="SchedureModel.TimeSlot" Role="TimeSlot" Multiplicity="0..1" />
+          <End Type="SchedureModel.LichLamViec" Role="LichLamViec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeSlot">
+              <PropertyRef Name="IDTimeSlot" />
+            </Principal>
+            <Dependent Role="LichLamViec">
+              <PropertyRef Name="IDTimeSlot" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Register_LichLamViec">
+          <End Type="SchedureModel.LichLamViec" Role="LichLamViec" Multiplicity="1" />
+          <End Type="SchedureModel.Register" Role="Register" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LichLamViec">
+              <PropertyRef Name="IDLich" />
+            </Principal>
+            <Dependent Role="Register">
+              <PropertyRef Name="IDLich" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -657,11 +1157,11 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SchedureModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SchedureModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="SchedureModel.Account">
-              <MappingFragment StoreEntitySet="Account">
+          <EntitySetMapping Name="Account_BenhNhan">
+            <EntityTypeMapping TypeName="SchedureModel.Account_BenhNhan">
+              <MappingFragment StoreEntitySet="Account_BenhNhan">
+                <ScalarProperty Name="BenhNhan_Id" ColumnName="BenhNhan_Id" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
                 <ScalarProperty Name="TieuSu" ColumnName="TieuSu" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
@@ -672,7 +1172,40 @@
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="IDAccount" ColumnName="IDAccount" />
+                <ScalarProperty Name="IDAccountBN" ColumnName="IDAccountBN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Account_NhanVien">
+            <EntityTypeMapping TypeName="SchedureModel.Account_NhanVien">
+              <MappingFragment StoreEntitySet="Account_NhanVien">
+                <ScalarProperty Name="IDPosition" ColumnName="IDPosition" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="IDAccountNV" ColumnName="IDAccountNV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChucDanhs">
+            <EntityTypeMapping TypeName="SchedureModel.ChucDanh">
+              <MappingFragment StoreEntitySet="ChucDanh">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDChucDanh" ColumnName="IDChucDanh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChuyenKhoas">
+            <EntityTypeMapping TypeName="SchedureModel.ChuyenKhoa">
+              <MappingFragment StoreEntitySet="ChuyenKhoa">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TimeUse" ColumnName="TimeUse" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -687,16 +1220,43 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DM_BenhNhan">
+            <EntityTypeMapping TypeName="SchedureModel.DM_BenhNhan">
+              <MappingFragment StoreEntitySet="DM_BenhNhan">
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="DiaChiCoQuan" ColumnName="DiaChiCoQuan" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="DiaChiLienLac" ColumnName="DiaChiLienLac" />
+                <ScalarProperty Name="DiaChiThuongTru" ColumnName="DiaChiThuongTru" />
+                <ScalarProperty Name="NguoiTao_Id" ColumnName="NguoiTao_Id" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="TenKhongDau" ColumnName="TenKhongDau" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="NamSinh" ColumnName="NamSinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="SoVaoVien" ColumnName="SoVaoVien" />
+                <ScalarProperty Name="SoTheBHYT" ColumnName="SoTheBHYT" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="MaYTe" ColumnName="MaYTe" />
+                <ScalarProperty Name="Ho" ColumnName="Ho" />
+                <ScalarProperty Name="TenBenhNhan" ColumnName="TenBenhNhan" />
+                <ScalarProperty Name="BenhNhan_Id" ColumnName="BenhNhan_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Doctors">
             <EntityTypeMapping TypeName="SchedureModel.Doctor">
               <MappingFragment StoreEntitySet="Doctor">
+                <ScalarProperty Name="IDPhongKham" ColumnName="IDPhongKham" />
+                <ScalarProperty Name="IDChucDanh" ColumnName="IDChucDanh" />
+                <ScalarProperty Name="Male" ColumnName="Male" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Study" ColumnName="Study" />
                 <ScalarProperty Name="TrainingProcess" ColumnName="TrainingProcess" />
                 <ScalarProperty Name="Sumary" ColumnName="Sumary" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="IDSpecia" ColumnName="IDSpecia" />
                 <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -736,26 +1296,68 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Registers">
-            <EntityTypeMapping TypeName="SchedureModel.Register">
-              <MappingFragment StoreEntitySet="Register">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <EntitySetMapping Name="LichLamViecs">
+            <EntityTypeMapping TypeName="SchedureModel.LichLamViec">
+              <MappingFragment StoreEntitySet="LichLamViec">
+                <ScalarProperty Name="CreaterDate" ColumnName="CreaterDate" />
+                <ScalarProperty Name="Creater_Id" ColumnName="Creater_Id" />
+                <ScalarProperty Name="IDTimeSlot" ColumnName="IDTimeSlot" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
-                <ScalarProperty Name="IDAccount" ColumnName="IDAccount" />
-                <ScalarProperty Name="IDRegister" ColumnName="IDRegister" />
+                <ScalarProperty Name="IDLich" ColumnName="IDLich" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Specias">
-            <EntityTypeMapping TypeName="SchedureModel.Specia">
-              <MappingFragment StoreEntitySet="Specia">
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="SchedureModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TimeUse" ColumnName="TimeUse" />
+                <ScalarProperty Name="TamNgung_Id" ColumnName="TamNgung_Id" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="NguoiTao_Id" ColumnName="NguoiTao_Id" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="TenTat" ColumnName="TenTat" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="Ho" ColumnName="Ho" />
+                <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhongKhams">
+            <EntityTypeMapping TypeName="SchedureModel.PhongKham">
+              <MappingFragment StoreEntitySet="PhongKham">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="IDSpecia" ColumnName="IDSpecia" />
+                <ScalarProperty Name="IDPhongKham" ColumnName="IDPhongKham" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="SchedureModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDPosition" ColumnName="IDPosition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registers">
+            <EntityTypeMapping TypeName="SchedureModel.Register">
+              <MappingFragment StoreEntitySet="Register">
+                <ScalarProperty Name="NgayKham" ColumnName="NgayKham" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IDLich" ColumnName="IDLich" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IDAccount" ColumnName="IDAccount" />
+                <ScalarProperty Name="IDRegister" ColumnName="IDRegister" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -781,9 +1383,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TimeSlots">
+            <EntityTypeMapping TypeName="SchedureModel.TimeSlot">
+              <MappingFragment StoreEntitySet="TimeSlot">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="HourEnd" ColumnName="HourEnd" />
+                <ScalarProperty Name="HourStart" ColumnName="HourStart" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDTimeSlot" ColumnName="IDTimeSlot" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ToaThuocs">
             <EntityTypeMapping TypeName="SchedureModel.ToaThuoc">
               <MappingFragment StoreEntitySet="ToaThuoc">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Gia" ColumnName="Gia" />
                 <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
                 <ScalarProperty Name="CachDung" ColumnName="CachDung" />

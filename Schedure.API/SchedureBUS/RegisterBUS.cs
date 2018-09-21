@@ -55,5 +55,27 @@ namespace SchedureBUS
         {
             return API.POST<List<RegisterDTO>>($"apis/{controlerAPI}/GetByAccount/{iDAccount}", iDAccount).Value ?? new List<RegisterDTO>();
         }
+
+        public bool Confirm(int iDRegister, string status)
+        {
+            var res = API.POST<bool>($"apis/{controlerAPI}/Confirm/{iDRegister}?status={status}", status);
+            return res.Key && res.Value;
+        }
+
+        public List<RegisterDTO> Fillter(DateTime start, DateTime end, int? IDChuyenKhoa, string Status)
+        {
+            return API.POST<List<RegisterDTO>>($"apis/{controlerAPI}/Fillter?start={start.ToString("dd-MM-yyyy")}&end={end.ToString("dd-MM-yyyy")}&IDChuyenKhoa={IDChuyenKhoa}&Status={Status}", "").Value ?? new List<RegisterDTO>();
+        }
+
+        public RegisterDTO NVGetByID(int id)
+        {
+            var res = API.POST<RegisterDTO>($"apis/{controlerAPI}/NVGetByID/{id}", "");
+            return res.Key ? res.Value : null;
+        }
+
+        public bool NVCreate(RegisterDTO registerDTO)
+        {
+            return API.POST<bool>($"apis/{controlerAPI}/NVCreate", registerDTO).Value;
+        }
     }
 }

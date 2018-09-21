@@ -1,44 +1,45 @@
 ﻿@model SchedureDTO.RegisterDTO
 
 @{
-    var sepecia = ViewBag.sepecia as SchedureDTO.SpeciaDTO;
-    ViewBag.Title = "Create";
+    ViewBag.Title = "ĐĂNG KÍ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
+    <h2>XÁC NHẬN THÔNG TIN ĐĂNG KÍ</h2>
 
-    <div class="form-horizontal">
-        <h4>ĐĂNG KÍ KHÁM TẠI KHOA: @sepecia.Name</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(q => q.IDRegister)
-        @Html.HiddenFor(q => q.CreateDate)
-        @Html.HiddenFor(q => q.Status)
+    <h3>Thông tin bác sĩ</h3>
+    <table>
+        <tr>
+            <td><img src="@Model.LichLamViec.Doctor.Avatar" /></td>
+            <td>
+                <ul style="padding-left: 10px">
+                    <li>Chức danh: @(Model.LichLamViec.Doctor.ChucDanh?.Name)</li>
+                    <li>Trình độ: @Model.LichLamViec.Doctor.Study</li>
+                    <li>Giới thiệu: @Model.LichLamViec.Doctor.Sumary</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
 
-        <div class="form-group">
-            @Html.Label("Bác sĩ", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.IDDoctor, ViewBag.doctors as SelectList, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDDoctor, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Tin nhắn", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Message, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Đăng kí" class="btn btn-primary" />
-            </div>
-        </div>
+    <h3>Thông tin đăng kí</h3>
+    <p>Thời gian đăng kí khám bệnh: @Model.LichLamViec.TimeSlot.HourStart - @Model.LichLamViec.TimeSlot.HourEnd</p>
+    <div class="form-group">
+        <label for="NgayKham">Ngày đăng kí khám bệnh</label>
+        @Html.TextBoxFor(q => q.NgayKham, new { @class = "form-control", type = "date", min = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"), max = DateTime.Now.AddDays(14).ToString("yyyy-MM-dd"), placeholder = "Nhập số điện thoại liên hệ", required = "true" })
+        <small id="NgayKham" class="form-text text-muted">Bắt buộc phải đăng ký trước 1 ngày. Tối đa là trong 2 tuần.</small>
     </div>
-}
 
+    <div class="form-group">
+        <label for="Phone">Số điện thoại liên hệ</label>
+        @Html.TextBoxFor(q => q.Phone, new { @class = "form-control", placeholder = "Nhập số điện thoại liên hệ", required = "true", pattern = @"\d{10,11}", Title = "Nhập chính xác số điện thoại!" })
+        <small id="Phone" class="form-text text-muted">Vui lòng nhập đúng số điện thoại để chúng tôi có thể xác nhận!</small>
+    </div>
+    <div class="form-group">
+        <label for="Message">Lời nhắn</label>
+        @Html.TextAreaFor(q => q.Message, new { @class = "form-control", rows = "3" })
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2">ĐĂNG KÍ</button>
+}

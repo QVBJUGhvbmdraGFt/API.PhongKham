@@ -13,23 +13,22 @@ namespace Schedure.Web.Controllers
         // GET: Register
         public ActionResult Index()
         {
-            var lstRegister = new RegisterBUS(this).GetByAccount(Account.IDAccount);
+            var lstRegister = new RegisterBUS(this).GetByAccount(Account.IDAccountBN);
             return View(lstRegister);
         }
 
-        public ActionResult Create(int idSpecia)
+        public ActionResult Create(int IDLich)
         {
-            ViewBag.doctors = new SelectList(new DoctorBUS(this).GetBySpecia(idSpecia), "IDDoctor", "FullName");
-            ViewBag.sepecia = new SpeciaBUS(this).GetByID(idSpecia);
-            return View();
+            var data = new LichLamViecsBUS(this).GetByID(IDLich);
+            return View(new RegisterDTO { LichLamViec = data, IDLich = IDLich });
         }
 
         [HttpPost]
         public ActionResult Create(RegisterDTO register)
         {
-            register.IDAccount = Account.IDAccount;
+            register.IDAccount = Account.IDAccountBN;
             register.CreateDate = DateTime.Now;
-            register.Status = "ACTIVE";
+            register.Status = "CONFIRM";
             new RegisterBUS(this).Create(register);
             return RedirectToAction("Index");
         }

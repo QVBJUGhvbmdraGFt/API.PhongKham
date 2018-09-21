@@ -1,22 +1,187 @@
-﻿@model IEnumerable<SchedureDTO.SpeciaDTO>
+﻿@model IEnumerable<SchedureDTO.ChuyenKhoaDTO>
 
 @{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string css = string.Join(",", Model.Select(q => $"#tab_{q.IDChuyenKhoa}:checked ~ #content_{q.IDChuyenKhoa}"));
 }
 
-<h2>DANH SÁCH CÁC CHUYÊN KHOA</h2>
-<hr />
-<P>Vui lòng chọn chuyên khoa </P>
+<style>
+    *, *:before, *:after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-<ul>
+    html, body {
+        height: 100vh;
+    }
+
+    body {
+        font: 14px/1 'Open Sans', sans-serif;
+        color: #555;
+        background: #eee;
+    }
+
+    h1 {
+        padding: 50px 0;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    p {
+        margin: 0 0 20px;
+        line-height: 1.5;
+    }
+
+    main {
+        min-width: 320px;
+        /*max-width: 800px;*/
+        padding: 50px;
+        margin: 0 auto;
+        background: #fff;
+    }
+
+    section {
+        display: none;
+        padding: 20px 0 0;
+        border-top: 1px solid #ddd;
+    }
+
+    input {
+        display: none;
+    }
+
+    label {
+        display: inline-block;
+        margin: 0 0 -1px;
+        padding: 15px 25px;
+        font-weight: 600;
+        text-align: center;
+        color: #bbb;
+        border: 1px solid transparent;
+    }
+
+        label:before {
+            font-family: fontawesome;
+            font-weight: normal;
+            margin-right: 10px;
+        }
+
+        label[for*='1']:before {
+            content: '\f1cb';
+        }
+
+        label[for*='2']:before {
+            content: '\f17d';
+        }
+
+        label[for*='3']:before {
+            content: '\f16b';
+        }
+
+        label[for*='4']:before {
+            content: '\f1a9';
+        }
+
+        label:hover {
+            color: #888;
+            cursor: pointer;
+        }
+
+    input:checked + label {
+        color: #555;
+        border: 1px solid #ddd;
+        border-top: 2px solid orange;
+        border-bottom: 1px solid #fff;
+    }
+
+    /*#tab1:checked ~ #content1,
+    #tab2:checked ~ #content2,
+    #tab3:checked ~ #content3,
+    #tab4:checked ~ #content4 {
+        display: block;
+    }*/
+
+    @@media screen and (max-width: 650px) {
+        label {
+            font-size: 0;
+        }
+
+            label:before {
+                margin: 0;
+                font-size: 18px;
+            }
+    }
+
+    @@media screen and (max-width: 400px) {
+        label {
+            padding: 15px;
+        }
+    }
+</style>
+
+<style>
+    @css {
+        display: block;
+    }
+</style>
+
+<main>
+    <h2>Vui lòng chọn chuyên khoa để đăng kí</h2>
     @foreach (var item in Model)
     {
-        <li>
-            <a href="@Url.Action("Detail",new { id = item.IDSpecia})">
-                <img src="@item.Avatar" alt="@item.Avatar" />
-                <span>@item.Name.ToUpper()</span>
-            </a>
-        </li>
+        <input id="tab_@item.IDChuyenKhoa" type="radio" name="tabs">
+        <label for="tab_@item.IDChuyenKhoa">@item.Name</label>
     }
-</ul>
+
+    <script>
+            $('#tab_@(Model?.FirstOrDefault()?.IDChuyenKhoa)')[0].checked = true;
+    </script>
+
+    @foreach (var item in Model)
+    {
+        <section id="content_@item.IDChuyenKhoa">
+            @foreach (var pk in item.PhongKhams)
+            {
+                <hr />
+                <h3>@pk.Name</h3>
+                <table class="table table-responsive table-bordered">
+                    <tr>
+                        <th>BÁC SĨ</th>
+                        <th>THÔNG TIN BÁC SĨ</th>
+                        <th>LỊCH LÀM VIỆC</th>
+                    </tr>
+                    @foreach (var bs in pk.Doctors)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@bs.Avatar" alt="@bs.FullName" height="90" />
+                                <p>@bs.FullName</p>
+                            </td>
+                            <td>
+                                <ul style="padding-left: 10px">
+                                    <li>Chức danh: @(bs.ChucDanh?.Name)</li>
+                                    <li>Trình độ: @bs.Study</li>
+                                    <li>Giới thiệu: @bs.Sumary</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul style="padding-left: 10px">
+                                    @foreach (var lich in bs.LichLamViecs)
+                                    {
+                                        <li>
+                                            <p>
+                                                @lich.TimeSlot.HourStart - @lich.TimeSlot.HourEnd
+                                                @Html.ActionLink("Đăng kí", "Create", "Register", new { lich.IDLich }, new { @class = "btn" })
+                                        </li>
+                                    }
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+        </section>
+    }
+</main>

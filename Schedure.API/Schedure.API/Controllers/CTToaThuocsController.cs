@@ -20,7 +20,7 @@ namespace Schedure.API.Controllers
 
         // GET: api/CTToaThuocs
         [ResponseType(typeof(List<CTToaThuocDTO>))]
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         public List<CTToaThuocDTO> GetCTToaThuocs()
         {
             var lst = new List<CTToaThuocDTO>();
@@ -32,7 +32,7 @@ namespace Schedure.API.Controllers
         }
 
         [HttpPost]
-        [BasicAuthentication]
+        [AdminAuthentication]
         [ResponseType(typeof(List<CTToaThuocDTO>))]
         public List<CTToaThuocDTO> GetByIDToaThuoc(int id)
         {
@@ -46,7 +46,7 @@ namespace Schedure.API.Controllers
         }
 
 
-        private CTToaThuocDTO ConvertToCTToaThuocDTO(CTToaThuoc item)
+        public static CTToaThuocDTO ConvertToCTToaThuocDTO(CTToaThuoc item)
         {
             return new CTToaThuocDTO
             {
@@ -57,11 +57,12 @@ namespace Schedure.API.Controllers
                 SoLuong = item.SoLuong,
                 Thuoc_Name = item.Thuoc.Name,
                 Thuoc_DonVi = item.Thuoc.DonVi,
+                
             };
         }
 
         // GET: api/CTToaThuocs/5
-        [BasicAuthentication]
+        [AdminAuthentication]
         [ResponseType(typeof(CTToaThuocDTO))]
         public async Task<IHttpActionResult> GetCTToaThuoc(int id)
         {
@@ -76,7 +77,7 @@ namespace Schedure.API.Controllers
         }
 
         // PUT: api/CTToaThuocs/5
-        [BasicAuthentication("SA", "BACSI")]
+        [AdminAuthentication("SA", "BACSI")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PutCTToaThuoc(int id, CTToaThuoc cTToaThuoc)
         {
@@ -112,7 +113,7 @@ namespace Schedure.API.Controllers
         }
 
         // POST: api/CTToaThuocs
-        [BasicAuthentication("SA", "BACSI")]
+        [AdminAuthentication("SA", "BACSI")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PostCTToaThuoc(CTToaThuoc cTToaThuoc)
         {
@@ -143,7 +144,7 @@ namespace Schedure.API.Controllers
         }
 
         // DELETE: api/CTToaThuocs/5
-        [BasicAuthentication("SA", "BACSI")]
+        [AdminAuthentication("SA", "BACSI")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> DeleteCTToaThuoc(int id)
         {

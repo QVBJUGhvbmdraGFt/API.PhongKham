@@ -10,6 +10,9 @@ namespace Schedure.Web.Models
 {
     public class LoginHelper
     {
-        
+        public static Account_BenhNhanDTO GetAccountBN()
+        {
+            return HttpContext.Current.Session["LOGIN"] as Account_BenhNhanDTO;
+        }
     }
 }

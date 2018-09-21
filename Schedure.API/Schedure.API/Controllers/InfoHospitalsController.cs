@@ -13,7 +13,7 @@ using Schedure.API.Models;
 
 namespace Schedure.API.Controllers
 {
-    [BasicAuthentication("SA", "BACSI", "YTA")]
+    [AdminAuthentication("SA", "BACSI", "YTA")]
     public class InfoHospitalsController : ApiController
     {
         private SchedureEntities db = new SchedureEntities();

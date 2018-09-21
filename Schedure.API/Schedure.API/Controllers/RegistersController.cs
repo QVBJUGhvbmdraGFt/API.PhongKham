@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,12 +20,12 @@ namespace Schedure.API.Controllers
         private SchedureEntities db = new SchedureEntities();
 
         // GET: api/Registers
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication]
         [ResponseType(typeof(List<RegisterDTO>))]
         public List<RegisterDTO> GetRegisters()
         {
             var lst = new List<RegisterDTO>();
-            foreach (var item in db.Registers)
+            foreach (var item in db.Registers.OrderByDescending(q => q.NgayKham))
             {
                 lst.Add(ConvertToRegisterDTO(item));
             }
@@ -39,8 +40,7 @@ namespace Schedure.API.Controllers
             var lst = new List<RegisterDTO>();
 
             var acc = LoginHelper.GetAccount();
-            if (string.IsNullOrWhiteSpace(acc.POSITION) && acc.IDAccount != id)
-                return lst;
+            if (acc.IDAccountBN != id) return lst;
 
             foreach (var item in db.Registers.Where(q => q.IDAccount == id))
             {
@@ -49,19 +49,47 @@ namespace Schedure.API.Controllers
             return lst;
         }
 
-        private RegisterDTO ConvertToRegisterDTO(Register item)
+        [HttpPost]
+        [AdminAuthentication]
+        [ResponseType(typeof(List<RegisterDTO>))]
+        public List<RegisterDTO> Fillter([FromUri]string start, [FromUri] string end, [FromUri] int? IDChuyenKhoa, [FromUri]string Status)
+        {
+            try
+            {
+                DateTime? d_start = DateTime.ParseExact(start, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                DateTime? d_end = DateTime.ParseExact(end, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                var all = db.Registers.Where(q => q.NgayKham >= d_start && q.NgayKham <= d_end);
+                if (string.IsNullOrWhiteSpace(Status) == false)
+                {
+                    all = all.Where(q => q.Status == Status);
+                }
+                if (IDChuyenKhoa > 0)
+                {
+                    all = all.Where(q => q.LichLamViec.Doctor.PhongKham.IDChuyenKhoa == IDChuyenKhoa);
+                }
+                return all.AsEnumerable().Select(q => ConvertToRegisterDTO(q)).ToList();
+            }
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+            }
+            return null;
+        }
+
+        public static RegisterDTO ConvertToRegisterDTO(Register item)
         {
             return new RegisterDTO
             {
-                Account_FullName = item.Account.FullName,
                 CreateDate = item.CreateDate,
-                Doctor_FullName = item.Doctor.FullName,
                 IDAccount = item.IDAccount,
-                IDDoctor = item.IDDoctor,
                 IDRegister = item.IDRegister,
                 Message = item.Message,
                 Status = item.Status,
-                Specia_Name = item.Doctor.Specia.Name
+                IDLich = item.IDLich,
+                Phone = item.Phone,
+                Account_BenhNhan = AccountsController.ConvertToAccount_BenhNhanDTO(item.Account_BenhNhan),
+                LichLamViec = LichLamViecsController.ConvertToLichLamViecDTO(item.LichLamViec),
+                NgayKham = item.NgayKham
             };
         }
 
@@ -77,10 +105,35 @@ namespace Schedure.API.Controllers
             }
 
             var acc = LoginHelper.GetAccount();
-            if (string.IsNullOrWhiteSpace(acc.POSITION) && acc.IDAccount != item.IDAccount)
+            if (acc.IDAccountBN != item.IDAccount)
                 return NotFound();
 
             return Ok(ConvertToRegisterDTO(item));
+        }
+
+        [HttpPost]
+        [AdminAuthentication]
+        [ResponseType(typeof(RegisterDTO))]
+        public async Task<IHttpActionResult> NVGetByID(int id)
+        {
+            Register item = await db.Registers.FindAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(ConvertToRegisterDTO(item));
+        }
+
+        [HttpPost]
+        [AdminAuthentication]
+        [ResponseType(typeof(bool))]
+        public async Task<IHttpActionResult> NVCreate(Register register)
+        {
+            register.Status = "ACTIVE";
+            register.CreateDate = DateTime.Now;
+            db.Registers.Add(register);
+            return Ok((await db.SaveChangesAsync()) > 0);
         }
 
         [ResponseType(typeof(string))]
@@ -105,23 +158,50 @@ namespace Schedure.API.Controllers
             return Ok("SUCCESS");
         }
 
-        [HttpPost]
-        [BasicAuthentication("SA", "BACSI", "YTA")]
-        [ResponseType(typeof(List<RegisterDTO>))]
-        public List<RegisterDTO> GetByIDSpecia(int id)
+        [ResponseType(typeof(bool))]
+        [AdminAuthentication]
+        public async Task<IHttpActionResult> Confirm(int id, [FromUri]string status)
         {
-            var all = db.Registers.ToList().Where(q => q.Doctor.IDSpecia == id);
-
-            var lst = new List<RegisterDTO>();
-            foreach (var item in all)
+            try
             {
-                lst.Add(ConvertToRegisterDTO(item));
+                Register item = await db.Registers.FindAsync(id);
+
+                if (item == null || (item.Status != "CONFIRM" && item.Status != "ACTIVE"))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    item.Status = status;
+                    db.SaveChanges();
+                }
+
+                return Ok(true);
             }
-            return lst;
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+            }
+            return BadRequest();
         }
 
+        //[HttpPost]
+        //[AdminAuthentication("SA", "BACSI", "YTA")]
+        //[ResponseType(typeof(List<RegisterDTO>))]
+        //public List<RegisterDTO> GetByIDSpecia(int id)
+        //{
+        //    var all = db.Registers.ToList().Where(q => q.Doctor.IDSpecia == id);
+
+        //    var lst = new List<RegisterDTO>();
+        //    foreach (var item in all)
+        //    {
+        //        lst.Add(ConvertToRegisterDTO(item));
+        //    }
+        //    return lst;
+        //}
+
         // PUT: api/Registers/5
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutRegister(int id, Register register)
         {
@@ -161,22 +241,30 @@ namespace Schedure.API.Controllers
         [ResponseType(typeof(Register))]
         public async Task<IHttpActionResult> PostRegister(Register register)
         {
-            if (LoginHelper.CheckAccount(register.IDAccount ?? 0) == false)
-                return NotFound();
-
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (LoginHelper.CheckAccount(register.IDAccount ?? 0) == false)
+                    return NotFound();
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                db.Registers.Add(register);
+                await db.SaveChangesAsync();
+
+                return CreatedAtRoute("DefaultApi", new { id = register.IDRegister }, register);
             }
-
-            db.Registers.Add(register);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = register.IDRegister }, register);
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+                return BadRequest();
+            }
         }
 
         // DELETE: api/Registers/5
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication]
         [ResponseType(typeof(Register))]
         public async Task<IHttpActionResult> DeleteRegister(int id)
         {

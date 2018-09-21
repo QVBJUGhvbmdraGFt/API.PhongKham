@@ -54,11 +54,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
-      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <HintPath>..\packages\WebRequest.WebRequestHandler.1.0.0\lib\net45\System.Net.Http.WebRequest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
@@ -156,6 +157,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginHelper.cs" />
+    <Compile Include="Models\WebExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -186,84 +188,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="template_files\1440_560-ngaybacsy.png" />
-    <Content Include="template_files\40.png" />
-    <Content Include="template_files\550x360.jpg" />
-    <Content Include="template_files\addtoany.js" />
-    <Content Include="template_files\ajax_links_api.css" />
-    <Content Include="template_files\ajax_links_api.js" />
-    <Content Include="template_files\analytics.js" />
-    <Content Include="template_files\Banner-trang-chu_21x10cm-VN_0.png" />
-    <Content Include="template_files\bootstrap.css" />
-    <Content Include="template_files\bootstrap.js" />
-    <Content Include="template_files\BUI-THUY-NGA-PED-4.png" />
-    <Content Include="template_files\colors.css" />
-    <Content Include="template_files\conversion_async.js" />
-    <Content Include="template_files\Cover%2520image.PNG" />
-    <Content Include="template_files\dd.css" />
-    <Content Include="template_files\drupal.js" />
-    <Content Include="template_files\drupalSettingsLoader.js" />
-    <Content Include="template_files\drupal_002.js" />
-    <Content Include="template_files\en.png" />
-    <Content Include="template_files\facebook-s.png" />
-    <Content Include="template_files\facebook.png" />
-    <Content Include="template_files\font-awesome.css" />
-    <Content Include="template_files\form.css" />
-    <Content Include="template_files\g-plus.png" />
-    <Content Include="template_files\group-1.png" />
-    <Content Include="template_files\group-2.png" />
-    <Content Include="template_files\group-3.png" />
-    <Content Include="template_files\group-4.png" />
-    <Content Include="template_files\gtm.js" />
-    <Content Include="template_files\hamburger.svg" />
-    <Content Include="template_files\hfh-c.png" />
-    <Content Include="template_files\hfh-Kham%2520suc%2520khoe%2520tong%2520quat_0.png" />
-    <Content Include="template_files\hidden.css" />
-    <Content Include="template_files\icon-1.png" />
-    <Content Include="template_files\icon-2.png" />
-    <Content Include="template_files\icon-3.png" />
-    <Content Include="template_files\icons.js" />
-    <Content Include="template_files\inline-form.css" />
-    <Content Include="template_files\iso.png" />
-    <Content Include="template_files\ja.png" />
-    <Content Include="template_files\jquery.js" />
-    <Content Include="template_files\jquery_002.js" />
-    <Content Include="template_files\lab.svg" />
-    <Content Include="template_files\lang_dropdown.js" />
-    <Content Include="template_files\ldsSkin.css" />
-    <Content Include="template_files\libs.js" />
-    <Content Include="template_files\linked-i-n.png" />
-    <Content Include="template_files\linked-in-m.png" />
-    <Content Include="template_files\local.css" />
-    <Content Include="template_files\logo.svg" />
-    <Content Include="template_files\make-app.png" />
-    <Content Include="template_files\matchMedia.js" />
-    <Content Include="template_files\modernizr.js" />
-    <Content Include="template_files\Neuro%2520Surgery.jpg" />
-    <Content Include="template_files\normalize.css" />
-    <Content Include="template_files\page.js" />
-    <Content Include="template_files\phone-2.png" />
-    <Content Include="template_files\phone-3.png" />
-    <Content Include="template_files\picturefill.js" />
-    <Content Include="template_files\primary-menu.css" />
-    <Content Include="template_files\ready.js" />
-    <Content Include="template_files\SKIN-TO-SKIN-2.png" />
-    <Content Include="template_files\sm.html" />
-    <Content Include="template_files\socials.png" />
-    <Content Include="template_files\style.css" />
-    <Content Include="template_files\to-top.css" />
-    <Content Include="template_files\to-top.js" />
-    <Content Include="template_files\toggle.js" />
-    <Content Include="template_files\TRAN-THAI-HOA-CAR-2.png" />
-    <Content Include="template_files\transparent.html" />
-    <Content Include="template_files\Untitled-1.png" />
-    <Content Include="template_files\vi.png" />
-    <Content Include="template_files\views.css" />
-    <Content Include="template_files\Visceral%2520Surgery.jpg" />
-    <Content Include="template_files\vi_8wadXm2cpKzXH8g88YY7xqZSVpm0zsLMHkK8h8K64DY.js" />
-    <Content Include="template_files\VOVANQUY-URO805111626AM_0.JPG" />
-    <Content Include="template_files\Welcome-doctor_Fauvy.jpg" />
-    <Content Include="template_files\youtube.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -274,19 +198,16 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\IndexVD.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Login\Confirm.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Home\Detail.cshtml" />
     <Content Include="Views\Register\Create.cshtml" />
     <Content Include="Views\History\Index.cshtml" />
     <Content Include="Views\History\Detail.cshtml" />
     <Content Include="Views\Shared\_LayoutVD.cshtml" />
-    <Content Include="template_files\a" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\History\LichSu.cshtml" />
   </ItemGroup>

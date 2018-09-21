@@ -16,41 +16,16 @@ namespace SchedureDTO
     {
         public int IDHistory { get; set; }
         public Nullable<int> IDRegister { get; set; }
-        public Nullable<DateTime> Register_CreateTime { get; set; }
         public Nullable<int> IDDoctor { get; set; }
-        public string Doctor_FullName { get; set; }
-        public string Specia_Name { get; set; }
         public Nullable<int> ICD { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public Nullable<int> Mach { get; set; }
         public Nullable<int> NhipTho { get; set; }
         public Nullable<int> ChieuCao { get; set; }
-        public Nullable<int> NhietDo { get; set; }
+        public Nullable<int> NhieuDo { get; set; }
         public Nullable<int> HuyetApTT { get; set; }
         public Nullable<int> HuyetApTD { get; set; }
         public Nullable<int> CanNang { get; set; }
-        public string TrieuChungLS { get; set; }
-        public string ChuanDoanSoBo { get; set; }
-        public string CachGiaiQuyet { get; set; }
-    }
-
-    public partial class HistoryKhamBenhFakeDTO
-    {
-        public string IDHistory { get; set; }
-        public string IDRegister { get; set; }
-        public string Register_CreateTime { get; set; }
-        public string IDDoctor { get; set; }
-        public string Doctor_FullName { get; set; }
-        public string Specia_Name { get; set; }
-        public string ICD { get; set; }
-        public string CreateTime { get; set; }
-        public string Mach { get; set; }
-        public string NhipTho { get; set; }
-        public string ChieuCao { get; set; }
-        public string NhietDo { get; set; }
-        public string HuyetApTT { get; set; }
-        public string HuyetApTD { get; set; }
-        public string CanNang { get; set; }
         public string TrieuChungLS { get; set; }
         public string ChuanDoanSoBo { get; set; }
         public string CachGiaiQuyet { get; set; }

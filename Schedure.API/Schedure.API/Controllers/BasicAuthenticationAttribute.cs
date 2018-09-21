@@ -13,8 +13,26 @@ namespace Schedure.API.Controllers
 {
     public class BasicAuthenticationAttribute : AuthorizationFilterAttribute
     {
-        public string[] Role { get; }
+        public override void OnAuthorization(HttpActionContext actionContext)
+        {
+            if (CheckToken(actionContext) == false)
+            {
+                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
 
+            base.OnAuthorization(actionContext);
+        }
+
+        public virtual bool CheckToken(HttpActionContext actionContext)
+        {
+            var acc = LoginHelper.GetAccount();
+            var res = acc != null;
+            return res;
+        }
+    }
+
+    public class AdminAuthenticationAttribute : AuthorizationFilterAttribute
+    {
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             if (CheckToken(actionContext) == false)
@@ -27,18 +45,15 @@ namespace Schedure.API.Controllers
 
         private bool CheckToken(HttpActionContext actionContext)
         {
-            var acc = LoginHelper.GetAccount();
+            var acc = LoginHelper.GetAccountNV();
             var res = acc != null;
-            if (res && Role.Length > 0)
-            {
-                res = res && Role.Any(q => q.Equals(acc.POSITION + "", StringComparison.CurrentCultureIgnoreCase));
-            }
             return res;
         }
 
-        public BasicAuthenticationAttribute(params string[] Role)
+        public string[] Roles { get; private set; }
+        public AdminAuthenticationAttribute(params string[] Roles)
         {
-            this.Role = Role;
+            this.Roles = Roles;
         }
     }
 }

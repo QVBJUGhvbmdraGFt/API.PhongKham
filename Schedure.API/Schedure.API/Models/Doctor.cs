@@ -18,22 +18,25 @@ namespace Schedure.API.Models
         public Doctor()
         {
             this.HistoryKhamBenhs = new HashSet<HistoryKhamBenh>();
-            this.Registers = new HashSet<Register>();
+            this.LichLamViecs = new HashSet<LichLamViec>();
         }
     
         public int IDDoctor { get; set; }
-        public Nullable<int> IDSpecia { get; set; }
         public string FullName { get; set; }
         public string Avatar { get; set; }
         public string Sumary { get; set; }
         public string TrainingProcess { get; set; }
         public string Study { get; set; }
         public string Status { get; set; }
+        public Nullable<bool> Male { get; set; }
+        public Nullable<int> IDChucDanh { get; set; }
+        public Nullable<int> IDPhongKham { get; set; }
     
-        public virtual Specia Specia { get; set; }
+        public virtual ChucDanh ChucDanh { get; set; }
+        public virtual PhongKham PhongKham { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HistoryKhamBenh> HistoryKhamBenhs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Register> Registers { get; set; }
+        public virtual ICollection<LichLamViec> LichLamViecs { get; set; }
     }
 }

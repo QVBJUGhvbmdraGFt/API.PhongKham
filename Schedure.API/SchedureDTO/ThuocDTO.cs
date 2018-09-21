@@ -17,7 +17,7 @@ namespace SchedureDTO
         public int IDThuoc { get; set; }
         public string Name { get; set; }
         public string DonVi { get; set; }
-        public int? GiaTien { get; set; }
         public string Status { get; set; }
+        public Nullable<int> GiaTien { get; set; }
     }
 }

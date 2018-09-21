@@ -11,6 +11,6 @@ namespace Schedure.APP
     public static class COMMON 
     {
         public static string TokenBasic { get; set; }
-        public static AccountDTO User { get; set; }
+        public static Account_NhanVienDTO User { get; set; }
     }
 }

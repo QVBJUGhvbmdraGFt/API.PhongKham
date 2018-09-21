@@ -14,37 +14,37 @@ using SchedureDTO;
 
 namespace Schedure.API.Controllers
 {
-    [BasicAuthentication("", "SA", "BACSI", "YTA")]
+    [AdminAuthentication("", "SA", "BACSI", "YTA")]
     public class AccountsController : ApiController
     {
         private SchedureEntities db = new SchedureEntities();
 
-        // GET: api/Accounts
-        [BasicAuthentication("SA", "BACSI", "YTA")]
-        public List<AccountDTO> GetAccounts()
+        #region BENHNHAN
+        [AdminAuthentication]
+        public List<Account_BenhNhanDTO> GetAccount_BenhNhans()
         {
-            var lst = new List<AccountDTO>();
-            foreach (var item in db.Accounts.Where(q => q.Status != "DELETE"))
+            var lst = new List<Account_BenhNhanDTO>();
+            foreach (var item in db.Account_BenhNhan.Where(q => q.Status != "DELETE"))
             {
-                lst.Add(ConvertToAccountDTO(item));
+                lst.Add(ConvertToAccount_BenhNhanDTO(item));
             }
             return lst;
         }
 
-        private AccountDTO ConvertToAccountDTO(Account item)
+        public static Account_BenhNhanDTO ConvertToAccount_BenhNhanDTO(Account_BenhNhan item)
         {
-            return new AccountDTO
+            if (item == null) return null;
+            return new Account_BenhNhanDTO
             {
                 Adress = item.Adress,
                 Avatar = item.Avatar,
                 Birthday = item.Birthday,
                 Email = item.Email,
-                IDAccount = item.IDAccount,
+                IDAccountBN = item.IDAccountBN,
                 FullName = item.FullName,
-                Male = item.Male,
+                Male = item.Male == true,
                 Password = item.Password,
                 Phone = item.Phone,
-                POSITION = item.POSITION,
                 Status = item.Status,
                 TieuSu = item.TieuSu,
                 Username = item.Username,
@@ -57,59 +57,59 @@ namespace Schedure.API.Controllers
         public async Task<IHttpActionResult> ChangeAvatar(int id)
         {
             var acc = LoginHelper.GetAccount();
-            if (string.IsNullOrWhiteSpace(acc.POSITION) && acc.IDAccount != id)
+            if (acc.IDAccountBN != id)
                 return NotFound();
 
-            var account = db.Accounts.Find(id);
-            if (account != null)
+            var Account_BenhNhan = db.Account_BenhNhan.Find(id);
+            if (Account_BenhNhan != null)
             {
                 var save = UploadHelper.SaveImage();
                 if (save.Key)
                 {
-                    account.Avatar = save.Value;
-                    db.Entry(account).State = EntityState.Modified;
+                    Account_BenhNhan.Avatar = save.Value;
+                    db.Entry(Account_BenhNhan).State = EntityState.Modified;
                     await db.SaveChangesAsync();
-                    return Ok(account.Avatar);
+                    return Ok(Account_BenhNhan.Avatar);
                 }
                 return Content(HttpStatusCode.NotAcceptable, save.Key);
             }
             return BadRequest();
         }
 
-        // GET: api/Accounts/5
-        [ResponseType(typeof(AccountDTO))]
+        // GET: api/Account_BenhNhans/5
+        [ResponseType(typeof(Account_BenhNhanDTO))]
         [BasicAuthentication]
-        public async Task<IHttpActionResult> GetAccount(int id)
+        public async Task<IHttpActionResult> GetAccount_BenhNhan(int id)
         {
             var acc = LoginHelper.GetAccount();
-            if (string.IsNullOrWhiteSpace(acc.POSITION) && acc.IDAccount != id)
+            if (acc.IDAccountBN != id)
                 return NotFound();
 
-            Account item = await db.Accounts.FindAsync(id);
+            Account_BenhNhan item = await db.Account_BenhNhan.FindAsync(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            return Ok(ConvertToAccountDTO(item));
+            return Ok(ConvertToAccount_BenhNhanDTO(item));
         }
 
-        // PUT: api/Accounts/5
+        // PUT: api/Account_BenhNhans/5
         [ResponseType(typeof(void))]
         [BasicAuthentication]
-        public async Task<IHttpActionResult> PutAccount(int id, Account account)
+        public async Task<IHttpActionResult> PutAccount_BenhNhan(int id, Account_BenhNhan Account_BenhNhan)
         {
             if (LoginHelper.CheckAccount(id) == false || !ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != account.IDAccount)
+            if (id != Account_BenhNhan.IDAccountBN)
             {
                 return BadRequest();
             }
 
-            db.Entry(account).State = EntityState.Modified;
+            db.Entry(Account_BenhNhan).State = EntityState.Modified;
 
             try
             {
@@ -117,7 +117,7 @@ namespace Schedure.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(id))
+                if (!Account_BenhNhanExists(id))
                 {
                     return NotFound();
                 }
@@ -130,37 +130,37 @@ namespace Schedure.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Accounts
+        // POST: api/Account_BenhNhans
         [ResponseType(typeof(string))]
-        [BasicAuthentication("SA", "BACSI", "YTA")]
-        public async Task<IHttpActionResult> PostAccount(Account account)
+        [AdminAuthentication]
+        public async Task<IHttpActionResult> PostAccount_BenhNhan(Account_BenhNhan Account_BenhNhan)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Accounts.Add(account);
+            db.Account_BenhNhan.Add(Account_BenhNhan);
             await db.SaveChangesAsync();
 
             return Ok("SUCCESS");
         }
 
-        // DELETE: api/Accounts/5
-        [ResponseType(typeof(AccountDTO))]
-        [BasicAuthentication("SA", "BACSI")]
-        public async Task<IHttpActionResult> DeleteAccount(int id)
+        // DELETE: api/Account_BenhNhans/5
+        [ResponseType(typeof(Account_BenhNhanDTO))]
+        [AdminAuthentication("SA", "BACSI")]
+        public async Task<IHttpActionResult> DeleteAccount_BenhNhan(int id)
         {
-            Account account = await db.Accounts.FindAsync(id);
-            if (account == null)
+            Account_BenhNhan Account_BenhNhan = await db.Account_BenhNhan.FindAsync(id);
+            if (Account_BenhNhan == null)
             {
                 return NotFound();
             }
 
-            account.Status = "DELETE";
+            Account_BenhNhan.Status = "DELETE";
             await db.SaveChangesAsync();
 
-            return Ok(ConvertToAccountDTO(account));
+            return Ok(ConvertToAccount_BenhNhanDTO(Account_BenhNhan));
         }
 
 
@@ -173,10 +173,25 @@ namespace Schedure.API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool AccountExists(int id)
+        private bool Account_BenhNhanExists(int id)
         {
-            return db.Accounts.Count(e => e.IDAccount == id) > 0;
+            return db.Account_BenhNhan.Count(e => e.IDAccountBN == id) > 0;
         }
 
+        [HttpGet]
+        [AdminAuthentication]
+        [ResponseType(typeof(Account_BenhNhan))]
+        public async Task<IHttpActionResult> FindBN([FromUri]string MaYTe)
+        {
+            if (string.IsNullOrWhiteSpace(MaYTe)) return NotFound();
+            var acc = await db.Account_BenhNhan.FirstOrDefaultAsync(q => q.Username == MaYTe);
+            if (acc == null || acc.Status == "DELETE") return NotFound();
+            return Ok(ConvertToAccount_BenhNhanDTO(acc));
+        }
+        #endregion
+
+        #region NHANVIEN
+
+        #endregion
     }
 }

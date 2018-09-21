@@ -31,7 +31,7 @@ namespace Schedure.Web.Controllers
             return HttpContext.Session[TOKEN] + "";
         }
 
-        public AccountDTO Account
+        public Account_BenhNhanDTO Account
         {
             get
             {

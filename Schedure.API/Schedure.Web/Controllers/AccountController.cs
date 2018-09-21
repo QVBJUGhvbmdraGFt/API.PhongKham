@@ -19,7 +19,7 @@ namespace Schedure.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(AccountDTO account)
+        public ActionResult Index(Account_BenhNhanDTO account)
         {
             new AccountBUS(this).Update(account);
             return RedirectToAction("Index", "Home");
@@ -76,7 +76,7 @@ namespace Schedure.Web.Controllers
                 }
                 data = memoryStream.ToArray();
             }
-            return Json(new AccountBUS(this).ChangeAvatar(Account.IDAccount, data, Avatar.FileName).Value);
+            return Json(new AccountBUS(this).ChangeAvatar(Account.IDAccountBN, data, Avatar.FileName).Value);
         }
     }
 }

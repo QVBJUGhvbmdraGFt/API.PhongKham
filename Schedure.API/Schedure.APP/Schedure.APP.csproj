@@ -46,11 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="COMMON.cs" />
     <Compile Include="Extention.cs" />
+    <Compile Include="FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBase.Designer.cs">
+      <DependentUpon>FormBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="img.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -58,11 +61,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\frmAccount.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmAccount.Designer.cs">
-      <DependentUpon>frmAccount.cs</DependentUpon>
+    <Compile Include="UC\MDatagriview.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\frmChangePassword.cs">
       <SubType>Form</SubType>
@@ -70,17 +70,11 @@
     <Compile Include="Views\frmChangePassword.Designer.cs">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmDoctor.cs">
+    <Compile Include="Views\frmConfirm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\frmDoctor.Designer.cs">
-      <DependentUpon>frmDoctor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\frmLichSuKhamBenh.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmLichSuKhamBenh.Designer.cs">
-      <DependentUpon>frmLichSuKhamBenh.cs</DependentUpon>
+    <Compile Include="Views\frmConfirm.Designer.cs">
+      <DependentUpon>frmConfirm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\frmLogin.cs">
       <SubType>Form</SubType>
@@ -94,24 +88,15 @@
     <Compile Include="Views\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmSpecia.cs">
+    <Compile Include="Views\frmRegister.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\frmSpecia.Designer.cs">
-      <DependentUpon>frmSpecia.cs</DependentUpon>
+    <Compile Include="Views\frmRegister.Designer.cs">
+      <DependentUpon>frmRegister.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\frmThuoc.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\frmThuoc.Designer.cs">
-      <DependentUpon>frmThuoc.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UCAccount.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\UCAccount.Designer.cs">
-      <DependentUpon>UCAccount.cs</DependentUpon>
-    </Compile>
+    <EmbeddedResource Include="FormBase.resx">
+      <DependentUpon>FormBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="img.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>img.Designer.cs</LastGenOutput>
@@ -124,18 +109,16 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Views\frmAccount.resx">
-      <DependentUpon>frmAccount.cs</DependentUpon>
+    <EmbeddedResource Include="UC\MDatagriview.resx">
+      <DependentUpon>MDatagriview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmChangePassword.resx">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmDoctor.resx">
-      <DependentUpon>frmDoctor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmLichSuKhamBenh.resx">
-      <DependentUpon>frmLichSuKhamBenh.cs</DependentUpon>
+    <EmbeddedResource Include="Views\frmConfirm.resx">
+      <DependentUpon>frmConfirm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
@@ -143,14 +126,8 @@
     <EmbeddedResource Include="Views\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmSpecia.resx">
-      <DependentUpon>frmSpecia.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\frmThuoc.resx">
-      <DependentUpon>frmThuoc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\UCAccount.resx">
-      <DependentUpon>UCAccount.cs</DependentUpon>
+    <EmbeddedResource Include="Views\frmRegister.resx">
+      <DependentUpon>frmRegister.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -204,6 +181,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\no-image-1280x800.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\thoat.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

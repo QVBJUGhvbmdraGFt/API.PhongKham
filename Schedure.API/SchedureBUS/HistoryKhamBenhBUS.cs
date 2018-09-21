@@ -41,12 +41,12 @@ namespace SchedureBUS
             return API.DELETE<string>($"api/{controlerAPI}/{id}").Key;
         }
 
-        public List<HistoryKhamBenhFakeDTO> GetByAccount(int iDAccount)
+        public List<HistoryKhamBenhDTO> GetByAccount(int iDAccount)
         {
-            return API.POST<List<HistoryKhamBenhFakeDTO>>($"apis/{controlerAPI}/GetByAccount/{iDAccount}", iDAccount).Value ?? new List<HistoryKhamBenhFakeDTO>();
+            return API.POST<List<HistoryKhamBenhDTO>>($"apis/{controlerAPI}/GetByAccount/{iDAccount}", iDAccount).Value ?? new List<HistoryKhamBenhDTO>();
         }
 
-        public List<HistoryKhamBenhDTO> GiaiMaHistoryKhamBenhs(List<HistoryKhamBenhFakeDTO> list, string key)
+        public List<HistoryKhamBenhDTO> GiaiMaHistoryKhamBenhs(List<HistoryKhamBenhDTO> list, string key)
         {
             var res = API.POST<List<HistoryKhamBenhDTO>>($"apis/{controlerAPI}/GiaiMaHistoryKhamBenhs/{key}", list);
             return res.Key ? res.Value : new List<HistoryKhamBenhDTO>();

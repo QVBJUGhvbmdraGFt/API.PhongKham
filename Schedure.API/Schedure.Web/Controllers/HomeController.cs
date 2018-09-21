@@ -11,17 +11,7 @@ namespace Schedure.Web.Controllers
     {
         public ActionResult Index()
         {
-            var allSpecia = new SpeciaBUS(this).GetAll();
-            return View(allSpecia);
-        }
-
-        public ActionResult Detail(int id)
-        {
-            var specia = new SpeciaBUS(this).GetByID(id);
-            ViewBag.specia = specia;
-
-            var doctors= new DoctorBUS(this).GetBySpecia(id);
-            return View(doctors);
+            return View(new ChuyenKhoasBUS(this).GetAll());
         }
     }
 }

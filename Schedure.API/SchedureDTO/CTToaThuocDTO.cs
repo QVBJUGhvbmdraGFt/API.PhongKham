@@ -11,7 +11,7 @@ namespace SchedureDTO
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class CTToaThuocDTO
     {
         public int IDCT { get; set; }
@@ -19,7 +19,6 @@ namespace SchedureDTO
         public Nullable<int> IDThuoc { get; set; }
         public Nullable<int> SoLuong { get; set; }
         public Nullable<int> GiaTien { get; set; }
-
         public string Thuoc_Name { get; set; }
         public string Thuoc_DonVi { get; set; }
     }

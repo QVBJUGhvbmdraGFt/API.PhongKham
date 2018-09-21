@@ -1,7 +1,9 @@
 ﻿using SchedureDTO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,14 +14,28 @@ namespace SchedureBUS
         APIHelper API = new APIHelper();
         const string controlerAPI = "Authenticate";
 
-        public KeyValuePair<bool,string> Login(string Username,string Password)
+        #region BenhNhan
+        public KeyValuePair<bool, string> Login(string Username, string Password)
         {
             return API.POST<string>($"apis/{controlerAPI}/Login?Username={Username}&Password={Password}", "");
         }
-
-        public KeyValuePair<bool,string> Register(AccountDTO account)
+        public async Task<KeyValuePair<int, string>> Register(Account_BenhNhanDTO account)
         {
-            return API.POST<string>($"apis/{controlerAPI}/Register", account);
+            var res = await API.POSTAsynsCode<string>($"apis/{controlerAPI}/Register", account);
+            int code = 0; // FAIL
+            if (res.Key == HttpStatusCode.OK)
+            {
+                code = 1; // CONFIRM
+            }
+            else if (res.Key == HttpStatusCode.Created)
+            {
+                code = 2; // Created => CONFIRM
+            }
+            else if (res.Key == HttpStatusCode.NotAcceptable)
+            {
+                code = 3; // ACTIVE
+            }
+            return new KeyValuePair<int, string>(code, res.Value);
         }
 
         public bool Confirm(string urlConfirm)
@@ -27,10 +43,29 @@ namespace SchedureBUS
             return API.POST<string>($"apis/{controlerAPI}/Confirm", urlConfirm).Key;
         }
 
-        public AccountDTO GetAccount(string token)
+        public Account_BenhNhanDTO GetAccount(string token)
         {
-            return API.POST<AccountDTO>($"apis/{controlerAPI}/GetAccount?token={token}", "").Value;
+            return API.POST<Account_BenhNhanDTO>($"apis/{controlerAPI}/GetAccount?token={token}", "").Value;
         }
+
+        public async Task<KeyValuePair<bool, string>> ResendMail(string email, string maYte)
+        {
+            return await API.POSTAsyns<string>($"apis/{controlerAPI}/ResendMail?email={email}&maYte={maYte}", "");
+        }
+        #endregion
+
+        #region NhanVien
+        public KeyValuePair<bool, string> LoginNV(string Username, string Password)
+        {
+            return API.POST<string>($"apis/{controlerAPI}/LoginNV?Username={Username}&Password={Password}", "");
+        }
+
+        public Account_NhanVienDTO GetAccountNV(string token)
+        {
+            return API.POST<Account_NhanVienDTO>($"apis/{controlerAPI}/GetAccountNV?token={token}", "").Value;
+        }
+
+        #endregion
 
     }
 }

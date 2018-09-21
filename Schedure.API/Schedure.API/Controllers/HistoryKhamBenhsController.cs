@@ -19,7 +19,7 @@ namespace Schedure.API.Controllers
         private SchedureEntities db = new SchedureEntities();
 
         // GET: api/HistoryKhamBenhs
-        [BasicAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication("SA", "BACSI", "YTA")]
         [ResponseType(typeof(List<HistoryKhamBenhDTO>))]
         public List<HistoryKhamBenhDTO> GetHistoryKhamBenhs()
         {
@@ -32,11 +32,11 @@ namespace Schedure.API.Controllers
         }
 
         [HttpPost]
-        [ResponseType(typeof(List<HistoryKhamBenhFakeDTO>))]
-        [BasicAuthentication]
-        public List<HistoryKhamBenhFakeDTO> GetByAccount(int id)
+        [ResponseType(typeof(List<HistoryKhamBenhDTO>))]
+        [AdminAuthentication]
+        public List<HistoryKhamBenhDTO> GetByAccount(int id)
         {
-            var lst = new List<HistoryKhamBenhFakeDTO>();
+            var lst = new List<HistoryKhamBenhDTO>();
 
             if (LoginHelper.CheckAccount(id) == false)
                 return lst;
@@ -46,7 +46,7 @@ namespace Schedure.API.Controllers
             foreach (var item in db.HistoryKhamBenhs.Where(q => q.Register.IDAccount == id))
             {
                 var v = ConvertToHistoryKhamBenhDTO(item);
-                lst.Add(v.Encode<HistoryKhamBenhFakeDTO>(key));
+                lst.Add(v.Encode<HistoryKhamBenhDTO>(key));
             }
 
             MailHelper.SendMail(acc.Email, "Mã xác nhận xem lịch sử khám bệnh", $"[{DateTime.Now}] Xin chào {acc.FullName},Đây là mã xác nhận của bạn: {key}");
@@ -55,8 +55,8 @@ namespace Schedure.API.Controllers
 
         [HttpPost]
         [ResponseType(typeof(List<HistoryKhamBenhDTO>))]
-        [BasicAuthentication]
-        public List<HistoryKhamBenhDTO> GiaiMaHistoryKhamBenhs(string id, List<HistoryKhamBenhFakeDTO> list)
+        [AdminAuthentication]
+        public List<HistoryKhamBenhDTO> GiaiMaHistoryKhamBenhs(string id, List<HistoryKhamBenhDTO> list)
         {
             var lst = new List<HistoryKhamBenhDTO>();
 
@@ -68,7 +68,7 @@ namespace Schedure.API.Controllers
         }
 
         [HttpPost]
-        [BasicAuthentication]
+        [AdminAuthentication]
         [ResponseType(typeof(HistoryKhamBenhDTO))]
         public async Task<IHttpActionResult> GetByIDRegister(int id)
         {
@@ -82,7 +82,7 @@ namespace Schedure.API.Controllers
             return NotFound();
         }
 
-        private HistoryKhamBenhDTO ConvertToHistoryKhamBenhDTO(HistoryKhamBenh item)
+        public static HistoryKhamBenhDTO ConvertToHistoryKhamBenhDTO(HistoryKhamBenh item)
         {
             return new HistoryKhamBenhDTO
             {
@@ -97,18 +97,15 @@ namespace Schedure.API.Controllers
                 IDHistory = item.IDHistory,
                 IDRegister = item.IDRegister,
                 Mach = item.Mach,
-                NhietDo = item.NhieuDo,
+                NhieuDo = item.NhieuDo,
                 NhipTho = item.NhipTho,
                 TrieuChungLS = item.TrieuChungLS,
-                Doctor_FullName = item.Doctor.FullName,
-                Register_CreateTime = item.Register.CreateDate,
                 CachGiaiQuyet = item.CachGiaiQuyet,
-                Specia_Name = item.Register.Doctor.Specia.Name
             };
         }
 
         // GET: api/HistoryKhamBenhs/5
-        [BasicAuthentication]
+        [AdminAuthentication]
         [ResponseType(typeof(HistoryKhamBenhDTO))]
         public async Task<IHttpActionResult> GetHistoryKhamBenh(int id)
         {
@@ -126,7 +123,7 @@ namespace Schedure.API.Controllers
         }
 
         // PUT: api/HistoryKhamBenhs/5
-        [BasicAuthentication("SA", "BACSI")]
+        [AdminAuthentication("SA", "BACSI")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PutHistoryKhamBenh(int id, HistoryKhamBenh historyKhamBenh)
         {
@@ -162,7 +159,7 @@ namespace Schedure.API.Controllers
         }
 
         // POST: api/HistoryKhamBenhs
-        [BasicAuthentication("SA", "BACSI")]
+        [AdminAuthentication("SA", "BACSI")]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PostHistoryKhamBenh(HistoryKhamBenh historyKhamBenh)
         {
@@ -193,7 +190,7 @@ namespace Schedure.API.Controllers
         }
 
         // DELETE: api/HistoryKhamBenhs/5
-        [BasicAuthentication("SA", "BACSI")]
+        [AdminAuthentication("SA", "BACSI")]
         [ResponseType(typeof(HistoryKhamBenhDTO))]
         public async Task<IHttpActionResult> DeleteHistoryKhamBenh(int id)
         {
