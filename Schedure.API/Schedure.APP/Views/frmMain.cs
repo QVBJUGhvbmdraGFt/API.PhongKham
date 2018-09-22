@@ -30,6 +30,7 @@ namespace Schedure.APP.Views
                 new ColumnFormat<RegisterDTO>(q => q.NgayKham),
                 new ColumnFormat<RegisterDTO>(q => q.LichLamViec.TimeSlot.HourStart + " - " + q.LichLamViec.TimeSlot.HourEnd),
                 new ColumnFormat<RegisterDTO>(q => q.CreateDate),
+                new ColumnFormat<RegisterDTO>(q => q.Status),
                 new ColumnFormat<RegisterDTO>(q => q.Status)
                 );
 
@@ -138,25 +139,33 @@ namespace Schedure.APP.Views
             var obj = dataBoundItem as RegisterDTO;
             if (obj != null)
             {
-                switch (obj.Status)
+                if (e.ColumnIndex == mDataGridView1.ColumnCount - 1)
                 {
-                    case "CONFIRM":
-                        if (new frmConfirm(obj).ShowDialog() == DialogResult.OK)
-                        {
-                            _reload();
-                        }
-                        break;
-                    case "ACTIVE":
-                        if ("Hủy khám?".XacNhan() == DialogResult.OK)
-                        {
-                            if (new RegisterBUS(this).Confirm(obj.IDRegister, "CANCLE"))
+                    switch (obj.Status)
+                    {
+                        case "CONFIRM":
+                            if (new frmConfirm(obj).ShowDialog() == DialogResult.OK)
                             {
                                 _reload();
                             }
-                        }
-                        break;
-                    default:
-                        break;
+                            break;
+                        case "ACTIVE":
+                            if(new frmKQKB(obj).ShowDialog() == DialogResult.OK)
+                            {
+                                _reload();
+                            }
+                            
+                            break;
+                        case "CANCLE":
+                            "Đăng kí đã hủy khám!".ThongBao();
+                            break;
+                        case "DONE":
+
+                            break;
+                        default:
+                            obj.Status.ThongBao();
+                            break;
+                    }
                 }
             }
         }

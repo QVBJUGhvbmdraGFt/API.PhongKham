@@ -70,6 +70,7 @@ namespace Schedure.APP.UC
             // 
             // MDataGridView
             // 
+            this.BackgroundColor = System.Drawing.SystemColors.Control;
             this.RowTemplate.Height = 24;
             this.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MDataGridView_CellClick);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
