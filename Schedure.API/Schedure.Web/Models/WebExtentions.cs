@@ -151,11 +151,12 @@ namespace Schedure.Web
 
     public static class LOG
     {
-        public static void DebugLog(this object message)
+        public static void DebugLog(this object message, string description = null)
         {
-            Debug.WriteLine("|==========Schedure.Web===========");
+            Debug.WriteLine($">>>>>>>>>>>>>>>>>>{MethodBase.GetCurrentMethod().DeclaringType.Namespace}>>>>>>>>>>>>>>>>>>");
+            Debug.WriteLine($"\t\t[{DateTime.Now}] {description}\t\t");
             Debug.WriteLine(message);
-            Debug.WriteLine("==========Schedure.Web===========|");
+            Debug.WriteLine($"<<<<<<<<<<<<<<<<<{MethodBase.GetCurrentMethod().DeclaringType.Namespace}<<<<<<<<<<<<<<<<<");
         }
     }
 }

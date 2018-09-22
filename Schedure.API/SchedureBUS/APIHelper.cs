@@ -43,7 +43,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, await response.Content.ReadAsAsync<T>());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -54,7 +54,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, await response.Content.ReadAsAsync<T>());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -65,7 +65,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, await response.Content.ReadAsAsync<T>());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -76,7 +76,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, await response.Content.ReadAsAsync<T>());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -90,7 +90,7 @@ namespace SchedureBUS
                 {
                     return new KeyValuePair<bool, T>(true, await response.Content.ReadAsAsync<T>());
                 }
-                response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+                response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
                 return new KeyValuePair<bool, T>(false, default(T));
             }
         }
@@ -106,7 +106,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -117,7 +117,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -128,7 +128,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -139,7 +139,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -153,7 +153,7 @@ namespace SchedureBUS
                 {
                     return new KeyValuePair<bool, T>(true, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
                 }
-                response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+                response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
                 return new KeyValuePair<bool, T>(false, default(T));
             }
         }
@@ -169,7 +169,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<HttpStatusCode, T>(response.StatusCode, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog();
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
             return new KeyValuePair<HttpStatusCode, T>(response.StatusCode, default(T));
         }
 
