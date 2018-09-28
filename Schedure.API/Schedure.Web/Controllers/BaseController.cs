@@ -1,9 +1,5 @@
 ﻿using SchedureBUS;
 using SchedureDTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Schedure.Web.Controllers
@@ -38,5 +34,7 @@ namespace Schedure.Web.Controllers
                 return new AuthenticateBUS().GetAccount(GetToken());
             }
         }
+
     }
+
 }

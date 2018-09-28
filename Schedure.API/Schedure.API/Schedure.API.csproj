@@ -187,18 +187,14 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\BasicAuthenticationAttribute.cs" />
+    <Compile Include="Controllers\ChuyenKhoasController.cs" />
+    <Compile Include="Controllers\KQKBController.cs" />
+    <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Controllers\TimeSlotsController.cs" />
-    <Compile Include="Controllers\PhongKhamsController.cs" />
-    <Compile Include="Controllers\CTToaThuocsController.cs" />
-    <Compile Include="Controllers\DoctorsController.cs" />
-    <Compile Include="Controllers\HistoryKhamBenhsController.cs" />
+    <Compile Include="Controllers\PhongBansController.cs" />
     <Compile Include="Controllers\InfoHospitalsController.cs" />
     <Compile Include="Controllers\RegistersController.cs" />
-    <Compile Include="Controllers\ChuyenKhoasController.cs" />
-    <Compile Include="Controllers\ChucDanhsController.cs" />
-    <Compile Include="Controllers\ThuocsController.cs" />
     <Compile Include="Controllers\LichLamViecsController.cs" />
-    <Compile Include="Controllers\ToaThuocsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -208,26 +204,11 @@
     <Compile Include="Models\Account_NhanVien.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ChucDanh.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ChuyenKhoa.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CTToaThuoc.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DM_BenhNhan.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Doctor.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Encode.cs" />
     <Compile Include="Models\Extentions.cs" />
-    <Compile Include="Models\HistoryKhamBenh.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\InfoHospital.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -251,10 +232,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\NhanVien.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PhongKham.cs">
+    <Compile Include="Models\PhongBan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Position.cs">
@@ -263,22 +241,70 @@
     <Compile Include="Models\Register.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SP_Account_BenhNhan_Insert_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Account_NhanVien_GetAllOrByID_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Account_NhanVien_GetSource_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_BacSi_GetAll_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_BacSi_GetByPhongBan_Id_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_ChuyenKhoa_GetAll_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_DM_BenhNhan_GetByMaYTe_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_DM_PhongBan_GetByPhongBan_Id_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_LayChanDoanKhamLS_KhoangTG_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_LayChanDoanKhamLS_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_LayKetQuaCLS_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_LayNgayKhamTuNgayDenNgay_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_LichLamViec_GetAllOrID_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_LichLamViec_GetAll_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_LichLamViec_GetByPhongBan_Id_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_PhongBan_GetAll_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_PhongBan_GetSource_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SP_Register_GetAllOrBy_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Thuoc.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TimeSlot.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ToaThuoc.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UploadHelper.cs" />

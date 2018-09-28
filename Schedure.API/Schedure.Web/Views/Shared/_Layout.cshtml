@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var acc = Schedure.Web.Models.LoginHelper.GetAccountBN();
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -11,6 +14,7 @@
     <script src="~/Scripts/jQuery.tmpl.min.js"></script>
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -23,10 +27,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Lịch sử Khám bệnh", "Index", "History")</li>
-                    <li>@Html.ActionLink("Lịch sử đăng kí", "Index", "Register")</li>
-                    <li>@Html.ActionLink($"Tài khoản: {Schedure.Web.Models.LoginHelper.GetAccountBN()?.FullName}", "Index", "Account")</li>
-                    <li>@Html.ActionLink("Đăng xuất", "Logout", "Login")</li>
+                    @if (acc != null)
+                    {
+                        <li>@Html.ActionLink("Kết quả khám bệnh", "Index", "KQKB")</li>
+                        <li>@Html.ActionLink("Lịch sử đăng kí", "Index", "Register")</li>
+                        <li>@Html.ActionLink($"{acc?.Email}", "Index", "Account")</li>
+                        <li>@Html.ActionLink("Đăng xuất", "Logout", "Login")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Đăng nhập", "Index", "Login")</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -39,3 +50,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+

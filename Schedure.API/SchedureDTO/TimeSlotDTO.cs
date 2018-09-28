@@ -14,9 +14,17 @@ namespace SchedureDTO
     
     public partial class TimeSlotDTO
     {
+        public TimeSlotDTO()
+        {
+            this.LichLamViecs = new HashSet<LichLamViecDTO>();
+        }
+
         public int IDTimeSlot { get; set; }
         public string Name { get; set; }
         public Nullable<System.TimeSpan> HourStart { get; set; }
         public Nullable<System.TimeSpan> HourEnd { get; set; }
+        public string Status { get; set; }
+
+        public virtual ICollection<LichLamViecDTO> LichLamViecs { get; set; }
     }
 }

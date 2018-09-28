@@ -20,16 +20,82 @@ namespace Schedure.API.Controllers
 
         // GET: api/LichLamViecs
         [ResponseType(typeof(List<LichLamViecDTO>))]
-        [BasicAuthentication]
         public List<LichLamViecDTO> GetLichLamViecs()
         {
-            var lst = new List<LichLamViecDTO>();
-            foreach (var item in db.LichLamViecs)
+            return db.SP_LichLamViec_GetAllOrID(null).Select(q => new LichLamViecDTO
             {
-                lst.Add(ConvertToLichLamViecDTO(item));
-            }
-            return lst;
+                CreaterDate = q.CreaterDate,
+                Creater_Id = q.Creater_Id,
+                Date = q.Date,
+                IDLich = q.IDLich,
+                IDPhongKham = q.IDPhongKham,
+                IDTimeSlot = q.IDTimeSlot,
+                NhanVien_Id = q.NhanVien_Id,
+                Registers = null,
+                Status = q.LichLamViec_Status,
+                TimeSlot = new TimeSlotDTO
+                {
+                    Name = q.Name,
+                    HourEnd = q.HourEnd,
+                    HourStart = q.HourStart,
+                    Status = q.TimeSlot_Status,
+                    IDTimeSlot = q.IDTimeSlot ?? 0,
+                },
+                Doctor = new DoctorDTO
+                {
+                    FullName = q.TenNhanVien,
+                    IDDoctor = q.NhanVien_Id ?? 0,
+                    PhongBan = new PhongBanDTO
+                    {
+                        IDChuyenKhoa = q.IDChuyenKhoa,
+                        TenPhongBan = q.TenPhongBan,
+                        IDPhongBan = q.IDPhongBan,
+                        PhongBan_Id = q.IDPhongBan,
+                        ChuyenKhoa = new ChuyenKhoaDTO
+                        {
+                            IDChuyenKhoa = q.IDChuyenKhoa,
+                            Name = q.ChuyenKhoa_Name
+                        }
+                    }
+                },
+            }).ToList();
         }
+
+        [ResponseType(typeof(List<LichLamViecDTO>))]
+        [HttpPost]
+        public List<LichLamViecDTO> GetByIDPhongBan(int iDPhongBan)
+        {
+            return db.SP_LichLamViec_GetByPhongBan_Id(iDPhongBan).Select(q => new LichLamViecDTO
+            {
+                CreaterDate = q.CreaterDate,
+                Creater_Id = q.Creater_Id,
+                Date = q.Date,
+                IDLich = q.IDLich,
+                IDPhongKham = q.IDPhongKham,
+                IDTimeSlot = q.IDTimeSlot,
+                NhanVien_Id = q.NhanVien_Id,
+                Registers = null,
+                Status = q.LichLamViec_Status,
+                TimeSlot = new TimeSlotDTO
+                {
+                    Name = q.Name,
+                    HourEnd = q.HourEnd,
+                    HourStart = q.HourStart,
+                    Status = q.TimeSlot_Status,
+                    IDTimeSlot = q.IDTimeSlot ?? 0,
+                },
+                Doctor = new DoctorDTO
+                {
+                    FullName = q.TenNhanVien,
+                    IDDoctor = q.NhanVien_Id ?? 0,
+                    PhongBan = new PhongBanDTO
+                    {
+                        IDPhongBan = q.IDPhongKham ?? 0,
+                    }
+                },
+            }).ToList();
+        }
+
 
         public static LichLamViecDTO ConvertToLichLamViecDTO(LichLamViec item)
         {
@@ -37,64 +103,67 @@ namespace Schedure.API.Controllers
             {
                 CreaterDate = item.CreaterDate,
                 Creater_Id = item.Creater_Id,
-                IDDoctor = item.IDDoctor,
+                Date = item.Date,
                 IDLich = item.IDLich,
                 IDTimeSlot = item.IDTimeSlot,
-                Time = item.Time,
+                IDPhongKham = item.IDPhongKham,
+                NhanVien_Id = item.NhanVien_Id,
+                Status = item.Status,
                 TimeSlot = TimeSlotsController.ConvertToTimeSlotDTO(item.TimeSlot),
-                Doctor = DoctorsController.ConvertToDoctorDTO(item.Doctor)
+                Registers = item.Registers.Select(q => RegistersController.ConvertToRegisterDTO(q)).ToList(),
             };
         }
 
         // GET: api/LichLamViecs/5
         [HttpGet]
         [ResponseType(typeof(LichLamViecDTO))]
-        [BasicAuthentication]
-        public async Task<IHttpActionResult> GetLichLamViec(int id)
+        public IHttpActionResult GetLichLamViec(int id)
         {
-            LichLamViec LichLamViec = await db.LichLamViecs.FindAsync(id);
-            if (LichLamViec == null)
-            {
+            var q = db.SP_LichLamViec_GetAllOrID(id).FirstOrDefault();
+            if (q == null)
                 return NotFound();
-            }
-
-            return Ok(ConvertToLichLamViecDTO(LichLamViec));
-        }
-
-        // PUT: api/LichLamViecs/5
-        [AdminAuthentication("SA", "BACSI")]
-        [ResponseType(typeof(string))]
-        public async Task<IHttpActionResult> PutLichLamViec(int id, LichLamViec LichLamViec)
-        {
-            if (id != LichLamViec.IDLich)
+            return Ok(new LichLamViecDTO
             {
-                return BadRequest();
-            }
-
-            db.Entry(LichLamViec).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LichLamViecExists(id))
+                CreaterDate = q.CreaterDate,
+                Creater_Id = q.Creater_Id,
+                Date = q.Date,
+                IDLich = q.IDLich,
+                IDPhongKham = q.IDPhongKham,
+                IDTimeSlot = q.IDTimeSlot,
+                NhanVien_Id = q.NhanVien_Id,
+                Registers = null,
+                Status = q.LichLamViec_Status,
+                TimeSlot = new TimeSlotDTO
                 {
-                    return NotFound();
-                }
-                else
+                    Name = q.Name,
+                    HourEnd = q.HourEnd,
+                    HourStart = q.HourStart,
+                    Status = q.TimeSlot_Status,
+                    IDTimeSlot = q.IDTimeSlot ?? 0,
+                },
+                Doctor = new DoctorDTO
                 {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+                    FullName = q.TenNhanVien,
+                    IDDoctor = q.NhanVien_Id ?? 0,
+                    PhongBan = new PhongBanDTO
+                    {
+                        IDChuyenKhoa = q.IDChuyenKhoa,
+                        TenPhongBan = q.TenPhongBan,
+                        IDPhongBan = q.IDPhongBan,
+                        PhongBan_Id = q.IDPhongBan,
+                        ChuyenKhoa = new ChuyenKhoaDTO
+                        {
+                            IDChuyenKhoa = q.IDChuyenKhoa,
+                            Name = q.ChuyenKhoa_Name
+                        }
+                    }
+                },
+            });
         }
 
         // POST: api/LichLamViecs
         [ResponseType(typeof(string))]
-        [AdminAuthentication("SA", "BACSI")]
+        [AdminAuthentication]
         public async Task<IHttpActionResult> PostLichLamViec(LichLamViec LichLamViec)
         {
             if (!ModelState.IsValid)
@@ -120,11 +189,11 @@ namespace Schedure.API.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = LichLamViec.IDLich }, LichLamViec);
+            return Ok();
         }
 
         // DELETE: api/LichLamViecs/5
-        [AdminAuthentication("SA", "BACSI")]
+        [AdminAuthentication]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> DeleteLichLamViec(int id)
         {

@@ -14,22 +14,15 @@ namespace Schedure.API.Models
     
     public partial class Account_NhanVien
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Account_NhanVien()
-        {
-            this.LichLamViecs = new HashSet<LichLamViec>();
-        }
-    
         public int IDAccountNV { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public Nullable<int> NhanVien_Id { get; set; }
         public string Status { get; set; }
         public Nullable<int> IDPosition { get; set; }
+        public string Token { get; set; }
+        public Nullable<System.DateTime> TokenExpiration { get; set; }
     
-        public virtual NhanVien NhanVien { get; set; }
         public virtual Position Position { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LichLamViec> LichLamViecs { get; set; }
     }
 }

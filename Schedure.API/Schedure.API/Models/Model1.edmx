@@ -12,16 +12,11 @@
           <Property Name="IDAccountBN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
-          <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Male" Type="bit" />
-          <Property Name="Birthday" Type="date" />
-          <Property Name="Adress" Type="nvarchar" MaxLength="50" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="TieuSu" Type="nvarchar(max)" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="BenhNhan_Id" Type="int" />
+          <Property Name="Token" Type="nvarchar" MaxLength="50" />
+          <Property Name="TokenExpiration" Type="datetime" />
         </EntityType>
         <EntityType Name="Account_NhanVien">
           <Key>
@@ -33,15 +28,8 @@
           <Property Name="NhanVien_Id" Type="int" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="IDPosition" Type="int" />
-        </EntityType>
-        <EntityType Name="ChucDanh">
-          <Key>
-            <PropertyRef Name="IDChucDanh" />
-          </Key>
-          <Property Name="IDChucDanh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="500" />
-          <Property Name="MoTa" Type="nvarchar(max)" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Token" Type="nvarchar" MaxLength="50" />
+          <Property Name="TokenExpiration" Type="datetime" />
         </EntityType>
         <EntityType Name="ChuyenKhoa">
           <Key>
@@ -52,75 +40,6 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="TimeUse" Type="int" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="CTToaThuoc">
-          <Key>
-            <PropertyRef Name="IDCT" />
-          </Key>
-          <Property Name="IDCT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDToaThuoc" Type="int" Nullable="false" />
-          <Property Name="IDThuoc" Type="int" />
-          <Property Name="SoLuong" Type="int" />
-          <Property Name="GiaTien" Type="int" />
-        </EntityType>
-        <EntityType Name="DM_BenhNhan">
-          <Key>
-            <PropertyRef Name="BenhNhan_Id" />
-          </Key>
-          <Property Name="BenhNhan_Id" Type="int" Nullable="false" />
-          <Property Name="TenBenhNhan" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Ho" Type="nvarchar" MaxLength="50" />
-          <Property Name="MaYTe" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="GioiTinh" Type="nchar" MaxLength="10" />
-          <Property Name="SoTheBHYT" Type="nchar" MaxLength="10" />
-          <Property Name="SoVaoVien" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="NgaySinh" Type="smalldatetime" />
-          <Property Name="NamSinh" Type="smallint" Nullable="false" />
-          <Property Name="CMND" Type="nchar" MaxLength="10" />
-          <Property Name="TenKhongDau" Type="nchar" MaxLength="50" />
-          <Property Name="GhiChu" Type="nvarchar(max)" />
-          <Property Name="NgayTao" Type="datetime" />
-          <Property Name="NguoiTao_Id" Type="int" />
-          <Property Name="DiaChiThuongTru" Type="nvarchar(max)" />
-          <Property Name="DiaChiLienLac" Type="nvarchar(max)" />
-          <Property Name="SoDienThoai" Type="varchar" MaxLength="30" />
-          <Property Name="DiaChiCoQuan" Type="nvarchar" MaxLength="150" />
-          <Property Name="Ten" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="Doctor">
-          <Key>
-            <PropertyRef Name="IDDoctor" />
-          </Key>
-          <Property Name="IDDoctor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
-          <Property Name="Sumary" Type="nvarchar(max)" />
-          <Property Name="TrainingProcess" Type="nvarchar(max)" />
-          <Property Name="Study" Type="nvarchar(max)" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
-          <Property Name="Male" Type="bit" />
-          <Property Name="IDChucDanh" Type="int" />
-          <Property Name="IDPhongKham" Type="int" />
-        </EntityType>
-        <EntityType Name="HistoryKhamBenh">
-          <Key>
-            <PropertyRef Name="IDHistory" />
-          </Key>
-          <Property Name="IDHistory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDRegister" Type="int" />
-          <Property Name="IDDoctor" Type="int" />
-          <Property Name="ICD" Type="int" />
-          <Property Name="CreateTime" Type="datetime" />
-          <Property Name="Mach" Type="int" />
-          <Property Name="NhipTho" Type="int" />
-          <Property Name="ChieuCao" Type="int" />
-          <Property Name="NhieuDo" Type="int" />
-          <Property Name="HuyetApTT" Type="int" />
-          <Property Name="HuyetApTD" Type="int" />
-          <Property Name="CanNang" Type="int" />
-          <Property Name="TrieuChungLS" Type="nvarchar(max)" />
-          <Property Name="ChuanDoanSoBo" Type="nvarchar(max)" />
-          <Property Name="CachGiaiQuyet" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="InfoHospital">
           <Key>
@@ -140,38 +59,23 @@
             <PropertyRef Name="IDLich" />
           </Key>
           <Property Name="IDLich" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDDoctor" Type="int" />
-          <Property Name="Time" Type="time" Precision="7" />
+          <Property Name="NhanVien_Id" Type="int" />
           <Property Name="IDTimeSlot" Type="int" />
           <Property Name="Creater_Id" Type="int" />
           <Property Name="CreaterDate" Type="datetime" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Status" Type="nchar" MaxLength="10" />
+          <Property Name="IDPhongKham" Type="int" />
         </EntityType>
-        <EntityType Name="NhanVien">
+        <EntityType Name="PhongBan">
           <Key>
-            <PropertyRef Name="NhanVien_Id" />
+            <PropertyRef Name="IDPhongBan" />
           </Key>
-          <Property Name="NhanVien_Id" Type="int" Nullable="false" />
-          <Property Name="MaNhanVien" Type="varchar" MaxLength="20" />
-          <Property Name="Ho" Type="nvarchar" MaxLength="50" />
-          <Property Name="Ten" Type="nvarchar" MaxLength="50" />
-          <Property Name="TenTat" Type="nvarchar" MaxLength="50" />
-          <Property Name="NgaySinh" Type="smalldatetime" />
-          <Property Name="GioiTinh" Type="bit" />
-          <Property Name="CMND" Type="varchar" MaxLength="20" />
-          <Property Name="NguoiTao_Id" Type="int" />
-          <Property Name="NgayTao" Type="datetime" />
-          <Property Name="DiaChi" Type="nvarchar(max)" />
-          <Property Name="TamNgung_Id" Type="bit" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="PhongKham">
-          <Key>
-            <PropertyRef Name="IDPhongKham" />
-          </Key>
-          <Property Name="IDPhongKham" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDPhongBan" Type="int" Nullable="false" />
           <Property Name="IDChuyenKhoa" Type="int" />
+          <Property Name="PhongBan_Id" Type="int" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="TenPhongBan" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Position">
           <Key>
@@ -179,21 +83,32 @@
           </Key>
           <Property Name="IDPosition" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="MoTa" Type="nvarchar" MaxLength="500" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="500" />
+          <Property Name="QL_Bac_Si" Type="bit" />
+          <Property Name="QL_Chuyen_Khoa" Type="bit" />
+          <Property Name="Xem_KQCLS" Type="bit" />
+          <Property Name="QL_Lich_Lam_Viec" Type="bit" />
+          <Property Name="QL_Phong_Ban" Type="bit" />
+          <Property Name="QL_Dang_Ky" Type="bit" />
+          <Property Name="QL_Thoi_Gian_Lam" Type="bit" />
+          <Property Name="QL_Thong_Tin_Benh_Vien" Type="bit" />
         </EntityType>
         <EntityType Name="Register">
           <Key>
             <PropertyRef Name="IDRegister" />
           </Key>
           <Property Name="IDRegister" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDAccount" Type="int" />
+          <Property Name="IDAccountBN" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="Message" Type="nvarchar" MaxLength="500" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="IDLich" Type="int" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="12" Nullable="false" />
           <Property Name="NgayKham" Type="date" />
+          <Property Name="Status_Patient" Type="nvarchar" MaxLength="50" />
+          <Property Name="Patient_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="NhanVien_Id" Type="int" />
+          <Property Name="IDChuyenKhoa" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -205,16 +120,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="Thuoc">
-          <Key>
-            <PropertyRef Name="IDThuoc" />
-          </Key>
-          <Property Name="IDThuoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="DonVi" Type="nvarchar" MaxLength="50" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
-          <Property Name="GiaTien" Type="int" />
-        </EntityType>
         <EntityType Name="TimeSlot">
           <Key>
             <PropertyRef Name="IDTimeSlot" />
@@ -225,41 +130,6 @@
           <Property Name="HourEnd" Type="time" Precision="7" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="ToaThuoc">
-          <Key>
-            <PropertyRef Name="IDToaThuoc" />
-          </Key>
-          <Property Name="IDToaThuoc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDHistory" Type="int" />
-          <Property Name="CachDung" Type="nvarchar" MaxLength="50" />
-          <Property Name="GhiChu" Type="nvarchar" MaxLength="50" />
-          <Property Name="Gia" Type="int" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <Association Name="FK_Account_BenhNhan_DM_BenhNhan">
-          <End Role="DM_BenhNhan" Type="Self.DM_BenhNhan" Multiplicity="0..1" />
-          <End Role="Account_BenhNhan" Type="Self.Account_BenhNhan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_BenhNhan">
-              <PropertyRef Name="BenhNhan_Id" />
-            </Principal>
-            <Dependent Role="Account_BenhNhan">
-              <PropertyRef Name="BenhNhan_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Account_NhanVien_NhanVien">
-          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
-          <End Role="Account_NhanVien" Type="Self.Account_NhanVien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NhanVien">
-              <PropertyRef Name="NhanVien_Id" />
-            </Principal>
-            <Dependent Role="Account_NhanVien">
-              <PropertyRef Name="NhanVien_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Account_NhanVien_Position">
           <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
           <End Role="Account_NhanVien" Type="Self.Account_NhanVien" Multiplicity="*" />
@@ -269,102 +139,6 @@
             </Principal>
             <Dependent Role="Account_NhanVien">
               <PropertyRef Name="IDPosition" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CTToaThuoc_Thuoc">
-          <End Role="Thuoc" Type="Self.Thuoc" Multiplicity="0..1" />
-          <End Role="CTToaThuoc" Type="Self.CTToaThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Thuoc">
-              <PropertyRef Name="IDThuoc" />
-            </Principal>
-            <Dependent Role="CTToaThuoc">
-              <PropertyRef Name="IDThuoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CTToaThuoc_ToaThuoc">
-          <End Role="ToaThuoc" Type="Self.ToaThuoc" Multiplicity="1" />
-          <End Role="CTToaThuoc" Type="Self.CTToaThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ToaThuoc">
-              <PropertyRef Name="IDToaThuoc" />
-            </Principal>
-            <Dependent Role="CTToaThuoc">
-              <PropertyRef Name="IDToaThuoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Doctor_ChucDanh">
-          <End Role="ChucDanh" Type="Self.ChucDanh" Multiplicity="0..1" />
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ChucDanh">
-              <PropertyRef Name="IDChucDanh" />
-            </Principal>
-            <Dependent Role="Doctor">
-              <PropertyRef Name="IDChucDanh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Doctor_PhongKham">
-          <End Role="PhongKham" Type="Self.PhongKham" Multiplicity="0..1" />
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PhongKham">
-              <PropertyRef Name="IDPhongKham" />
-            </Principal>
-            <Dependent Role="Doctor">
-              <PropertyRef Name="IDPhongKham" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HistoryKhamBenh_Doctor">
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
-          <End Role="HistoryKhamBenh" Type="Self.HistoryKhamBenh" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Doctor">
-              <PropertyRef Name="IDDoctor" />
-            </Principal>
-            <Dependent Role="HistoryKhamBenh">
-              <PropertyRef Name="IDDoctor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HistoryKhamBenh_Register">
-          <End Role="Register" Type="Self.Register" Multiplicity="0..1" />
-          <End Role="HistoryKhamBenh" Type="Self.HistoryKhamBenh" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Register">
-              <PropertyRef Name="IDRegister" />
-            </Principal>
-            <Dependent Role="HistoryKhamBenh">
-              <PropertyRef Name="IDRegister" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LichLamViec_Account_NhanVien">
-          <End Role="Account_NhanVien" Type="Self.Account_NhanVien" Multiplicity="0..1" />
-          <End Role="LichLamViec" Type="Self.LichLamViec" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account_NhanVien">
-              <PropertyRef Name="IDAccountNV" />
-            </Principal>
-            <Dependent Role="LichLamViec">
-              <PropertyRef Name="Creater_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LichLamViec_Doctor">
-          <End Role="Doctor" Type="Self.Doctor" Multiplicity="0..1" />
-          <End Role="LichLamViec" Type="Self.LichLamViec" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Doctor">
-              <PropertyRef Name="IDDoctor" />
-            </Principal>
-            <Dependent Role="LichLamViec">
-              <PropertyRef Name="IDDoctor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -382,12 +156,12 @@
         </Association>
         <Association Name="FK_PhongKham_ChuyenKhoa">
           <End Role="ChuyenKhoa" Type="Self.ChuyenKhoa" Multiplicity="0..1" />
-          <End Role="PhongKham" Type="Self.PhongKham" Multiplicity="*" />
+          <End Role="PhongBan" Type="Self.PhongBan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ChuyenKhoa">
               <PropertyRef Name="IDChuyenKhoa" />
             </Principal>
-            <Dependent Role="PhongKham">
+            <Dependent Role="PhongBan">
               <PropertyRef Name="IDChuyenKhoa" />
             </Dependent>
           </ReferentialConstraint>
@@ -400,7 +174,7 @@
               <PropertyRef Name="IDAccountBN" />
             </Principal>
             <Dependent Role="Register">
-              <PropertyRef Name="IDAccount" />
+              <PropertyRef Name="IDAccountBN" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -416,30 +190,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ToaThuoc_HistoryKhamBenh">
-          <End Role="HistoryKhamBenh" Type="Self.HistoryKhamBenh" Multiplicity="0..1" />
-          <End Role="ToaThuoc" Type="Self.ToaThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HistoryKhamBenh">
-              <PropertyRef Name="IDHistory" />
-            </Principal>
-            <Dependent Role="ToaThuoc">
-              <PropertyRef Name="IDHistory" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="SP_Account_BenhNhan_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="MaYTe" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_Account_NhanVien_GetAllOrByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDAccountNV" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Account_NhanVien_GetSource" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_Account_NhanVien_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="MaNhanVien" Type="nvarchar" Mode="In" />
+          <Parameter Name="IDPosition" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
         </Function>
+        <Function Name="SP_BacSi_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_BacSi_GetByPhongBan_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PhongBan_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_ChuyenKhoa_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="version" Type="int" Mode="In" />
           <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="SP_DM_BenhNhan_GetByMaYTe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="MaYTe" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SP_DM_PhongBan_GetByPhongBan_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PhongBan_Id" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -453,6 +240,50 @@
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_LayChanDoanKhamLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="KhamBenh_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_LayKetQuaCLS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="khambenh_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_LayNgayKhamTuNgayDenNgay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="BenhNhan_Id" Type="int" Mode="In" />
+          <Parameter Name="TuNgay" Type="date" Mode="In" />
+          <Parameter Name="DenNgay" Type="date" Mode="In" />
+        </Function>
+        <Function Name="SP_LichLamViec_GetAllOrID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDLich" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_LichLamViec_GetByPhongBan_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PhongBan_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_PhongBan_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_PhongBan_GetSource" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_PhongBan_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDChuyenKhoa" Type="int" Mode="In" />
+          <Parameter Name="PhongBan_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Register_GetAllOrBy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="datetime" Mode="In" />
+          <Parameter Name="end" Type="datetime" Mode="In" />
+          <Parameter Name="Status" Type="nvarchar" Mode="In" />
+          <Parameter Name="IDPhongBan" Type="int" Mode="In" />
+          <Parameter Name="IDRegiter" Type="int" Mode="In" />
+          <Parameter Name="IDAccount" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_Register_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IDAccountBN" Type="int" Mode="In" />
+          <Parameter Name="MaYTe" Type="nvarchar" Mode="In" />
+          <Parameter Name="Message" Type="nvarchar" Mode="In" />
+          <Parameter Name="Status" Type="nvarchar" Mode="In" />
+          <Parameter Name="IDLich" Type="int" Mode="In" />
+          <Parameter Name="Phone" Type="nvarchar" Mode="In" />
+          <Parameter Name="NgayKham" Type="date" Mode="In" />
+          <Parameter Name="Status_Patient" Type="nvarchar" Mode="In" />
+          <Parameter Name="Patient_name" Type="nvarchar" Mode="In" />
+          <Parameter Name="NhanVien_Id" Type="int" Mode="In" />
+          <Parameter Name="IDChuyenKhoa" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -462,65 +293,17 @@
         <EntityContainer Name="SchedureModelStoreContainer">
           <EntitySet Name="Account_BenhNhan" EntityType="Self.Account_BenhNhan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Account_NhanVien" EntityType="Self.Account_NhanVien" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ChucDanh" EntityType="Self.ChucDanh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ChuyenKhoa" EntityType="Self.ChuyenKhoa" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CTToaThuoc" EntityType="Self.CTToaThuoc" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DM_BenhNhan" EntityType="Self.DM_BenhNhan" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="HistoryKhamBenh" EntityType="Self.HistoryKhamBenh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InfoHospital" EntityType="Self.InfoHospital" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LichLamViec" EntityType="Self.LichLamViec" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PhongKham" EntityType="Self.PhongKham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhongBan" EntityType="Self.PhongBan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Register" EntityType="Self.Register" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Thuoc" EntityType="Self.Thuoc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TimeSlot" EntityType="Self.TimeSlot" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ToaThuoc" EntityType="Self.ToaThuoc" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Account_BenhNhan_DM_BenhNhan" Association="Self.FK_Account_BenhNhan_DM_BenhNhan">
-            <End Role="DM_BenhNhan" EntitySet="DM_BenhNhan" />
-            <End Role="Account_BenhNhan" EntitySet="Account_BenhNhan" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Account_NhanVien_NhanVien" Association="Self.FK_Account_NhanVien_NhanVien">
-            <End Role="NhanVien" EntitySet="NhanVien" />
-            <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
-          </AssociationSet>
           <AssociationSet Name="FK_Account_NhanVien_Position" Association="Self.FK_Account_NhanVien_Position">
             <End Role="Position" EntitySet="Position" />
             <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CTToaThuoc_Thuoc" Association="Self.FK_CTToaThuoc_Thuoc">
-            <End Role="Thuoc" EntitySet="Thuoc" />
-            <End Role="CTToaThuoc" EntitySet="CTToaThuoc" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CTToaThuoc_ToaThuoc" Association="Self.FK_CTToaThuoc_ToaThuoc">
-            <End Role="ToaThuoc" EntitySet="ToaThuoc" />
-            <End Role="CTToaThuoc" EntitySet="CTToaThuoc" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Doctor_ChucDanh" Association="Self.FK_Doctor_ChucDanh">
-            <End Role="ChucDanh" EntitySet="ChucDanh" />
-            <End Role="Doctor" EntitySet="Doctor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Doctor_PhongKham" Association="Self.FK_Doctor_PhongKham">
-            <End Role="PhongKham" EntitySet="PhongKham" />
-            <End Role="Doctor" EntitySet="Doctor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HistoryKhamBenh_Doctor" Association="Self.FK_HistoryKhamBenh_Doctor">
-            <End Role="Doctor" EntitySet="Doctor" />
-            <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenh" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HistoryKhamBenh_Register" Association="Self.FK_HistoryKhamBenh_Register">
-            <End Role="Register" EntitySet="Register" />
-            <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenh" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LichLamViec_Account_NhanVien" Association="Self.FK_LichLamViec_Account_NhanVien">
-            <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
-            <End Role="LichLamViec" EntitySet="LichLamViec" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LichLamViec_Doctor" Association="Self.FK_LichLamViec_Doctor">
-            <End Role="Doctor" EntitySet="Doctor" />
-            <End Role="LichLamViec" EntitySet="LichLamViec" />
           </AssociationSet>
           <AssociationSet Name="FK_LichLamViec_TimeSlot" Association="Self.FK_LichLamViec_TimeSlot">
             <End Role="TimeSlot" EntitySet="TimeSlot" />
@@ -528,7 +311,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_PhongKham_ChuyenKhoa" Association="Self.FK_PhongKham_ChuyenKhoa">
             <End Role="ChuyenKhoa" EntitySet="ChuyenKhoa" />
-            <End Role="PhongKham" EntitySet="PhongKham" />
+            <End Role="PhongBan" EntitySet="PhongBan" />
           </AssociationSet>
           <AssociationSet Name="FK_Register_Account" Association="Self.FK_Register_Account">
             <End Role="Account_BenhNhan" EntitySet="Account_BenhNhan" />
@@ -537,10 +320,6 @@
           <AssociationSet Name="FK_Register_LichLamViec" Association="Self.FK_Register_LichLamViec">
             <End Role="LichLamViec" EntitySet="LichLamViec" />
             <End Role="Register" EntitySet="Register" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToaThuoc_HistoryKhamBenh" Association="Self.FK_ToaThuoc_HistoryKhamBenh">
-            <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenh" />
-            <End Role="ToaThuoc" EntitySet="ToaThuoc" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -578,79 +357,89 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="SP_Account_BenhNhan_Insert" ReturnType="Collection(SchedureModel.SP_Account_BenhNhan_Insert_Result)">
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="MaYTe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Account_NhanVien_Insert">
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="MaNhanVien" Mode="In" Type="String" />
+            <Parameter Name="IDPosition" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BacSi_GetByPhongBan_Id" ReturnType="Collection(SchedureModel.SP_BacSi_GetByPhongBan_Id_Result)">
+          <Parameter Name="PhongBan_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ChuyenKhoa_GetAll" ReturnType="Collection(SchedureModel.SP_ChuyenKhoa_GetAll_Result)" />
+          <FunctionImport Name="SP_DM_BenhNhan_GetByMaYTe" ReturnType="Collection(SchedureModel.SP_DM_BenhNhan_GetByMaYTe_Result)">
+          <Parameter Name="MaYTe" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DM_PhongBan_GetByPhongBan_Id" ReturnType="Collection(SchedureModel.SP_DM_PhongBan_GetByPhongBan_Id_Result)">
+          <Parameter Name="PhongBan_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_BacSi_GetAll" ReturnType="Collection(SchedureModel.SP_BacSi_GetAll_Result)" />
+          <FunctionImport Name="SP_PhongBan_GetAll" ReturnType="Collection(SchedureModel.SP_PhongBan_GetAll_Result)" />
+          <FunctionImport Name="SP_PhongBan_GetSource" ReturnType="Collection(SchedureModel.SP_PhongBan_GetSource_Result)" />
+          <FunctionImport Name="SP_LichLamViec_GetByPhongBan_Id" ReturnType="Collection(SchedureModel.SP_LichLamViec_GetByPhongBan_Id_Result)">
+          <Parameter Name="PhongBan_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Register_GetAllOrBy" ReturnType="Collection(SchedureModel.SP_Register_GetAllOrBy_Result)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="Status" Mode="In" Type="String" />
+            <Parameter Name="IDPhongBan" Mode="In" Type="Int32" />
+            <Parameter Name="IDRegiter" Mode="In" Type="Int32" />
+            <Parameter Name="IDAccount" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_LichLamViec_GetAllOrID" ReturnType="Collection(SchedureModel.SP_LichLamViec_GetAllOrID_Result)">
+          <Parameter Name="IDLich" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PhongBan_Insert">
+            <Parameter Name="IDChuyenKhoa" Mode="In" Type="Int32" />
+            <Parameter Name="PhongBan_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Register_Insert">
+            <Parameter Name="IDAccountBN" Mode="In" Type="Int32" />
+            <Parameter Name="MaYTe" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="Status" Mode="In" Type="String" />
+            <Parameter Name="IDLich" Mode="In" Type="Int32" />
+            <Parameter Name="Phone" Mode="In" Type="String" />
+            <Parameter Name="NgayKham" Mode="In" Type="DateTime" />
+            <Parameter Name="Status_Patient" Mode="In" Type="String" />
+            <Parameter Name="Patient_name" Mode="In" Type="String" />
+            <Parameter Name="NhanVien_Id" Mode="In" Type="Int32" />
+            <Parameter Name="IDChuyenKhoa" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_LayNgayKhamTuNgayDenNgay" ReturnType="Collection(SchedureModel.sp_LayNgayKhamTuNgayDenNgay_Result)">
+            <Parameter Name="BenhNhan_Id" Mode="In" Type="Int32" />
+            <Parameter Name="TuNgay" Mode="In" Type="DateTime" />
+            <Parameter Name="DenNgay" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_LayChanDoanKhamLS" ReturnType="Collection(SchedureModel.sp_LayChanDoanKhamLS_Result)">
+          <Parameter Name="KhamBenh_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
           <EntitySet Name="Account_BenhNhan" EntityType="SchedureModel.Account_BenhNhan" />
           <EntitySet Name="Account_NhanVien" EntityType="SchedureModel.Account_NhanVien" />
-          <EntitySet Name="ChucDanhs" EntityType="SchedureModel.ChucDanh" />
           <EntitySet Name="ChuyenKhoas" EntityType="SchedureModel.ChuyenKhoa" />
-          <EntitySet Name="CTToaThuocs" EntityType="SchedureModel.CTToaThuoc" />
-          <EntitySet Name="DM_BenhNhan" EntityType="SchedureModel.DM_BenhNhan" />
-          <EntitySet Name="Doctors" EntityType="SchedureModel.Doctor" />
-          <EntitySet Name="HistoryKhamBenhs" EntityType="SchedureModel.HistoryKhamBenh" />
           <EntitySet Name="InfoHospitals" EntityType="SchedureModel.InfoHospital" />
           <EntitySet Name="LichLamViecs" EntityType="SchedureModel.LichLamViec" />
-          <EntitySet Name="NhanViens" EntityType="SchedureModel.NhanVien" />
-          <EntitySet Name="PhongKhams" EntityType="SchedureModel.PhongKham" />
+          <EntitySet Name="PhongBans" EntityType="SchedureModel.PhongBan" />
           <EntitySet Name="Positions" EntityType="SchedureModel.Position" />
           <EntitySet Name="Registers" EntityType="SchedureModel.Register" />
           <EntitySet Name="sysdiagrams" EntityType="SchedureModel.sysdiagram" />
-          <EntitySet Name="Thuocs" EntityType="SchedureModel.Thuoc" />
           <EntitySet Name="TimeSlots" EntityType="SchedureModel.TimeSlot" />
-          <EntitySet Name="ToaThuocs" EntityType="SchedureModel.ToaThuoc" />
-          <AssociationSet Name="FK_Account_BenhNhan_DM_BenhNhan" Association="SchedureModel.FK_Account_BenhNhan_DM_BenhNhan">
-            <End Role="DM_BenhNhan" EntitySet="DM_BenhNhan" />
-            <End Role="Account_BenhNhan" EntitySet="Account_BenhNhan" />
-          </AssociationSet>
           <AssociationSet Name="FK_Register_Account" Association="SchedureModel.FK_Register_Account">
             <End Role="Account_BenhNhan" EntitySet="Account_BenhNhan" />
             <End Role="Register" EntitySet="Registers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Account_NhanVien_NhanVien" Association="SchedureModel.FK_Account_NhanVien_NhanVien">
-            <End Role="NhanVien" EntitySet="NhanViens" />
-            <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
           </AssociationSet>
           <AssociationSet Name="FK_Account_NhanVien_Position" Association="SchedureModel.FK_Account_NhanVien_Position">
             <End Role="Position" EntitySet="Positions" />
             <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
           </AssociationSet>
-          <AssociationSet Name="FK_LichLamViec_Account_NhanVien" Association="SchedureModel.FK_LichLamViec_Account_NhanVien">
-            <End Role="Account_NhanVien" EntitySet="Account_NhanVien" />
-            <End Role="LichLamViec" EntitySet="LichLamViecs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Doctor_ChucDanh" Association="SchedureModel.FK_Doctor_ChucDanh">
-            <End Role="ChucDanh" EntitySet="ChucDanhs" />
-            <End Role="Doctor" EntitySet="Doctors" />
-          </AssociationSet>
           <AssociationSet Name="FK_PhongKham_ChuyenKhoa" Association="SchedureModel.FK_PhongKham_ChuyenKhoa">
             <End Role="ChuyenKhoa" EntitySet="ChuyenKhoas" />
-            <End Role="PhongKham" EntitySet="PhongKhams" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CTToaThuoc_Thuoc" Association="SchedureModel.FK_CTToaThuoc_Thuoc">
-            <End Role="Thuoc" EntitySet="Thuocs" />
-            <End Role="CTToaThuoc" EntitySet="CTToaThuocs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CTToaThuoc_ToaThuoc" Association="SchedureModel.FK_CTToaThuoc_ToaThuoc">
-            <End Role="ToaThuoc" EntitySet="ToaThuocs" />
-            <End Role="CTToaThuoc" EntitySet="CTToaThuocs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Doctor_PhongKham" Association="SchedureModel.FK_Doctor_PhongKham">
-            <End Role="PhongKham" EntitySet="PhongKhams" />
-            <End Role="Doctor" EntitySet="Doctors" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HistoryKhamBenh_Doctor" Association="SchedureModel.FK_HistoryKhamBenh_Doctor">
-            <End Role="Doctor" EntitySet="Doctors" />
-            <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenhs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LichLamViec_Doctor" Association="SchedureModel.FK_LichLamViec_Doctor">
-            <End Role="Doctor" EntitySet="Doctors" />
-            <End Role="LichLamViec" EntitySet="LichLamViecs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_HistoryKhamBenh_Register" Association="SchedureModel.FK_HistoryKhamBenh_Register">
-            <End Role="Register" EntitySet="Registers" />
-            <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenhs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ToaThuoc_HistoryKhamBenh" Association="SchedureModel.FK_ToaThuoc_HistoryKhamBenh">
-            <End Role="HistoryKhamBenh" EntitySet="HistoryKhamBenhs" />
-            <End Role="ToaThuoc" EntitySet="ToaThuocs" />
+            <End Role="PhongBan" EntitySet="PhongBans" />
           </AssociationSet>
           <AssociationSet Name="FK_LichLamViec_TimeSlot" Association="SchedureModel.FK_LichLamViec_TimeSlot">
             <End Role="TimeSlot" EntitySet="TimeSlots" />
@@ -660,6 +449,13 @@
             <End Role="LichLamViec" EntitySet="LichLamViecs" />
             <End Role="Register" EntitySet="Registers" />
           </AssociationSet>
+          <FunctionImport Name="SP_LayKetQuaCLS" ReturnType="Collection(SchedureModel.SP_LayKetQuaCLS_Result)">
+          <Parameter Name="khambenh_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Account_NhanVien_GetAllOrByID" ReturnType="Collection(SchedureModel.SP_Account_NhanVien_GetAllOrByID_Result)">
+          <Parameter Name="IDAccountNV" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Account_NhanVien_GetSource" ReturnType="Collection(SchedureModel.SP_Account_NhanVien_GetSource_Result)" />
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -672,6 +468,246 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="SP_BacSi_GetByPhongBan_Id_Result">
+          <Property Type="Int32" Name="PhongBan_Id" Nullable="true" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="false" />
+          <Property Type="String" Name="MaNhanVien" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDPhongBan" Nullable="false" />
+          <Property Type="String" Name="PhongBan_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDChuyenKhoa" Nullable="false" />
+          <Property Type="String" Name="ChuyenKhoa_Status" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TimeUse" Nullable="true" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="100" />
+          </ComplexType>
+        <ComplexType Name="SP_ChuyenKhoa_GetAll_Result">
+          <Property Type="Int32" Name="IDChuyenKhoa" Nullable="false" />
+          <Property Type="Int32" Name="PhongBan_Id" Nullable="false" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="false" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDLich" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+          <Property Type="Time" Name="HourStart" Nullable="true" />
+          <Property Type="Time" Name="HourEnd" Nullable="true" />
+          <Property Type="String" Name="ChuyenKhoa_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ChuyenKhoa_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LichLamViec_Status" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="TimeSplot_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TimeSlot_Status" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TimeUse" Nullable="true" />
+          <Property Type="String" Name="Avatar" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_DM_BenhNhan_GetByMaYTe_Result">
+          <Property Type="Int32" Name="BenhNhan_Id" Nullable="false" />
+          <Property Type="String" Name="MaYTe" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="MaBenhVien" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="SoVaoVien" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="TenBenhNhan" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="Ho" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Ten" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="GioiTinh" Nullable="true" MaxLength="1" />
+          <Property Type="DateTime" Name="NgaySinh" Nullable="true" Precision="16" />
+          <Property Type="Int16" Name="NamSinh" Nullable="true" />
+          <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="VietKieu" Nullable="false" />
+          <Property Type="String" Name="CMND" Nullable="true" MaxLength="9" />
+          <Property Type="String" Name="TenKhongDau" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="GhiChu" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TienSuBenh" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ChucVu" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SoThe_BHYT" Nullable="true" MaxLength="25" />
+          <Property Type="DateTime" Name="NgayHieuLuc_BHYT" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="NgayHetHieuLuc_BHYT" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_DM_PhongBan_GetByPhongBan_Id_Result">
+          <Property Type="Int32" Name="PhongBan_Id" Nullable="false" />
+          <Property Type="String" Name="MaPhongBan" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TenKhongDau" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SP_Account_BenhNhan_Insert_Result">
+          <Property Type="Int32" Name="IDAccountBN" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_BacSi_GetAll_Result">
+          <Property Type="Int32" Name="PhongBan_Id" Nullable="true" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="false" />
+          <Property Type="String" Name="MaNhanVien" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDPhongBan" Nullable="false" />
+          <Property Type="String" Name="PhongBan_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDChuyenKhoa" Nullable="false" />
+          <Property Type="String" Name="ChuyenKhoa_Status" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TimeUse" Nullable="true" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="100" />
+          </ComplexType>
+        <ComplexType Name="SP_PhongBan_GetAll_Result">
+          <Property Type="Int32" Name="PhongBan_Id" Nullable="true" />
+          <Property Type="String" Name="MaPhongBan" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TenKhongDau" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDChuyenKhoa" Nullable="false" />
+          <Property Type="Int32" Name="IDPhongBan" Nullable="false" />
+          <Property Type="String" Name="ChuyenKhoa_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhongBan_Status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_PhongBan_GetSource_Result">
+          <Property Type="Int32" Name="PhongBan_Id" Nullable="false" />
+          <Property Type="String" Name="MaPhongBan" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TenKhongDau" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SP_LichLamViec_GetAll_Result">
+          <Property Type="Int32" Name="IDLich" Nullable="false" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="true" />
+          <Property Type="Int32" Name="IDTimeSlot" Nullable="true" />
+          <Property Type="Int32" Name="Creater_Id" Nullable="true" />
+          <Property Type="DateTime" Name="CreaterDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LichLamViec_Status" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="IDPhongKham" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Time" Name="HourStart" Nullable="true" />
+          <Property Type="Time" Name="HourEnd" Nullable="true" />
+          <Property Type="String" Name="TimeSlot_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PhongBan_Id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_LichLamViec_GetByPhongBan_Id_Result">
+          <Property Type="Int32" Name="IDLich" Nullable="false" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="true" />
+          <Property Type="Int32" Name="IDTimeSlot" Nullable="true" />
+          <Property Type="Int32" Name="Creater_Id" Nullable="true" />
+          <Property Type="DateTime" Name="CreaterDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LichLamViec_Status" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="IDPhongKham" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Time" Name="HourStart" Nullable="true" />
+          <Property Type="Time" Name="HourEnd" Nullable="true" />
+          <Property Type="String" Name="TimeSlot_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PhongBan_Id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_Register_GetAllOrBy_Result">
+          <Property Type="Int32" Name="IDRegister" Nullable="false" />
+          <Property Type="Int32" Name="IDAccountBN" Nullable="true" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Message" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDLich" Nullable="false" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="12" />
+          <Property Type="DateTime" Name="NgayKham" Nullable="true" />
+          <Property Type="String" Name="Status_Patient" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Patient_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="true" />
+          <Property Type="Int32" Name="IDChuyenKhoa" Nullable="true" />
+          <Property Type="String" Name="ChuyenKhoa_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LichLamViec_Status" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="IDPhongKham" Nullable="true" />
+          <Property Type="String" Name="TimeSlot_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Time" Name="HourStart" Nullable="true" />
+          <Property Type="Time" Name="HourEnd" Nullable="true" />
+          <Property Type="String" Name="TimeSlot_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_LichLamViec_GetAllOrID_Result">
+          <Property Type="Int32" Name="IDLich" Nullable="false" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="true" />
+          <Property Type="Int32" Name="IDTimeSlot" Nullable="true" />
+          <Property Type="Int32" Name="Creater_Id" Nullable="true" />
+          <Property Type="DateTime" Name="CreaterDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LichLamViec_Status" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="IDPhongKham" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="Time" Name="HourStart" Nullable="true" />
+          <Property Type="Time" Name="HourEnd" Nullable="true" />
+          <Property Type="String" Name="TimeSlot_Status" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="PhongBan_Id" Nullable="true" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDPhongBan" Nullable="false" />
+          <Property Type="String" Name="ChuyenKhoa_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDChuyenKhoa" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_LayNgayKhamTuNgayDenNgay_Result">
+          <Property Type="String" Name="TenBenhNhan" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="MaYTe" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Tuoi" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="GioiTinh" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SoDienThoai" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="ThoiGianKham" Nullable="true" Precision="23" />
+          <Property Type="String" Name="TrieuChungLamSang" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="HuyetAp" Nullable="true" MaxLength="9" />
+          <Property Type="Int16" Name="Mach" Nullable="true" />
+          <Property Type="Decimal" Name="NhietDo" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="Int16" Name="NhipTho" Nullable="true" />
+          <Property Type="Decimal" Name="ChieuCao" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="CanNang" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="String" Name="SoBHYT" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="NguoiLienHe" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NgayHenTaiKham" Nullable="true" MaxLength="65" />
+          <Property Type="Int32" Name="KhamBenh_Id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_LayChanDoanKhamLS_KhoangTG_Result">
+          <Property Type="String" Name="TenBenhNhan" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="MaYTe" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Tuoi" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="GioiTinh" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SoDienThoai" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="ThoiGianKham" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NoiDungKham" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TrieuChungLamSang" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ChanDoanKhoaKham" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="HuyetAp" Nullable="true" MaxLength="9" />
+          <Property Type="Int16" Name="Mach" Nullable="true" />
+          <Property Type="Decimal" Name="NhietDo" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="Int16" Name="NhipTho" Nullable="true" />
+          <Property Type="Decimal" Name="ChieuCao" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="CanNang" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="String" Name="SoBHYT" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="NguoiLienHe" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NgayHenTaiKham" Nullable="true" MaxLength="65" />
+          <Property Type="String" Name="MaBenh" Nullable="true" MaxLength="223" />
+          <Property Type="String" Name="MaBenhPhu" Nullable="true" MaxLength="223" />
+        </ComplexType>
+        <ComplexType Name="sp_LayChanDoanKhamLS_Result">
+          <Property Type="String" Name="TenBenhNhan" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="MaYTe" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Tuoi" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="GioiTinh" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="DiaChi" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="SoDienThoai" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="ThoiGianKham" Nullable="true" Precision="23" />
+          <Property Type="String" Name="NoiDungKham" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TrieuChungLamSang" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ChanDoanKhoaKham" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="TenPhongBan" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="HuyetAp" Nullable="true" MaxLength="9" />
+          <Property Type="Int16" Name="Mach" Nullable="true" />
+          <Property Type="Decimal" Name="NhietDo" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="Int16" Name="NhipTho" Nullable="true" />
+          <Property Type="Decimal" Name="ChieuCao" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="Decimal" Name="CanNang" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="String" Name="SoBHYT" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="NguoiLienHe" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="NgayHenTaiKham" Nullable="true" MaxLength="65" />
+          <Property Type="String" Name="MaBenh" Nullable="true" MaxLength="223" />
+          <Property Type="String" Name="MaBenhPhu" Nullable="true" MaxLength="223" />
+          <Property Type="String" Name="SoVaoVien" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="BenhNhan_Id" Nullable="true" />
+        </ComplexType>
         <EntityType Name="Account_BenhNhan">
           <Key>
             <PropertyRef Name="IDAccountBN" />
@@ -679,17 +715,11 @@
           <Property Name="IDAccountBN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Male" Type="Boolean" />
-          <Property Name="Birthday" Type="DateTime" Precision="0" />
-          <Property Name="Adress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TieuSu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BenhNhan_Id" Type="Int32" />
-          <NavigationProperty Name="DM_BenhNhan" Relationship="SchedureModel.FK_Account_BenhNhan_DM_BenhNhan" FromRole="Account_BenhNhan" ToRole="DM_BenhNhan" />
+          <Property Name="Token" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TokenExpiration" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Registers" Relationship="SchedureModel.FK_Register_Account" FromRole="Account_BenhNhan" ToRole="Register" />
         </EntityType>
         <EntityType Name="Account_NhanVien">
@@ -702,19 +732,9 @@
           <Property Name="NhanVien_Id" Type="Int32" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IDPosition" Type="Int32" />
-          <NavigationProperty Name="NhanVien" Relationship="SchedureModel.FK_Account_NhanVien_NhanVien" FromRole="Account_NhanVien" ToRole="NhanVien" />
+          <Property Name="Token" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TokenExpiration" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Position" Relationship="SchedureModel.FK_Account_NhanVien_Position" FromRole="Account_NhanVien" ToRole="Position" />
-          <NavigationProperty Name="LichLamViecs" Relationship="SchedureModel.FK_LichLamViec_Account_NhanVien" FromRole="Account_NhanVien" ToRole="LichLamViec" />
-        </EntityType>
-        <EntityType Name="ChucDanh">
-          <Key>
-            <PropertyRef Name="IDChucDanh" />
-          </Key>
-          <Property Name="IDChucDanh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Doctors" Relationship="SchedureModel.FK_Doctor_ChucDanh" FromRole="ChucDanh" ToRole="Doctor" />
         </EntityType>
         <EntityType Name="ChuyenKhoa">
           <Key>
@@ -725,86 +745,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TimeUse" Type="Int32" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PhongKhams" Relationship="SchedureModel.FK_PhongKham_ChuyenKhoa" FromRole="ChuyenKhoa" ToRole="PhongKham" />
-        </EntityType>
-        <EntityType Name="CTToaThuoc">
-          <Key>
-            <PropertyRef Name="IDCT" />
-          </Key>
-          <Property Name="IDCT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDToaThuoc" Type="Int32" Nullable="false" />
-          <Property Name="IDThuoc" Type="Int32" />
-          <Property Name="SoLuong" Type="Int32" />
-          <Property Name="GiaTien" Type="Int32" />
-          <NavigationProperty Name="Thuoc" Relationship="SchedureModel.FK_CTToaThuoc_Thuoc" FromRole="CTToaThuoc" ToRole="Thuoc" />
-          <NavigationProperty Name="ToaThuoc" Relationship="SchedureModel.FK_CTToaThuoc_ToaThuoc" FromRole="CTToaThuoc" ToRole="ToaThuoc" />
-        </EntityType>
-        <EntityType Name="DM_BenhNhan">
-          <Key>
-            <PropertyRef Name="BenhNhan_Id" />
-          </Key>
-          <Property Name="BenhNhan_Id" Type="Int32" Nullable="false" />
-          <Property Name="TenBenhNhan" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Ho" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaYTe" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="SoTheBHYT" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="SoVaoVien" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
-          <Property Name="NamSinh" Type="Int16" Nullable="false" />
-          <Property Name="CMND" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="TenKhongDau" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NgayTao" Type="DateTime" Precision="3" />
-          <Property Name="NguoiTao_Id" Type="Int32" />
-          <Property Name="DiaChiThuongTru" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DiaChiLienLac" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SoDienThoai" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="DiaChiCoQuan" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Account_BenhNhan" Relationship="SchedureModel.FK_Account_BenhNhan_DM_BenhNhan" FromRole="DM_BenhNhan" ToRole="Account_BenhNhan" />
-        </EntityType>
-        <EntityType Name="Doctor">
-          <Key>
-            <PropertyRef Name="IDDoctor" />
-          </Key>
-          <Property Name="IDDoctor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Sumary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TrainingProcess" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Study" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Male" Type="Boolean" />
-          <Property Name="IDChucDanh" Type="Int32" />
-          <Property Name="IDPhongKham" Type="Int32" />
-          <NavigationProperty Name="ChucDanh" Relationship="SchedureModel.FK_Doctor_ChucDanh" FromRole="Doctor" ToRole="ChucDanh" />
-          <NavigationProperty Name="PhongKham" Relationship="SchedureModel.FK_Doctor_PhongKham" FromRole="Doctor" ToRole="PhongKham" />
-          <NavigationProperty Name="HistoryKhamBenhs" Relationship="SchedureModel.FK_HistoryKhamBenh_Doctor" FromRole="Doctor" ToRole="HistoryKhamBenh" />
-          <NavigationProperty Name="LichLamViecs" Relationship="SchedureModel.FK_LichLamViec_Doctor" FromRole="Doctor" ToRole="LichLamViec" />
-        </EntityType>
-        <EntityType Name="HistoryKhamBenh">
-          <Key>
-            <PropertyRef Name="IDHistory" />
-          </Key>
-          <Property Name="IDHistory" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDRegister" Type="Int32" />
-          <Property Name="IDDoctor" Type="Int32" />
-          <Property Name="ICD" Type="Int32" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <Property Name="Mach" Type="Int32" />
-          <Property Name="NhipTho" Type="Int32" />
-          <Property Name="ChieuCao" Type="Int32" />
-          <Property Name="NhieuDo" Type="Int32" />
-          <Property Name="HuyetApTT" Type="Int32" />
-          <Property Name="HuyetApTD" Type="Int32" />
-          <Property Name="CanNang" Type="Int32" />
-          <Property Name="TrieuChungLS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ChuanDoanSoBo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CachGiaiQuyet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Doctor" Relationship="SchedureModel.FK_HistoryKhamBenh_Doctor" FromRole="HistoryKhamBenh" ToRole="Doctor" />
-          <NavigationProperty Name="Register" Relationship="SchedureModel.FK_HistoryKhamBenh_Register" FromRole="HistoryKhamBenh" ToRole="Register" />
-          <NavigationProperty Name="ToaThuocs" Relationship="SchedureModel.FK_ToaThuoc_HistoryKhamBenh" FromRole="HistoryKhamBenh" ToRole="ToaThuoc" />
+          <NavigationProperty Name="PhongBans" Relationship="SchedureModel.FK_PhongKham_ChuyenKhoa" FromRole="ChuyenKhoa" ToRole="PhongBan" />
         </EntityType>
         <EntityType Name="InfoHospital">
           <Key>
@@ -824,45 +765,26 @@
             <PropertyRef Name="IDLich" />
           </Key>
           <Property Name="IDLich" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDDoctor" Type="Int32" />
-          <Property Name="Time" Type="Time" Precision="7" />
+          <Property Name="NhanVien_Id" Type="Int32" />
           <Property Name="IDTimeSlot" Type="Int32" />
           <Property Name="Creater_Id" Type="Int32" />
           <Property Name="CreaterDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Account_NhanVien" Relationship="SchedureModel.FK_LichLamViec_Account_NhanVien" FromRole="LichLamViec" ToRole="Account_NhanVien" />
-          <NavigationProperty Name="Doctor" Relationship="SchedureModel.FK_LichLamViec_Doctor" FromRole="LichLamViec" ToRole="Doctor" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IDPhongKham" Type="Int32" />
           <NavigationProperty Name="TimeSlot" Relationship="SchedureModel.FK_LichLamViec_TimeSlot" FromRole="LichLamViec" ToRole="TimeSlot" />
           <NavigationProperty Name="Registers" Relationship="SchedureModel.FK_Register_LichLamViec" FromRole="LichLamViec" ToRole="Register" />
         </EntityType>
-        <EntityType Name="NhanVien">
+        <EntityType Name="PhongBan">
           <Key>
-            <PropertyRef Name="NhanVien_Id" />
+            <PropertyRef Name="IDPhongBan" />
           </Key>
-          <Property Name="NhanVien_Id" Type="Int32" Nullable="false" />
-          <Property Name="MaNhanVien" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Ho" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TenTat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
-          <Property Name="GioiTinh" Type="Boolean" />
-          <Property Name="CMND" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="NguoiTao_Id" Type="Int32" />
-          <Property Name="NgayTao" Type="DateTime" Precision="3" />
-          <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TamNgung_Id" Type="Boolean" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Account_NhanVien" Relationship="SchedureModel.FK_Account_NhanVien_NhanVien" FromRole="NhanVien" ToRole="Account_NhanVien" />
-        </EntityType>
-        <EntityType Name="PhongKham">
-          <Key>
-            <PropertyRef Name="IDPhongKham" />
-          </Key>
-          <Property Name="IDPhongKham" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IDPhongBan" Type="Int32" Nullable="false" />
           <Property Name="IDChuyenKhoa" Type="Int32" />
+          <Property Name="PhongBan_Id" Type="Int32" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ChuyenKhoa" Relationship="SchedureModel.FK_PhongKham_ChuyenKhoa" FromRole="PhongKham" ToRole="ChuyenKhoa" />
-          <NavigationProperty Name="Doctors" Relationship="SchedureModel.FK_Doctor_PhongKham" FromRole="PhongKham" ToRole="Doctor" />
+          <Property Name="TenPhongBan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ChuyenKhoa" Relationship="SchedureModel.FK_PhongKham_ChuyenKhoa" FromRole="PhongBan" ToRole="ChuyenKhoa" />
         </EntityType>
         <EntityType Name="Position">
           <Key>
@@ -870,8 +792,15 @@
           </Key>
           <Property Name="IDPosition" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MoTa" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="QL_Bac_Si" Type="Boolean" />
+          <Property Name="QL_Chuyen_Khoa" Type="Boolean" />
+          <Property Name="Xem_KQCLS" Type="Boolean" />
+          <Property Name="QL_Lich_Lam_Viec" Type="Boolean" />
+          <Property Name="QL_Phong_Ban" Type="Boolean" />
+          <Property Name="QL_Dang_Ky" Type="Boolean" />
+          <Property Name="QL_Thoi_Gian_Lam" Type="Boolean" />
+          <Property Name="QL_Thong_Tin_Benh_Vien" Type="Boolean" />
           <NavigationProperty Name="Account_NhanVien" Relationship="SchedureModel.FK_Account_NhanVien_Position" FromRole="Position" ToRole="Account_NhanVien" />
         </EntityType>
         <EntityType Name="Register">
@@ -879,15 +808,18 @@
             <PropertyRef Name="IDRegister" />
           </Key>
           <Property Name="IDRegister" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDAccount" Type="Int32" />
+          <Property Name="IDAccountBN" Type="Int32" />
           <Property Name="CreateDate" Type="DateTime" Precision="3" />
           <Property Name="Message" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IDLich" Type="Int32" Nullable="false" />
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
           <Property Name="NgayKham" Type="DateTime" Precision="0" />
+          <Property Name="Status_Patient" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patient_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NhanVien_Id" Type="Int32" />
+          <Property Name="IDChuyenKhoa" Type="Int32" />
           <NavigationProperty Name="Account_BenhNhan" Relationship="SchedureModel.FK_Register_Account" FromRole="Register" ToRole="Account_BenhNhan" />
-          <NavigationProperty Name="HistoryKhamBenhs" Relationship="SchedureModel.FK_HistoryKhamBenh_Register" FromRole="Register" ToRole="HistoryKhamBenh" />
           <NavigationProperty Name="LichLamViec" Relationship="SchedureModel.FK_Register_LichLamViec" FromRole="Register" ToRole="LichLamViec" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -900,17 +832,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="Thuoc">
-          <Key>
-            <PropertyRef Name="IDThuoc" />
-          </Key>
-          <Property Name="IDThuoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DonVi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GiaTien" Type="Int32" />
-          <NavigationProperty Name="CTToaThuocs" Relationship="SchedureModel.FK_CTToaThuoc_Thuoc" FromRole="Thuoc" ToRole="CTToaThuoc" />
-        </EntityType>
         <EntityType Name="TimeSlot">
           <Key>
             <PropertyRef Name="IDTimeSlot" />
@@ -922,31 +843,6 @@
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LichLamViecs" Relationship="SchedureModel.FK_LichLamViec_TimeSlot" FromRole="TimeSlot" ToRole="LichLamViec" />
         </EntityType>
-        <EntityType Name="ToaThuoc">
-          <Key>
-            <PropertyRef Name="IDToaThuoc" />
-          </Key>
-          <Property Name="IDToaThuoc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDHistory" Type="Int32" />
-          <Property Name="CachDung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GhiChu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Gia" Type="Int32" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="CTToaThuocs" Relationship="SchedureModel.FK_CTToaThuoc_ToaThuoc" FromRole="ToaThuoc" ToRole="CTToaThuoc" />
-          <NavigationProperty Name="HistoryKhamBenh" Relationship="SchedureModel.FK_ToaThuoc_HistoryKhamBenh" FromRole="ToaThuoc" ToRole="HistoryKhamBenh" />
-        </EntityType>
-        <Association Name="FK_Account_BenhNhan_DM_BenhNhan">
-          <End Type="SchedureModel.DM_BenhNhan" Role="DM_BenhNhan" Multiplicity="0..1" />
-          <End Type="SchedureModel.Account_BenhNhan" Role="Account_BenhNhan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DM_BenhNhan">
-              <PropertyRef Name="BenhNhan_Id" />
-            </Principal>
-            <Dependent Role="Account_BenhNhan">
-              <PropertyRef Name="BenhNhan_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Register_Account">
           <End Type="SchedureModel.Account_BenhNhan" Role="Account_BenhNhan" Multiplicity="0..1" />
           <End Type="SchedureModel.Register" Role="Register" Multiplicity="*" />
@@ -955,19 +851,7 @@
               <PropertyRef Name="IDAccountBN" />
             </Principal>
             <Dependent Role="Register">
-              <PropertyRef Name="IDAccount" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Account_NhanVien_NhanVien">
-          <End Type="SchedureModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
-          <End Type="SchedureModel.Account_NhanVien" Role="Account_NhanVien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NhanVien">
-              <PropertyRef Name="NhanVien_Id" />
-            </Principal>
-            <Dependent Role="Account_NhanVien">
-              <PropertyRef Name="NhanVien_Id" />
+              <PropertyRef Name="IDAccountBN" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -983,123 +867,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LichLamViec_Account_NhanVien">
-          <End Type="SchedureModel.Account_NhanVien" Role="Account_NhanVien" Multiplicity="0..1" />
-          <End Type="SchedureModel.LichLamViec" Role="LichLamViec" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Account_NhanVien">
-              <PropertyRef Name="IDAccountNV" />
-            </Principal>
-            <Dependent Role="LichLamViec">
-              <PropertyRef Name="Creater_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Doctor_ChucDanh">
-          <End Type="SchedureModel.ChucDanh" Role="ChucDanh" Multiplicity="0..1" />
-          <End Type="SchedureModel.Doctor" Role="Doctor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ChucDanh">
-              <PropertyRef Name="IDChucDanh" />
-            </Principal>
-            <Dependent Role="Doctor">
-              <PropertyRef Name="IDChucDanh" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PhongKham_ChuyenKhoa">
           <End Type="SchedureModel.ChuyenKhoa" Role="ChuyenKhoa" Multiplicity="0..1" />
-          <End Type="SchedureModel.PhongKham" Role="PhongKham" Multiplicity="*" />
+          <End Type="SchedureModel.PhongBan" Role="PhongBan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ChuyenKhoa">
               <PropertyRef Name="IDChuyenKhoa" />
             </Principal>
-            <Dependent Role="PhongKham">
+            <Dependent Role="PhongBan">
               <PropertyRef Name="IDChuyenKhoa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CTToaThuoc_Thuoc">
-          <End Type="SchedureModel.Thuoc" Role="Thuoc" Multiplicity="0..1" />
-          <End Type="SchedureModel.CTToaThuoc" Role="CTToaThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Thuoc">
-              <PropertyRef Name="IDThuoc" />
-            </Principal>
-            <Dependent Role="CTToaThuoc">
-              <PropertyRef Name="IDThuoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CTToaThuoc_ToaThuoc">
-          <End Type="SchedureModel.ToaThuoc" Role="ToaThuoc" Multiplicity="1" />
-          <End Type="SchedureModel.CTToaThuoc" Role="CTToaThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ToaThuoc">
-              <PropertyRef Name="IDToaThuoc" />
-            </Principal>
-            <Dependent Role="CTToaThuoc">
-              <PropertyRef Name="IDToaThuoc" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Doctor_PhongKham">
-          <End Type="SchedureModel.PhongKham" Role="PhongKham" Multiplicity="0..1" />
-          <End Type="SchedureModel.Doctor" Role="Doctor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PhongKham">
-              <PropertyRef Name="IDPhongKham" />
-            </Principal>
-            <Dependent Role="Doctor">
-              <PropertyRef Name="IDPhongKham" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HistoryKhamBenh_Doctor">
-          <End Type="SchedureModel.Doctor" Role="Doctor" Multiplicity="0..1" />
-          <End Type="SchedureModel.HistoryKhamBenh" Role="HistoryKhamBenh" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Doctor">
-              <PropertyRef Name="IDDoctor" />
-            </Principal>
-            <Dependent Role="HistoryKhamBenh">
-              <PropertyRef Name="IDDoctor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LichLamViec_Doctor">
-          <End Type="SchedureModel.Doctor" Role="Doctor" Multiplicity="0..1" />
-          <End Type="SchedureModel.LichLamViec" Role="LichLamViec" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Doctor">
-              <PropertyRef Name="IDDoctor" />
-            </Principal>
-            <Dependent Role="LichLamViec">
-              <PropertyRef Name="IDDoctor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_HistoryKhamBenh_Register">
-          <End Type="SchedureModel.Register" Role="Register" Multiplicity="0..1" />
-          <End Type="SchedureModel.HistoryKhamBenh" Role="HistoryKhamBenh" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Register">
-              <PropertyRef Name="IDRegister" />
-            </Principal>
-            <Dependent Role="HistoryKhamBenh">
-              <PropertyRef Name="IDRegister" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ToaThuoc_HistoryKhamBenh">
-          <End Type="SchedureModel.HistoryKhamBenh" Role="HistoryKhamBenh" Multiplicity="0..1" />
-          <End Type="SchedureModel.ToaThuoc" Role="ToaThuoc" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="HistoryKhamBenh">
-              <PropertyRef Name="IDHistory" />
-            </Principal>
-            <Dependent Role="ToaThuoc">
-              <PropertyRef Name="IDHistory" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1127,6 +903,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="SP_Account_NhanVien_GetAllOrByID_Result">
+          <Property Type="Int32" Name="IDAccountNV" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDPosition" Nullable="true" />
+          <Property Type="String" Name="Token" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="TokenExpiration" Nullable="true" Precision="23" />
+          <Property Type="String" Name="MaNhanVien" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Position_Status" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_Account_NhanVien_GetSource_Result">
+          <Property Type="String" Name="MaNhanVien" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_LayKetQuaCLS_Result">
+          <Property Type="String" Name="NoiDung" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="KetQua" Nullable="true" />
+          <Property Type="String" Name="CSBT" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="TienSu" Nullable="true" />
+          <Property Type="String" Name="DonViTinh" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="TenNhomDichVu" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="mo_ta" Nullable="true" />
+          <Property Type="String" Name="ket_luan" Nullable="true" />
+          <Property Type="DateTime" Name="ngay_kq" Nullable="true" Precision="23" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1157,19 +963,269 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="SchedureModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="SchedureModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="SP_Account_BenhNhan_Insert" FunctionName="SchedureModel.Store.SP_Account_BenhNhan_Insert" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_Account_BenhNhan_Insert_Result">
+                <ScalarProperty Name="IDAccountBN" ColumnName="IDAccountBN" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Account_NhanVien_Insert" FunctionName="SchedureModel.Store.SP_Account_NhanVien_Insert" />
+          <FunctionImportMapping FunctionImportName="SP_BacSi_GetByPhongBan_Id" FunctionName="SchedureModel.Store.SP_BacSi_GetByPhongBan_Id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_BacSi_GetByPhongBan_Id_Result">
+                <ScalarProperty Name="PhongBan_Id" ColumnName="PhongBan_Id" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+                <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="IDPhongBan" ColumnName="IDPhongBan" />
+                <ScalarProperty Name="PhongBan_Status" ColumnName="PhongBan_Status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
+                <ScalarProperty Name="ChuyenKhoa_Status" ColumnName="ChuyenKhoa_Status" />
+                <ScalarProperty Name="TimeUse" ColumnName="TimeUse" />
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_ChuyenKhoa_GetAll" FunctionName="SchedureModel.Store.SP_ChuyenKhoa_GetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_ChuyenKhoa_GetAll_Result">
+                <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
+                <ScalarProperty Name="PhongBan_Id" ColumnName="PhongBan_Id" />
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="IDLich" ColumnName="IDLich" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="HourStart" ColumnName="HourStart" />
+                <ScalarProperty Name="HourEnd" ColumnName="HourEnd" />
+                <ScalarProperty Name="ChuyenKhoa_Name" ColumnName="ChuyenKhoa_Name" />
+                <ScalarProperty Name="ChuyenKhoa_Status" ColumnName="ChuyenKhoa_Status" />
+                <ScalarProperty Name="LichLamViec_Status" ColumnName="LichLamViec_Status" />
+                <ScalarProperty Name="TimeSplot_Name" ColumnName="TimeSplot_Name" />
+                <ScalarProperty Name="TimeSlot_Status" ColumnName="TimeSlot_Status" />
+                <ScalarProperty Name="TimeUse" ColumnName="TimeUse" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_DM_BenhNhan_GetByMaYTe" FunctionName="SchedureModel.Store.SP_DM_BenhNhan_GetByMaYTe">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_DM_BenhNhan_GetByMaYTe_Result">
+                <ScalarProperty Name="BenhNhan_Id" ColumnName="BenhNhan_Id" />
+                <ScalarProperty Name="MaYTe" ColumnName="MaYTe" />
+                <ScalarProperty Name="MaBenhVien" ColumnName="MaBenhVien" />
+                <ScalarProperty Name="SoVaoVien" ColumnName="SoVaoVien" />
+                <ScalarProperty Name="TenBenhNhan" ColumnName="TenBenhNhan" />
+                <ScalarProperty Name="Ho" ColumnName="Ho" />
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="NamSinh" ColumnName="NamSinh" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="VietKieu" ColumnName="VietKieu" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="TenKhongDau" ColumnName="TenKhongDau" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="TienSuBenh" ColumnName="TienSuBenh" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
+                <ScalarProperty Name="SoThe_BHYT" ColumnName="SoThe_BHYT" />
+                <ScalarProperty Name="NgayHieuLuc_BHYT" ColumnName="NgayHieuLuc_BHYT" />
+                <ScalarProperty Name="NgayHetHieuLuc_BHYT" ColumnName="NgayHetHieuLuc_BHYT" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_DM_PhongBan_GetByPhongBan_Id" FunctionName="SchedureModel.Store.SP_DM_PhongBan_GetByPhongBan_Id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_DM_PhongBan_GetByPhongBan_Id_Result">
+                <ScalarProperty Name="PhongBan_Id" ColumnName="PhongBan_Id" />
+                <ScalarProperty Name="MaPhongBan" ColumnName="MaPhongBan" />
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
+                <ScalarProperty Name="TenKhongDau" ColumnName="TenKhongDau" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_BacSi_GetAll" FunctionName="SchedureModel.Store.SP_BacSi_GetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_BacSi_GetAll_Result">
+                <ScalarProperty Name="PhongBan_Id" ColumnName="PhongBan_Id" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+                <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="IDPhongBan" ColumnName="IDPhongBan" />
+                <ScalarProperty Name="PhongBan_Status" ColumnName="PhongBan_Status" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
+                <ScalarProperty Name="ChuyenKhoa_Status" ColumnName="ChuyenKhoa_Status" />
+                <ScalarProperty Name="TimeUse" ColumnName="TimeUse" />
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_PhongBan_GetAll" FunctionName="SchedureModel.Store.SP_PhongBan_GetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_PhongBan_GetAll_Result">
+                <ScalarProperty Name="PhongBan_Id" ColumnName="PhongBan_Id" />
+                <ScalarProperty Name="MaPhongBan" ColumnName="MaPhongBan" />
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
+                <ScalarProperty Name="TenKhongDau" ColumnName="TenKhongDau" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
+                <ScalarProperty Name="IDPhongBan" ColumnName="IDPhongBan" />
+                <ScalarProperty Name="ChuyenKhoa_Status" ColumnName="ChuyenKhoa_Status" />
+                <ScalarProperty Name="PhongBan_Status" ColumnName="PhongBan_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_PhongBan_GetSource" FunctionName="SchedureModel.Store.SP_PhongBan_GetSource">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_PhongBan_GetSource_Result">
+                <ScalarProperty Name="PhongBan_Id" ColumnName="PhongBan_Id" />
+                <ScalarProperty Name="MaPhongBan" ColumnName="MaPhongBan" />
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
+                <ScalarProperty Name="TenKhongDau" ColumnName="TenKhongDau" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_LichLamViec_GetByPhongBan_Id" FunctionName="SchedureModel.Store.SP_LichLamViec_GetByPhongBan_Id">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_LichLamViec_GetByPhongBan_Id_Result">
+                <ScalarProperty Name="IDLich" ColumnName="IDLich" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+                <ScalarProperty Name="IDTimeSlot" ColumnName="IDTimeSlot" />
+                <ScalarProperty Name="Creater_Id" ColumnName="Creater_Id" />
+                <ScalarProperty Name="CreaterDate" ColumnName="CreaterDate" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="LichLamViec_Status" ColumnName="LichLamViec_Status" />
+                <ScalarProperty Name="IDPhongKham" ColumnName="IDPhongKham" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HourStart" ColumnName="HourStart" />
+                <ScalarProperty Name="HourEnd" ColumnName="HourEnd" />
+                <ScalarProperty Name="TimeSlot_Status" ColumnName="TimeSlot_Status" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="PhongBan_Id" ColumnName="PhongBan_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Register_GetAllOrBy" FunctionName="SchedureModel.Store.SP_Register_GetAllOrBy">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_Register_GetAllOrBy_Result">
+                <ScalarProperty Name="IDRegister" ColumnName="IDRegister" />
+                <ScalarProperty Name="IDAccountBN" ColumnName="IDAccountBN" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IDLich" ColumnName="IDLich" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="NgayKham" ColumnName="NgayKham" />
+                <ScalarProperty Name="Status_Patient" ColumnName="Status_Patient" />
+                <ScalarProperty Name="Patient_name" ColumnName="Patient_name" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+                <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
+                <ScalarProperty Name="ChuyenKhoa_Name" ColumnName="ChuyenKhoa_Name" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="LichLamViec_Status" ColumnName="LichLamViec_Status" />
+                <ScalarProperty Name="IDPhongKham" ColumnName="IDPhongKham" />
+                <ScalarProperty Name="TimeSlot_Name" ColumnName="TimeSlot_Name" />
+                <ScalarProperty Name="HourStart" ColumnName="HourStart" />
+                <ScalarProperty Name="HourEnd" ColumnName="HourEnd" />
+                <ScalarProperty Name="TimeSlot_Status" ColumnName="TimeSlot_Status" />
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_LichLamViec_GetAllOrID" FunctionName="SchedureModel.Store.SP_LichLamViec_GetAllOrID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_LichLamViec_GetAllOrID_Result">
+                <ScalarProperty Name="IDLich" ColumnName="IDLich" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+                <ScalarProperty Name="IDTimeSlot" ColumnName="IDTimeSlot" />
+                <ScalarProperty Name="Creater_Id" ColumnName="Creater_Id" />
+                <ScalarProperty Name="CreaterDate" ColumnName="CreaterDate" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="LichLamViec_Status" ColumnName="LichLamViec_Status" />
+                <ScalarProperty Name="IDPhongKham" ColumnName="IDPhongKham" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HourStart" ColumnName="HourStart" />
+                <ScalarProperty Name="HourEnd" ColumnName="HourEnd" />
+                <ScalarProperty Name="TimeSlot_Status" ColumnName="TimeSlot_Status" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="PhongBan_Id" ColumnName="PhongBan_Id" />
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
+                <ScalarProperty Name="IDPhongBan" ColumnName="IDPhongBan" />
+                <ScalarProperty Name="ChuyenKhoa_Name" ColumnName="ChuyenKhoa_Name" />
+                <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_PhongBan_Insert" FunctionName="SchedureModel.Store.SP_PhongBan_Insert" />
+          <FunctionImportMapping FunctionImportName="SP_Register_Insert" FunctionName="SchedureModel.Store.SP_Register_Insert" />
+          <FunctionImportMapping FunctionImportName="sp_LayNgayKhamTuNgayDenNgay" FunctionName="SchedureModel.Store.sp_LayNgayKhamTuNgayDenNgay" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.sp_LayNgayKhamTuNgayDenNgay_Result">
+                <ScalarProperty Name="TenBenhNhan" ColumnName="TenBenhNhan" />
+                <ScalarProperty Name="MaYTe" ColumnName="MaYTe" />
+                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="ThoiGianKham" ColumnName="ThoiGianKham" />
+                <ScalarProperty Name="TrieuChungLamSang" ColumnName="TrieuChungLamSang" />
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
+                <ScalarProperty Name="HuyetAp" ColumnName="HuyetAp" />
+                <ScalarProperty Name="Mach" ColumnName="Mach" />
+                <ScalarProperty Name="NhietDo" ColumnName="NhietDo" />
+                <ScalarProperty Name="NhipTho" ColumnName="NhipTho" />
+                <ScalarProperty Name="ChieuCao" ColumnName="ChieuCao" />
+                <ScalarProperty Name="CanNang" ColumnName="CanNang" />
+                <ScalarProperty Name="SoBHYT" ColumnName="SoBHYT" />
+                <ScalarProperty Name="NguoiLienHe" ColumnName="NguoiLienHe" />
+                <ScalarProperty Name="NgayHenTaiKham" ColumnName="NgayHenTaiKham" />
+                <ScalarProperty Name="KhamBenh_Id" ColumnName="KhamBenh_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_LayChanDoanKhamLS" FunctionName="SchedureModel.Store.sp_LayChanDoanKhamLS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.sp_LayChanDoanKhamLS_Result">
+                <ScalarProperty Name="TenBenhNhan" ColumnName="TenBenhNhan" />
+                <ScalarProperty Name="MaYTe" ColumnName="MaYTe" />
+                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
+                <ScalarProperty Name="ThoiGianKham" ColumnName="ThoiGianKham" />
+                <ScalarProperty Name="NoiDungKham" ColumnName="NoiDungKham" />
+                <ScalarProperty Name="TrieuChungLamSang" ColumnName="TrieuChungLamSang" />
+                <ScalarProperty Name="ChanDoanKhoaKham" ColumnName="ChanDoanKhoaKham" />
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
+                <ScalarProperty Name="HuyetAp" ColumnName="HuyetAp" />
+                <ScalarProperty Name="Mach" ColumnName="Mach" />
+                <ScalarProperty Name="NhietDo" ColumnName="NhietDo" />
+                <ScalarProperty Name="NhipTho" ColumnName="NhipTho" />
+                <ScalarProperty Name="ChieuCao" ColumnName="ChieuCao" />
+                <ScalarProperty Name="CanNang" ColumnName="CanNang" />
+                <ScalarProperty Name="SoBHYT" ColumnName="SoBHYT" />
+                <ScalarProperty Name="NguoiLienHe" ColumnName="NguoiLienHe" />
+                <ScalarProperty Name="NgayHenTaiKham" ColumnName="NgayHenTaiKham" />
+                <ScalarProperty Name="MaBenh" ColumnName="MaBenh" />
+                <ScalarProperty Name="MaBenhPhu" ColumnName="MaBenhPhu" />
+                <ScalarProperty Name="SoVaoVien" ColumnName="SoVaoVien" />
+                <ScalarProperty Name="BenhNhan_Id" ColumnName="BenhNhan_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="Account_BenhNhan">
             <EntityTypeMapping TypeName="SchedureModel.Account_BenhNhan">
               <MappingFragment StoreEntitySet="Account_BenhNhan">
+                <ScalarProperty Name="TokenExpiration" ColumnName="TokenExpiration" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
                 <ScalarProperty Name="BenhNhan_Id" ColumnName="BenhNhan_Id" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TieuSu" ColumnName="TieuSu" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Adress" ColumnName="Adress" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Male" ColumnName="Male" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="IDAccountBN" ColumnName="IDAccountBN" />
@@ -1179,22 +1235,14 @@
           <EntitySetMapping Name="Account_NhanVien">
             <EntityTypeMapping TypeName="SchedureModel.Account_NhanVien">
               <MappingFragment StoreEntitySet="Account_NhanVien">
+                <ScalarProperty Name="TokenExpiration" ColumnName="TokenExpiration" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
                 <ScalarProperty Name="IDPosition" ColumnName="IDPosition" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="IDAccountNV" ColumnName="IDAccountNV" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ChucDanhs">
-            <EntityTypeMapping TypeName="SchedureModel.ChucDanh">
-              <MappingFragment StoreEntitySet="ChucDanh">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IDChucDanh" ColumnName="IDChucDanh" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1206,79 +1254,6 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Avatar" ColumnName="Avatar" />
                 <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CTToaThuocs">
-            <EntityTypeMapping TypeName="SchedureModel.CTToaThuoc">
-              <MappingFragment StoreEntitySet="CTToaThuoc">
-                <ScalarProperty Name="GiaTien" ColumnName="GiaTien" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="IDThuoc" ColumnName="IDThuoc" />
-                <ScalarProperty Name="IDToaThuoc" ColumnName="IDToaThuoc" />
-                <ScalarProperty Name="IDCT" ColumnName="IDCT" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DM_BenhNhan">
-            <EntityTypeMapping TypeName="SchedureModel.DM_BenhNhan">
-              <MappingFragment StoreEntitySet="DM_BenhNhan">
-                <ScalarProperty Name="Ten" ColumnName="Ten" />
-                <ScalarProperty Name="DiaChiCoQuan" ColumnName="DiaChiCoQuan" />
-                <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-                <ScalarProperty Name="DiaChiLienLac" ColumnName="DiaChiLienLac" />
-                <ScalarProperty Name="DiaChiThuongTru" ColumnName="DiaChiThuongTru" />
-                <ScalarProperty Name="NguoiTao_Id" ColumnName="NguoiTao_Id" />
-                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
-                <ScalarProperty Name="TenKhongDau" ColumnName="TenKhongDau" />
-                <ScalarProperty Name="CMND" ColumnName="CMND" />
-                <ScalarProperty Name="NamSinh" ColumnName="NamSinh" />
-                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-                <ScalarProperty Name="SoVaoVien" ColumnName="SoVaoVien" />
-                <ScalarProperty Name="SoTheBHYT" ColumnName="SoTheBHYT" />
-                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-                <ScalarProperty Name="MaYTe" ColumnName="MaYTe" />
-                <ScalarProperty Name="Ho" ColumnName="Ho" />
-                <ScalarProperty Name="TenBenhNhan" ColumnName="TenBenhNhan" />
-                <ScalarProperty Name="BenhNhan_Id" ColumnName="BenhNhan_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Doctors">
-            <EntityTypeMapping TypeName="SchedureModel.Doctor">
-              <MappingFragment StoreEntitySet="Doctor">
-                <ScalarProperty Name="IDPhongKham" ColumnName="IDPhongKham" />
-                <ScalarProperty Name="IDChucDanh" ColumnName="IDChucDanh" />
-                <ScalarProperty Name="Male" ColumnName="Male" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Study" ColumnName="Study" />
-                <ScalarProperty Name="TrainingProcess" ColumnName="TrainingProcess" />
-                <ScalarProperty Name="Sumary" ColumnName="Sumary" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="FullName" ColumnName="FullName" />
-                <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="HistoryKhamBenhs">
-            <EntityTypeMapping TypeName="SchedureModel.HistoryKhamBenh">
-              <MappingFragment StoreEntitySet="HistoryKhamBenh">
-                <ScalarProperty Name="CachGiaiQuyet" ColumnName="CachGiaiQuyet" />
-                <ScalarProperty Name="ChuanDoanSoBo" ColumnName="ChuanDoanSoBo" />
-                <ScalarProperty Name="TrieuChungLS" ColumnName="TrieuChungLS" />
-                <ScalarProperty Name="CanNang" ColumnName="CanNang" />
-                <ScalarProperty Name="HuyetApTD" ColumnName="HuyetApTD" />
-                <ScalarProperty Name="HuyetApTT" ColumnName="HuyetApTT" />
-                <ScalarProperty Name="NhieuDo" ColumnName="NhieuDo" />
-                <ScalarProperty Name="ChieuCao" ColumnName="ChieuCao" />
-                <ScalarProperty Name="NhipTho" ColumnName="NhipTho" />
-                <ScalarProperty Name="Mach" ColumnName="Mach" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="ICD" ColumnName="ICD" />
-                <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
-                <ScalarProperty Name="IDRegister" ColumnName="IDRegister" />
-                <ScalarProperty Name="IDHistory" ColumnName="IDHistory" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1299,49 +1274,40 @@
           <EntitySetMapping Name="LichLamViecs">
             <EntityTypeMapping TypeName="SchedureModel.LichLamViec">
               <MappingFragment StoreEntitySet="LichLamViec">
+                <ScalarProperty Name="IDPhongKham" ColumnName="IDPhongKham" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="CreaterDate" ColumnName="CreaterDate" />
                 <ScalarProperty Name="Creater_Id" ColumnName="Creater_Id" />
                 <ScalarProperty Name="IDTimeSlot" ColumnName="IDTimeSlot" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="IDDoctor" ColumnName="IDDoctor" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
                 <ScalarProperty Name="IDLich" ColumnName="IDLich" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="NhanViens">
-            <EntityTypeMapping TypeName="SchedureModel.NhanVien">
-              <MappingFragment StoreEntitySet="NhanVien">
+          <EntitySetMapping Name="PhongBans">
+            <EntityTypeMapping TypeName="SchedureModel.PhongBan">
+              <MappingFragment StoreEntitySet="PhongBan">
+                <ScalarProperty Name="TenPhongBan" ColumnName="TenPhongBan" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TamNgung_Id" ColumnName="TamNgung_Id" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
-                <ScalarProperty Name="NguoiTao_Id" ColumnName="NguoiTao_Id" />
-                <ScalarProperty Name="CMND" ColumnName="CMND" />
-                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
-                <ScalarProperty Name="TenTat" ColumnName="TenTat" />
-                <ScalarProperty Name="Ten" ColumnName="Ten" />
-                <ScalarProperty Name="Ho" ColumnName="Ho" />
-                <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
-                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PhongKhams">
-            <EntityTypeMapping TypeName="SchedureModel.PhongKham">
-              <MappingFragment StoreEntitySet="PhongKham">
-                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PhongBan_Id" ColumnName="PhongBan_Id" />
                 <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IDPhongKham" ColumnName="IDPhongKham" />
+                <ScalarProperty Name="IDPhongBan" ColumnName="IDPhongBan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Positions">
             <EntityTypeMapping TypeName="SchedureModel.Position">
               <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="QL_Thong_Tin_Benh_Vien" ColumnName="QL_Thong_Tin_Benh_Vien" />
+                <ScalarProperty Name="QL_Thoi_Gian_Lam" ColumnName="QL_Thoi_Gian_Lam" />
+                <ScalarProperty Name="QL_Dang_Ky" ColumnName="QL_Dang_Ky" />
+                <ScalarProperty Name="QL_Phong_Ban" ColumnName="QL_Phong_Ban" />
+                <ScalarProperty Name="QL_Lich_Lam_Viec" ColumnName="QL_Lich_Lam_Viec" />
+                <ScalarProperty Name="Xem_KQCLS" ColumnName="Xem_KQCLS" />
+                <ScalarProperty Name="QL_Chuyen_Khoa" ColumnName="QL_Chuyen_Khoa" />
+                <ScalarProperty Name="QL_Bac_Si" ColumnName="QL_Bac_Si" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="MoTa" ColumnName="MoTa" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IDPosition" ColumnName="IDPosition" />
               </MappingFragment>
@@ -1350,13 +1316,17 @@
           <EntitySetMapping Name="Registers">
             <EntityTypeMapping TypeName="SchedureModel.Register">
               <MappingFragment StoreEntitySet="Register">
+                <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+                <ScalarProperty Name="Patient_name" ColumnName="Patient_name" />
+                <ScalarProperty Name="Status_Patient" ColumnName="Status_Patient" />
                 <ScalarProperty Name="NgayKham" ColumnName="NgayKham" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="IDLich" ColumnName="IDLich" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="IDAccount" ColumnName="IDAccount" />
+                <ScalarProperty Name="IDAccountBN" ColumnName="IDAccountBN" />
                 <ScalarProperty Name="IDRegister" ColumnName="IDRegister" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1372,17 +1342,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Thuocs">
-            <EntityTypeMapping TypeName="SchedureModel.Thuoc">
-              <MappingFragment StoreEntitySet="Thuoc">
-                <ScalarProperty Name="GiaTien" ColumnName="GiaTien" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="DonVi" ColumnName="DonVi" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IDThuoc" ColumnName="IDThuoc" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TimeSlots">
             <EntityTypeMapping TypeName="SchedureModel.TimeSlot">
               <MappingFragment StoreEntitySet="TimeSlot">
@@ -1394,18 +1353,48 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ToaThuocs">
-            <EntityTypeMapping TypeName="SchedureModel.ToaThuoc">
-              <MappingFragment StoreEntitySet="ToaThuoc">
+          <FunctionImportMapping FunctionImportName="SP_LayKetQuaCLS" FunctionName="SchedureModel.Store.SP_LayKetQuaCLS" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_LayKetQuaCLS_Result">
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="KetQua" ColumnName="KetQua" />
+                <ScalarProperty Name="CSBT" ColumnName="CSBT" />
+                <ScalarProperty Name="TienSu" ColumnName="TienSu" />
+                <ScalarProperty Name="DonViTinh" ColumnName="DonViTinh" />
+                <ScalarProperty Name="TenNhomDichVu" ColumnName="TenNhomDichVu" />
+                <ScalarProperty Name="mo_ta" ColumnName="mo_ta" />
+                <ScalarProperty Name="ket_luan" ColumnName="ket_luan" />
+                <ScalarProperty Name="ngay_kq" ColumnName="ngay_kq" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Account_NhanVien_GetAllOrByID" FunctionName="SchedureModel.Store.SP_Account_NhanVien_GetAllOrByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_Account_NhanVien_GetAllOrByID_Result">
+                <ScalarProperty Name="IDAccountNV" ColumnName="IDAccountNV" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Gia" ColumnName="Gia" />
-                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
-                <ScalarProperty Name="CachDung" ColumnName="CachDung" />
-                <ScalarProperty Name="IDHistory" ColumnName="IDHistory" />
-                <ScalarProperty Name="IDToaThuoc" ColumnName="IDToaThuoc" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+                <ScalarProperty Name="IDPosition" ColumnName="IDPosition" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="TokenExpiration" ColumnName="TokenExpiration" />
+                <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Position_Status" ColumnName="Position_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Account_NhanVien_GetSource" FunctionName="SchedureModel.Store.SP_Account_NhanVien_GetSource">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_Account_NhanVien_GetSource_Result">
+                <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

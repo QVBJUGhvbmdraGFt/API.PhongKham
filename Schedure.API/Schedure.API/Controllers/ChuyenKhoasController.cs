@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -20,15 +19,13 @@ namespace Schedure.API.Controllers
         private SchedureEntities db = new SchedureEntities();
 
         // GET: api/ChuyenKhoas
-        [BasicAuthentication]
+        [AdminAuthentication]
         [ResponseType(typeof(List<ChuyenKhoaDTO>))]
-        public List<ChuyenKhoaDTO> GetChuyenKhoas()
+        public List<ChuyenKhoaDTO> NVJoinAllChuyenKhoa()
         {
             try
             {
-                var data = db.ChuyenKhoas.Where(q => q.Status != "DELETE").ToList();
-                var res = data.Select(q => ConvertToChuyenKhoaDTOFull(q)).ToList();
-                return res;
+                return GetJoin();
             }
             catch (Exception ex)
             {
@@ -38,15 +35,19 @@ namespace Schedure.API.Controllers
         }
 
         [AdminAuthentication]
-        [HttpGet]
         [ResponseType(typeof(List<ChuyenKhoaDTO>))]
-        public List<ChuyenKhoaDTO> NVGetAll()
+        public List<ChuyenKhoaDTO> NVAllChuyenKhoa()
         {
             try
             {
-                var data = db.ChuyenKhoas.Where(q => q.Status != "DELETE").ToList();
-                var res = data.Select(q => ConvertToChuyenKhoaDTOFull(q)).ToList();
-                return res;
+                return db.ChuyenKhoas.ToList().Select(q => new ChuyenKhoaDTO
+                {
+                    Avatar = q.Avatar,
+                    IDChuyenKhoa = q.IDChuyenKhoa,
+                    Name = q.Name,
+                    Status = q.Status,
+                    TimeUse = q.TimeUse,
+                }).ToList();
             }
             catch (Exception ex)
             {
@@ -55,57 +56,115 @@ namespace Schedure.API.Controllers
             }
         }
 
-        public static ChuyenKhoaDTO ConvertToChuyenKhoaDTO(ChuyenKhoa item)
+        [ResponseType(typeof(List<ChuyenKhoaDTO>))]
+        [HttpPost]
+        public List<ChuyenKhoaDTO> JoinAllChuyenKhoa()
         {
-            if (item == null) return null;
-            return new ChuyenKhoaDTO
+            try
             {
-                Avatar = item.Avatar,
-                IDChuyenKhoa = item.IDChuyenKhoa,
-                Name = item.Name,
-                TimeUse = item.TimeUse,
-                Status = item.Status,
-            };
+                var data = GetJoin();
+                return data;
+            }
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+                return null;
+            }
         }
 
-        public static ChuyenKhoaDTO ConvertToChuyenKhoaDTOFull(ChuyenKhoa item)
+        public static List<ChuyenKhoaDTO> GetJoin()
         {
-            if (item == null) return null;
-            var obj = ConvertToChuyenKhoaDTO(item);
-            obj.PhongKhams = item.PhongKhams.ToList().Select(q => PhongKhamsController.ConvertToPhongKhamDTOFull(q)).ToList();
-            return obj;
+            var data = new SchedureEntities().SP_ChuyenKhoa_GetAll().ToList();
+            List<ChuyenKhoaDTO> lst = new List<ChuyenKhoaDTO>();
+            foreach (var gr in data.GroupBy(q => q.IDChuyenKhoa))
+            {
+                var first = gr.First();
+                ChuyenKhoaDTO chuyenKhoa = new ChuyenKhoaDTO()
+                {
+                    IDChuyenKhoa = first.IDChuyenKhoa,
+                    Avatar = first.Avatar,
+                    Name = first.ChuyenKhoa_Name,
+                    PhongBans = new List<PhongBanDTO>(),
+                    Status = first.ChuyenKhoa_Status,
+                    TimeUse = first.TimeUse,
+                };
+
+                foreach (var pb in gr.GroupBy(q => q.PhongBan_Id))
+                {
+                    var pb_first = pb.First();
+                    var phongban = new PhongBanDTO()
+                    {
+                        IDChuyenKhoa = pb_first.IDChuyenKhoa,
+                        IDPhongBan = pb_first.PhongBan_Id,
+                        TenPhongBan = pb_first.TenPhongBan,
+                        PhongBan_Id = pb_first.PhongBan_Id,
+                        Doctors = new List<DoctorDTO>(),
+                        Status = "ACTIVE",
+                    };
+
+                    foreach (var bs in pb.GroupBy(q => q.NhanVien_Id))
+                    {
+                        var bs_first = bs.First();
+
+                        var bacsi = new DoctorDTO
+                        {
+                            IDDoctor = bs_first.NhanVien_Id,
+                            FullName = bs_first.TenNhanVien,
+                            LichLamViecs = new HashSet<LichLamViecDTO>(),
+                        };
+
+                        foreach (var lich in bs)
+                        {
+                            LichLamViecDTO lichLamViec = new LichLamViecDTO
+                            {
+                                IDLich = lich.IDLich,
+                                Status = lich.LichLamViec_Status,
+                                Date = lich.Date,
+                                TimeSlot = new TimeSlotDTO
+                                {
+                                    HourEnd = lich.HourEnd,
+                                    HourStart = lich.HourStart,
+                                    Name = lich.TimeSplot_Name,
+                                    Status = lich.TimeSlot_Status,
+                                }
+                            };
+                            bacsi.LichLamViecs.Add(lichLamViec);
+                        }
+
+                        phongban.Doctors.Add(bacsi);
+                    }
+
+                    chuyenKhoa.PhongBans.Add(phongban);
+                }
+
+                lst.Add(chuyenKhoa);
+            }
+            return lst;
         }
 
-        // GET: api/ChuyenKhoas/5
-        [ResponseType(typeof(ChuyenKhoaDTO))]
-        [BasicAuthentication]
+        // GET: api/ChuyenKhoas1/5
+        [ResponseType(typeof(ChuyenKhoa))]
         public async Task<IHttpActionResult> GetChuyenKhoa(int id)
         {
-            ChuyenKhoa ChuyenKhoa = await db.ChuyenKhoas.FindAsync(id);
-            if (ChuyenKhoa == null)
+            ChuyenKhoa chuyenKhoa = await db.ChuyenKhoas.FindAsync(id);
+            if (chuyenKhoa == null)
             {
                 return NotFound();
             }
 
-            return Ok(ConvertToChuyenKhoaDTO(ChuyenKhoa));
+            return Ok(chuyenKhoa);
         }
 
-        // PUT: api/ChuyenKhoas/5
-        [AdminAuthentication("SA", "BACSI")]
-        [ResponseType(typeof(string))]
-        public async Task<IHttpActionResult> PutChuyenKhoa(int id, ChuyenKhoa ChuyenKhoa)
+        // PUT: api/ChuyenKhoas1/5
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutChuyenKhoa(int id, ChuyenKhoa chuyenKhoa)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != ChuyenKhoa.IDChuyenKhoa)
+            if (id != chuyenKhoa.IDChuyenKhoa)
             {
                 return BadRequest();
             }
 
-            db.Entry(ChuyenKhoa).State = EntityState.Modified;
+            db.Entry(chuyenKhoa).State = EntityState.Modified;
 
             try
             {
@@ -126,52 +185,39 @@ namespace Schedure.API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/ChuyenKhoas
-        [AdminAuthentication("SA", "BACSI")]
-        [ResponseType(typeof(string))]
-        public async Task<IHttpActionResult> PostChuyenKhoa(ChuyenKhoa ChuyenKhoa)
+        // POST: api/ChuyenKhoas1
+        [ResponseType(typeof(bool))]
+        [AdminAuthentication]
+        public async Task<IHttpActionResult> PostChuyenKhoa(ChuyenKhoa chuyenKhoa)
         {
-            if (!ModelState.IsValid)
+            chuyenKhoa = new ChuyenKhoa
             {
-                return BadRequest(ModelState);
-            }
+                Avatar = "",
+                IDChuyenKhoa = 0,
+                Name = chuyenKhoa.Name,
+                PhongBans = null,
+                Status = "ACTIVE",
+                TimeUse = null
+            };
 
-            db.ChuyenKhoas.Add(ChuyenKhoa);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (ChuyenKhoaExists(ChuyenKhoa.IDChuyenKhoa))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = ChuyenKhoa.IDChuyenKhoa }, ChuyenKhoa);
+            db.ChuyenKhoas.Add(chuyenKhoa);
+            return Ok(await db.SaveChangesAsync() > 0);
         }
 
-        // DELETE: api/ChuyenKhoas/5
-        [AdminAuthentication("SA", "BACSI")]
-        [ResponseType(typeof(string))]
+        // DELETE: api/ChuyenKhoas1/5
+        [ResponseType(typeof(ChuyenKhoa))]
         public async Task<IHttpActionResult> DeleteChuyenKhoa(int id)
         {
-            ChuyenKhoa ChuyenKhoa = await db.ChuyenKhoas.FindAsync(id);
-            if (ChuyenKhoa == null)
+            ChuyenKhoa chuyenKhoa = await db.ChuyenKhoas.FindAsync(id);
+            if (chuyenKhoa == null)
             {
                 return NotFound();
             }
 
-            db.ChuyenKhoas.Remove(ChuyenKhoa);
+            db.ChuyenKhoas.Remove(chuyenKhoa);
             await db.SaveChangesAsync();
 
-            return Ok(ChuyenKhoa);
+            return Ok(chuyenKhoa);
         }
 
         protected override void Dispose(bool disposing)

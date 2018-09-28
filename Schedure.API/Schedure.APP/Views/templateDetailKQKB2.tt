@@ -1,0 +1,245 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+
+<style>
+    table {
+        width: 100%;
+        text-align: center;
+    }
+
+    td {
+        padding: 5px;
+    }
+</style>
+<h2>KẾT QUẢ KHÁM BỆNH</h2>
+
+<p>
+    <fieldset>
+        <legend>
+            THÔNG TIN PHÒNG KHÁM
+        </legend>
+        <table class="table" border="1">
+            <tr>
+                <td>
+                    TenPhongBan
+                </td>
+                <td>
+                    ThoiGianKham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <#	Write(Model.TenPhongBan); #>
+                </td>
+                <td>
+                    <#	Write(Model.ThoiGianKham); #>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</p>
+
+
+<p>
+    <fieldset>
+        <legend>
+           Bệnh nhân: <#	Write(Model.TenBenhNhan); #>
+        </legend>
+        <table class="table" border="1">
+            <tr>
+                <td>
+                    Tuổi: <br /> <#	Write(Model.Tuoi); #>
+                </td>
+                <td>
+                    Giới tính:<br />  <#	Write(Model.GioiTinh); #>
+                </td>
+                <td>
+                    Mã y tế:<br /> <#	Write(Model.MaYTe); #>
+                </td>
+                <td>
+                    Số BHYT:<br /> <#	Write(Model.SoBHYT); #>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    SDT:<br /> <#	Write(Model.SoDienThoai); #>
+                </td>
+                <td colspan="3">
+                    Địa chỉ:<br /> <#	Write(Model.DiaChi); #>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</p>
+
+
+<p>
+    <fieldset>
+        <legend>CHỈ SỐ KHÁM</legend>
+        <table class="table" border="1">
+            <tr>
+                <td>
+                    Cân nặng
+                </td>
+                <td>
+                    Chiều cao
+                </td>
+                <td>
+                    Huyết áp
+                </td>
+                <td>
+                    Mạch
+                </td>
+                <td>
+                    Nhiệt độ
+                </td>
+                <td>
+                    Nhịp thở
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <#	Write(Model.CanNang); #>
+                </td>
+                <td>
+                    <#	Write(Model.ChieuCao); #>
+                </td>
+                <td>
+                    <#	Write(Model.HuyetAp); #>
+                </td>
+                <td>
+                    <#	Write(Model.Mach); #>
+                </td>
+                <td>
+                    <#	Write(Model.NhietDo); #>
+                </td>
+                <td>
+                    <#	Write(Model.NhipTho); #>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</p>
+
+
+<p>
+    <fieldset>
+        <legend>CHUẨN ĐOÁN</legend>
+        <table class="table" border="1">
+            <tr>
+                <td>
+                    TrieuChungLamSang
+                </td>
+                <td>
+                    ChanDoanKhoaKham
+                </td>
+                <td>
+                    MaBenh
+                </td>
+                <td>
+                    MaBenhPhu
+                </td>
+                <td>
+                    NgayHenTaiKham
+                </td>
+                <td>
+                    NoiDungKham
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <#	Write(Model.TrieuChungLamSang); #>
+                </td>
+                <td>
+                    <#	Write(Model.ChanDoanKhoaKham); #>
+                </td>
+                <td>
+                    <#	Write(Model.MaBenh); #>
+                </td>
+                <td>
+                    <#	Write(Model.MaBenhPhu); #>
+                </td>
+                <td>
+                    <#	Write(Model.NgayHenTaiKham); #>
+                </td>
+                <td>
+                    <#	Write(Model.NoiDungKham); #>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</p>
+
+<p>
+    <fieldset>
+        <legend>
+            KẾT QUẢ CHUẨN LÂM SÀN
+        </legend>
+        <table class="table" border="1">
+            <tr>
+                <td>
+                    CSBT
+                </td>
+                <td>
+                    DonViTinh
+                </td>
+                <td>
+                    KetQua
+                </td>
+                <td>
+                    ket_luan
+                </td>
+                <td>
+                    mo_ta
+                </td>
+                <td>
+                    ngay_kq
+                </td>
+                <td>
+                    NoiDung
+                </td>
+                <td>
+                    TenNhomDichVu
+                </td>
+                <td>
+                    TienSu
+                </td>
+            </tr>
+            <#	foreach (var cls in Model.KetQuaCLS)
+	{ #>
+                <tr>
+                    <td>
+                        <#=			cls.CSBT #>
+                    </td>
+                    <td>
+                        <#=			cls.DonViTinh #>
+                    </td>
+                    <td>
+                        <#=			cls.KetQua #>
+                    </td>
+                    <td>
+                        <#=			cls.ket_luan #>
+                    </td>
+                    <td>
+                        <#=			cls.mo_ta #>
+                    </td>
+                    <td>
+                        <#=			cls.ngay_kq #>
+                    </td>
+                    <td>
+                        <#=			cls.NoiDung #>
+                    </td>
+                    <td>
+                        <#=			cls.TenNhomDichVu #>
+                    </td>
+                    <td>
+                        <#=			cls.TienSu #>
+                    </td>
+                </tr>
+           <#	} #>
+        </table>
+    </fieldset>
+</p>

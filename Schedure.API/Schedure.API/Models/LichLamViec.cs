@@ -21,14 +21,14 @@ namespace Schedure.API.Models
         }
     
         public int IDLich { get; set; }
-        public Nullable<int> IDDoctor { get; set; }
-        public Nullable<System.TimeSpan> Time { get; set; }
+        public Nullable<int> NhanVien_Id { get; set; }
         public Nullable<int> IDTimeSlot { get; set; }
         public Nullable<int> Creater_Id { get; set; }
         public Nullable<System.DateTime> CreaterDate { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string Status { get; set; }
+        public Nullable<int> IDPhongKham { get; set; }
     
-        public virtual Account_NhanVien Account_NhanVien { get; set; }
-        public virtual Doctor Doctor { get; set; }
         public virtual TimeSlot TimeSlot { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Register> Registers { get; set; }

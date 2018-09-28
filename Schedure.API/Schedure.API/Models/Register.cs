@@ -14,24 +14,20 @@ namespace Schedure.API.Models
     
     public partial class Register
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Register()
-        {
-            this.HistoryKhamBenhs = new HashSet<HistoryKhamBenh>();
-        }
-    
         public int IDRegister { get; set; }
-        public Nullable<int> IDAccount { get; set; }
+        public Nullable<int> IDAccountBN { get; set; }
         public Nullable<System.DateTime> CreateDate { get; set; }
         public string Message { get; set; }
         public string Status { get; set; }
         public int IDLich { get; set; }
         public string Phone { get; set; }
         public Nullable<System.DateTime> NgayKham { get; set; }
+        public string Status_Patient { get; set; }
+        public string Patient_name { get; set; }
+        public Nullable<int> NhanVien_Id { get; set; }
+        public Nullable<int> IDChuyenKhoa { get; set; }
     
         public virtual Account_BenhNhan Account_BenhNhan { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HistoryKhamBenh> HistoryKhamBenhs { get; set; }
         public virtual LichLamViec LichLamViec { get; set; }
     }
 }

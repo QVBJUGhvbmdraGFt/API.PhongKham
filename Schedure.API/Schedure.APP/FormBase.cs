@@ -1,4 +1,5 @@
 ﻿using SchedureBUS;
+using SchedureDTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,8 @@ namespace Schedure.APP
 {
     public partial class FormBase : Form, IToken
     {
+        public Account_NhanVienDTO User { get => COMMON.User; }
+
         public FormBase()
         {
             InitializeComponent();

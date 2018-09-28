@@ -25,11 +25,17 @@ namespace Schedure.APP.Views
             {
                 if (repass.Text == newpass.Text && newpass.Text.Length >= 8)
                 {
-                    acc.Password = repass.Text;
-                    new AccountBUS(this).Update(acc);
-                    "Đổi mật khẩu thành công".ThongBao();
-                    DialogResult = DialogResult.OK;
-                    Close();
+                    string error = "";
+                    if (new AccountBUS(this).NVChangePassword(oldPass.Text, newpass.Text, repass.Text, ref error))
+                    {
+                        "Đổi mật khẩu thành công".ThongBao();
+                        DialogResult = DialogResult.OK;
+                        Close();
+                    }
+                    else
+                    {
+                        error.ThongBao();
+                    }
                 }
                 else
                 {

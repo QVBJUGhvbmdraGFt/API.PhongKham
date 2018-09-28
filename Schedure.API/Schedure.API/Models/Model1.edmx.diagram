@@ -5,38 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cb409a1cf9fd40f895776e5db056edd2" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="SchedureModel.Account_BenhNhan" Width="1.5" PointX="10.5" PointY="10.5" />
-        <EntityTypeShape EntityType="SchedureModel.Account_NhanVien" Width="1.5" PointX="5.25" PointY="11.625" />
-        <EntityTypeShape EntityType="SchedureModel.ChucDanh" Width="1.5" PointX="3" PointY="2.375" />
-        <EntityTypeShape EntityType="SchedureModel.ChuyenKhoa" Width="1.5" PointX="0.75" PointY="5.25" />
-        <EntityTypeShape EntityType="SchedureModel.CTToaThuoc" Width="1.5" PointX="15" PointY="5.125" />
-        <EntityTypeShape EntityType="SchedureModel.DM_BenhNhan" Width="1.5" PointX="8.25" PointY="10" />
-        <EntityTypeShape EntityType="SchedureModel.Doctor" Width="1.5" PointX="5.25" PointY="4.5" />
-        <EntityTypeShape EntityType="SchedureModel.HistoryKhamBenh" Width="1.5" PointX="10.5" PointY="4.125" />
-        <EntityTypeShape EntityType="SchedureModel.InfoHospital" Width="1.5" PointX="12.75" PointY="12.625" />
-        <EntityTypeShape EntityType="SchedureModel.LichLamViec" Width="1.5" PointX="7.5" PointY="4.875" />
-        <EntityTypeShape EntityType="SchedureModel.NhanVien" Width="1.5" PointX="3" PointY="12.5" />
-        <EntityTypeShape EntityType="SchedureModel.PhongKham" Width="1.5" PointX="3" PointY="5.25" />
-        <EntityTypeShape EntityType="SchedureModel.Position" Width="1.5" PointX="3" PointY="9.875" />
-        <EntityTypeShape EntityType="SchedureModel.Register" Width="1.5" PointX="12.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SchedureModel.sysdiagram" Width="1.5" PointX="5.75" PointY="1.625" />
-        <EntityTypeShape EntityType="SchedureModel.Thuoc" Width="1.5" PointX="12.75" PointY="9.25" />
-        <EntityTypeShape EntityType="SchedureModel.TimeSlot" Width="1.5" PointX="5.25" PointY="17" />
-        <EntityTypeShape EntityType="SchedureModel.ToaThuoc" Width="1.5" PointX="12.75" PointY="5" />
-        <AssociationConnector Association="SchedureModel.FK_Account_BenhNhan_DM_BenhNhan" />
+        <EntityTypeShape EntityType="SchedureModel.Account_BenhNhan" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="SchedureModel.Account_NhanVien" Width="1.5" PointX="8" PointY="6.25" />
+        <EntityTypeShape EntityType="SchedureModel.ChuyenKhoa" Width="1.5" PointX="7.75" PointY="0.875" />
+        <EntityTypeShape EntityType="SchedureModel.InfoHospital" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SchedureModel.LichLamViec" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="SchedureModel.PhongBan" Width="1.5" PointX="10" PointY="0.875" />
+        <EntityTypeShape EntityType="SchedureModel.Position" Width="1.5" PointX="5.75" PointY="6" />
+        <EntityTypeShape EntityType="SchedureModel.Register" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="SchedureModel.sysdiagram" Width="1.5" PointX="2.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SchedureModel.TimeSlot" Width="1.5" PointX="0.75" PointY="1.75" />
         <AssociationConnector Association="SchedureModel.FK_Register_Account" />
-        <AssociationConnector Association="SchedureModel.FK_Account_NhanVien_NhanVien" />
         <AssociationConnector Association="SchedureModel.FK_Account_NhanVien_Position" />
-        <AssociationConnector Association="SchedureModel.FK_LichLamViec_Account_NhanVien" />
-        <AssociationConnector Association="SchedureModel.FK_Doctor_ChucDanh" />
         <AssociationConnector Association="SchedureModel.FK_PhongKham_ChuyenKhoa" />
-        <AssociationConnector Association="SchedureModel.FK_CTToaThuoc_Thuoc" />
-        <AssociationConnector Association="SchedureModel.FK_CTToaThuoc_ToaThuoc" />
-        <AssociationConnector Association="SchedureModel.FK_Doctor_PhongKham" />
-        <AssociationConnector Association="SchedureModel.FK_HistoryKhamBenh_Doctor" />
-        <AssociationConnector Association="SchedureModel.FK_LichLamViec_Doctor" />
-        <AssociationConnector Association="SchedureModel.FK_HistoryKhamBenh_Register" />
-        <AssociationConnector Association="SchedureModel.FK_ToaThuoc_HistoryKhamBenh" />
         <AssociationConnector Association="SchedureModel.FK_LichLamViec_TimeSlot" />
         <AssociationConnector Association="SchedureModel.FK_Register_LichLamViec" />
       </Diagram>

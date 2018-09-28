@@ -14,19 +14,22 @@ namespace SchedureDTO
     
     public partial class Account_BenhNhanDTO
     {
+        public Account_BenhNhanDTO()
+        {
+            this.Registers = new HashSet<RegisterDTO>();
+        }
+    
         public int IDAccountBN { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string Avatar { get; set; }
-        public string FullName { get; set; }
-        public bool Male { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
-        public string Adress { get; set; }
-        public string Phone { get; set; }
         public string Email { get; set; }
-        public string TieuSu { get; set; }
         public string Status { get; set; }
         public Nullable<int> BenhNhan_Id { get; set; }
+        public string Token { get; set; }
+        public Nullable<System.DateTime> TokenExpiration { get; set; }
+
         public virtual string MaYTe { get; set; }
+    
+        public virtual ICollection<RegisterDTO> Registers { get; set; }
     }
 }

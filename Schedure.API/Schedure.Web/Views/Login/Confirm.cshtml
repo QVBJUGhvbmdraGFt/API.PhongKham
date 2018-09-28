@@ -1,12 +1,26 @@
 ﻿@model SchedureDTO.Account_BenhNhanDTO
 
-@{
-    ViewBag.Title = "Confirm";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Xác nhận đăng kí</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="/Scripts/knockout-3.4.2.js"></script>
+    <script src="~/Scripts/jQuery.tmpl.min.js"></script>
+</head>
+<body>
+    <div class="container body-content">
+        @Html.ValidationSummary()
 
-@Html.ValidationSummary()
+        <p>Đăng kí thành công, vui lòng xác nhận tài khoản trong hòm thư mail <b>@Model.Email</b></p>
+        <p>Nếu chưa nhận được mail, bạn có thể @Html.ActionLink("Gửi lại mail", "ResendMail", new { Model.MaYTe, Model.Email })</p>
+        <p>Sau khi xác nhận, bạn có thê đăng nhập <a href="@Url.Action("Index","Login")">tại đây</a></p>
+    </div>
 
-<p>Đăng kí thành công, vui lòng xác nhận tài khoản trong hòm thư mail <b>@Model.Email</b></p>
-<p>Nếu chưa nhận được mail, bạn có thể @Html.ActionLink("Gửi lại mail", "ResendMail", new { Model.MaYTe, Model.Email })</p>
-<p>Sau khi xác nhận, bạn có thê đăng nhập <a href="@Url.Action("Index","Login")">tại đây</a></p>
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

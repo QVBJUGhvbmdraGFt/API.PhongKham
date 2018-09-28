@@ -29,13 +29,13 @@ namespace Schedure.APP.Views
 
         private void frmConfirm_Load(object sender, EventArgs e)
         {
-            lblFullName.FormatTextFromTag(register.Account_BenhNhan.FullName);
+            lblFullName.FormatTextFromTag(register.Patient_name);
             lblsdt.FormatTextFromTag(register.Phone);
             lblMayte.FormatTextFromTag(register.Account_BenhNhan.Username);
             lblmesage.FormatTextFromTag(register.Message);
 
-            lblchuyenkhoa.FormatTextFromTag(register.LichLamViec.Doctor.PhongKham.ChuyenKhoa.Name);
-            lblphongkham.FormatTextFromTag(register.LichLamViec.Doctor.PhongKham.Name);
+            lblchuyenkhoa.FormatTextFromTag(register.LichLamViec.PhongKham.ChuyenKhoa.Name);
+            lblphongkham.FormatTextFromTag(register.LichLamViec.PhongKham.TenPhongBan);
             lblbacsi.FormatTextFromTag(register.LichLamViec.Doctor.FullName);
             lbllichlamviec.FormatTextFromTag(register.LichLamViec.TimeSlot.HourStart + " - " + register.LichLamViec.TimeSlot.HourEnd);
             lblngaykham.FormatTextFromTag(register.NgayKham?.ToString("dd/MM/yyyy"));

@@ -34,7 +34,7 @@ namespace Schedure.APP.Views
             dateNgayKham.MinDate = DateTime.Now.AddDays(1);
             dateNgayKham.MaxDate = DateTime.Now.AddDays(14);
 
-            _allChuyenKhoa = new ChuyenKhoasBUS(this).NVGetAll();
+            _allChuyenKhoa = new ChuyenKhoasBUS(this).NVAllChuyenKhoa();
             cmbChuyenKhoa.BindItems(_allChuyenKhoa, q => q.Name);
 
         }
@@ -42,7 +42,7 @@ namespace Schedure.APP.Views
         private void cmbChuyenKhoa_SelectedIndexChanged(object sender, EventArgs e)
         {
             var obj = cmbChuyenKhoa.SelectedItem as ChuyenKhoaDTO;
-            cmbPhongKham.BindItems(obj.PhongKhams, q => q.Name);
+            cmbPhongKham.BindItems(obj.PhongBans, q => q.TenPhongBan);
         }
 
         private void cmbBacSi_SelectedIndexChanged(object sender, EventArgs e)
@@ -53,7 +53,7 @@ namespace Schedure.APP.Views
 
         private void cmbPhongKham_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var obj = cmbPhongKham.SelectedItem as PhongKhamDTO;
+            var obj = cmbPhongKham.SelectedItem as PhongBanDTO;
             cmbBacSi.BindItems(obj.Doctors, q => q.FullName);
         }
 
@@ -65,13 +65,13 @@ namespace Schedure.APP.Views
                 return;
             }
             var obj = dataBoundItem as LichLamViecDTO;
-            if ($"Xác nhận đăng kí cho bệnh nhân {Account_BenhNhan.Username}({Account_BenhNhan.FullName})?".XacNhan() == DialogResult.OK)
+            if ($"Xác nhận đăng kí cho bệnh nhân {Account_BenhNhan.Username}({Account_BenhNhan.Username})?".XacNhan() == DialogResult.OK)
             {
                 if(new RegisterBUS(this).NVCreate(new RegisterDTO
                 {
                     Account_BenhNhan = null,
                     CreateDate = DateTime.Now,
-                    IDAccount = Account_BenhNhan.IDAccountBN,
+                    IDAccountBN = Account_BenhNhan.IDAccountBN,
                     IDLich = obj.IDLich,
                     IDRegister = 0,
                     LichLamViec = null,
@@ -101,7 +101,7 @@ namespace Schedure.APP.Views
             }
             else
             {
-                lblBenhNhan.Text = $"Tài khoản: {Account_BenhNhan.FullName} - MaYTe: {Account_BenhNhan.Username}";
+                lblBenhNhan.Text = $"Tài khoản: {Account_BenhNhan.Username} - MaYTe: {Account_BenhNhan.Username}";
             }
         }
     }

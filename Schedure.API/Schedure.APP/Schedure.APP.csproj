@@ -64,11 +64,36 @@
     <Compile Include="UC\MDatagriview.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UC\ucMatrix.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC\ucMatrix.Designer.cs">
+      <DependentUpon>ucMatrix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PositionManager.cs" />
+    <Compile Include="Views\frmBacSi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmBacSi.Designer.cs">
+      <DependentUpon>frmBacSi.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmChangePassword.Designer.cs">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmChucVu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmChucVu.Designer.cs">
+      <DependentUpon>frmChucVu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmChuyenKhoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmChuyenKhoa.Designer.cs">
+      <DependentUpon>frmChuyenKhoa.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\frmConfirm.cs">
       <SubType>Form</SubType>
@@ -76,11 +101,35 @@
     <Compile Include="Views\frmConfirm.Designer.cs">
       <DependentUpon>frmConfirm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\frmDetailKQKB2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmDetailKQKB2.Designer.cs">
+      <DependentUpon>frmDetailKQKB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmDetailKQKB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmDetailKQKB.Designer.cs">
+      <DependentUpon>frmDetailKQKB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmKQCLS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmKQCLS.Designer.cs">
+      <DependentUpon>frmKQCLS.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmKQKB.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmKQKB.Designer.cs">
       <DependentUpon>frmKQKB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmLichLamViec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmLichLamViec.Designer.cs">
+      <DependentUpon>frmLichLamViec.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\frmLogin.cs">
       <SubType>Form</SubType>
@@ -94,12 +143,36 @@
     <Compile Include="Views\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\frmNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmNhanVien.Designer.cs">
+      <DependentUpon>frmNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmPhongBan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmPhongBan.Designer.cs">
+      <DependentUpon>frmPhongBan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmRegister.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\frmRegister.Designer.cs">
       <DependentUpon>frmRegister.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\frmTimeSlot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmTimeSlot.Designer.cs">
+      <DependentUpon>frmTimeSlot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\templateDetailKQKB2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>templateDetailKQKB2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\templateDetailKQKB2_ext.cs" />
     <EmbeddedResource Include="FormBase.resx">
       <DependentUpon>FormBase.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,14 +193,38 @@
     <EmbeddedResource Include="UC\MDatagriview.resx">
       <DependentUpon>MDatagriview.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UC\ucMatrix.resx">
+      <DependentUpon>ucMatrix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmBacSi.resx">
+      <DependentUpon>frmBacSi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmChangePassword.resx">
       <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmChucVu.resx">
+      <DependentUpon>frmChucVu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmChuyenKhoa.resx">
+      <DependentUpon>frmChuyenKhoa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmConfirm.resx">
       <DependentUpon>frmConfirm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmDetailKQKB2.resx">
+      <DependentUpon>frmDetailKQKB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmDetailKQKB.resx">
+      <DependentUpon>frmDetailKQKB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmKQCLS.resx">
+      <DependentUpon>frmKQCLS.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmKQKB.resx">
       <DependentUpon>frmKQKB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmLichLamViec.resx">
+      <DependentUpon>frmLichLamViec.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
@@ -135,8 +232,17 @@
     <EmbeddedResource Include="Views\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmNhanVien.resx">
+      <DependentUpon>frmNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmPhongBan.resx">
+      <DependentUpon>frmPhongBan.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmRegister.resx">
       <DependentUpon>frmRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmTimeSlot.resx">
+      <DependentUpon>frmTimeSlot.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -196,6 +302,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\thoat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cdls.png" />
+    <None Include="Resources\timeslot.png" />
+    <None Include="Resources\dangkikham.png" />
+    <None Include="Resources\nhanvien.png" />
+    <None Include="Resources\chucvu.png" />
+    <None Include="Resources\lichlamviec.png" />
+    <None Include="Resources\dsbacsi.png" />
+    <None Include="Resources\phongkham.png" />
+    <None Include="Resources\chuyenkhoa.png" />
+    <Content Include="Views\templateDetailKQKB2.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>templateDetailKQKB2.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

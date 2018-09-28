@@ -23,18 +23,12 @@ namespace Schedure.API.Models
         public int IDAccountBN { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string Avatar { get; set; }
-        public string FullName { get; set; }
-        public Nullable<bool> Male { get; set; }
-        public Nullable<System.DateTime> Birthday { get; set; }
-        public string Adress { get; set; }
-        public string Phone { get; set; }
         public string Email { get; set; }
-        public string TieuSu { get; set; }
         public string Status { get; set; }
         public Nullable<int> BenhNhan_Id { get; set; }
+        public string Token { get; set; }
+        public Nullable<System.DateTime> TokenExpiration { get; set; }
     
-        public virtual DM_BenhNhan DM_BenhNhan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Register> Registers { get; set; }
     }

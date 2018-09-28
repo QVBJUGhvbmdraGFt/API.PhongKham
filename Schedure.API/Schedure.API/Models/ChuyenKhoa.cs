@@ -17,7 +17,7 @@ namespace Schedure.API.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ChuyenKhoa()
         {
-            this.PhongKhams = new HashSet<PhongKham>();
+            this.PhongBans = new HashSet<PhongBan>();
         }
     
         public int IDChuyenKhoa { get; set; }
@@ -27,6 +27,6 @@ namespace Schedure.API.Models
         public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhongKham> PhongKhams { get; set; }
+        public virtual ICollection<PhongBan> PhongBans { get; set; }
     }
 }

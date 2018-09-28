@@ -26,9 +26,9 @@ namespace SchedureBUS
             return res.Key ? res.Value : null;
         }
 
-        public bool Create(RegisterDTO account)
+        public static bool Create(RegisterDTO account)
         {
-            return API.POST<object>($"api/{controlerAPI}", account).Key;
+            return new APIHelper().POST<bool>($"apis/{controlerAPI}/PostRegister", account).Value;
         }
 
         public bool Update(RegisterDTO account)
@@ -51,9 +51,9 @@ namespace SchedureBUS
             return API.POST<string>($"apis/{controlerAPI}/Cancle/{id}", id).Key;
         }
 
-        public List<RegisterDTO> GetByAccount(int iDAccount)
+        public List<RegisterDTO> GetByAccount(DateTime start, DateTime end)
         {
-            return API.POST<List<RegisterDTO>>($"apis/{controlerAPI}/GetByAccount/{iDAccount}", iDAccount).Value ?? new List<RegisterDTO>();
+            return API.POST<List<RegisterDTO>>($"apis/{controlerAPI}/GetByAccount?start={start.ToString("dd-MM-yyyy")}&end={end.ToString("dd-MM-yyyy")}","").Value ?? new List<RegisterDTO>();
         }
 
         public bool Confirm(int iDRegister, string status)
@@ -62,9 +62,9 @@ namespace SchedureBUS
             return res.Key && res.Value;
         }
 
-        public List<RegisterDTO> Fillter(DateTime start, DateTime end, int? IDChuyenKhoa, string Status)
+        public List<RegisterDTO> Fillter(DateTime start, DateTime end, int? IDPhongBan, string Status)
         {
-            return API.POST<List<RegisterDTO>>($"apis/{controlerAPI}/Fillter?start={start.ToString("dd-MM-yyyy")}&end={end.ToString("dd-MM-yyyy")}&IDChuyenKhoa={IDChuyenKhoa}&Status={Status}", "").Value ?? new List<RegisterDTO>();
+            return API.POST<List<RegisterDTO>>($"apis/{controlerAPI}/Fillter?start={start.ToString("dd-MM-yyyy")}&end={end.ToString("dd-MM-yyyy")}&IDPhongBan={IDPhongBan}&Status={Status}", "").Value ?? new List<RegisterDTO>();
         }
 
         public RegisterDTO NVGetByID(int id)

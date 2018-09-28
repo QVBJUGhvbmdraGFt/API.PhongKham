@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 
 namespace SchedureBUS
 {
-    public class LichLamViecsBUS : BaseBUS
+    public class LichLamViecsBUS
     {
-        public LichLamViecsBUS(IToken token) : base(token)
+        public APIHelper API { get; private set; }
+
+        public LichLamViecsBUS()
         {
+            API = new APIHelper();
         }
 
         const string controlerAPI = "LichLamViecs";
@@ -26,19 +29,19 @@ namespace SchedureBUS
             return res.Key ? res.Value : null;
         }
 
-        public bool Create(LichLamViecDTO obj)
+        public bool Create(IToken token, LichLamViecDTO obj)
         {
-            return API.POST<object>($"api/{controlerAPI}", obj).Key;
+            return new APIHelper(token.GetToken()).POST<object>($"api/{controlerAPI}", obj).Key;
         }
 
-        public bool Update(LichLamViecDTO obj)
+        public bool Delete(IToken token, int id)
         {
-            return API.PUT<string>($"api/{controlerAPI}/{obj.IDLich}", obj).Key;
+            return new APIHelper(token.GetToken()).DELETE<object>($"api/{controlerAPI}/{id}").Key;
         }
 
-        public bool Delete(int id)
+        public List<LichLamViecDTO> GetByIDPhongBan(int iDPhongBan)
         {
-            return API.DELETE<object>($"api/{controlerAPI}/{id}").Key;
+            return API.POST<List<LichLamViecDTO>>($"apis/{controlerAPI}/GetByIDPhongBan?iDPhongBan={iDPhongBan}", iDPhongBan).Value ?? new List<LichLamViecDTO>();
         }
     }
 }

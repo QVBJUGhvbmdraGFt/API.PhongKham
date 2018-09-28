@@ -32,58 +32,49 @@ namespace Schedure.API.Controllers
             {
                 return NotFound();
             }
-            var token = Convert.ToBase64String(new UTF8Encoding().GetBytes($"BN:{account.IDAccountBN}:{Username}:{Password}"));
-            return Ok(token);
+
+            var time = TimeSpan.FromHours(10);
+            var Expiration = DateTime.Now.Add(time);
+            account.TokenExpiration = Expiration;
+
+            var token = Convert.ToBase64String(new UTF8Encoding().GetBytes($"BN:{account.IDAccountBN}:{Username}:{Password}:{Expiration}:{new Random().Next(1000, 9999)}"));
+            token = token.CreateMD5();
+            account.Token = token;
+
+            if (await db.SaveChangesAsync() > 0)
+            {
+                token = $"{account.IDAccountBN}:{token}";
+                token = Convert.ToBase64String(new UTF8Encoding().GetBytes(token));
+                return Ok(token);
+            }
+            return BadRequest();
         }
+
+        #region CONFIRM
 
         [HttpPost]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> Register(Account_BenhNhanDTO account)
         {
-            var acc = await db.Account_BenhNhan.FirstOrDefaultAsync(q => q.Username == account.MaYTe || q.Email == account.Email);
+            var acc = await db.Account_BenhNhan.FirstOrDefaultAsync(q => q.Username == account.MaYTe && q.Status == "ACTIVE");
             if (acc == null)
             {
-                var bn = await db.DM_BenhNhan.FirstOrDefaultAsync(q => q.MaYTe == account.MaYTe);
+                var bn = db.SP_DM_BenhNhan_GetByMaYTe(account.MaYTe).FirstOrDefault();
                 if (bn != null)
                 {
-                    account.Status = CONFIRM;
-                    account.Username = account.MaYTe;
-                    acc = db.Account_BenhNhan.Add(new Account_BenhNhan
+                    var id = db.SP_Account_BenhNhan_Insert(account.Password, account.Email, account.MaYTe).FirstOrDefault();
+                    if (id != null)
                     {
-                        Adress = account.Adress,
-                        Avatar = account.Avatar,
-                        BenhNhan_Id = bn.BenhNhan_Id,
-                        Birthday = account.Birthday,
-                        Email = account.Email,
-                        FullName = account.FullName,
-                        IDAccountBN = account.IDAccountBN,
-                        Male = account.Male,
-                        Password = account.Password,
-                        Phone = account.Phone,
-                        Status = account.Status,
-                        TieuSu = account.TieuSu,
-                        Username = account.Username,
-                    });
-                    if ((await db.SaveChangesAsync()) > 0)
-                    {
-                        string urlConfirm = $"{acc.IDAccountBN}:{acc.Username}:{acc.Email}";
-                        urlConfirm = Convert.ToBase64String(Encoding.UTF8.GetBytes(urlConfirm));
-                        urlConfirm = "http://" + Request.RequestUri.Authority + Url.Route("Custom", new { action = "Confirm", id = urlConfirm });
 
-                        string bodyEmail = $"<a href='{urlConfirm}'>Bấm để xác nhận tài khoản.</a>" +
-                             $"<br/>THÔNG TIN TÀI KHOẢN: " +
-                             $"<br>Username: {acc.Username}" +
-                             $"<br/>Password: {acc.Password}";
-                        var success = MailHelper.SendMail(account.Email, "Xác nhận tài khoản", bodyEmail);
-                        if (success)
+                        if (_sendMailConfirm(id.IDAccountBN ?? 0))
                         {
-                            return Ok("OK");
+                            return Ok("Vui lòng xác nhận tài khoản, kiểm tra mail " + account.Email);
                         }
-                        return Content(HttpStatusCode.Created, "Vui lòng xác nhận tài khoản với email " + acc.Email);
+                        return Content(HttpStatusCode.Created, "Vui lòng xác nhận tài khoản, thử lại gửi mail: " + account.Email);
                     }
                     else
                     {
-                        return Content(HttpStatusCode.NotAcceptable, "Server không thể cấp tài khoản cho quý khách!");
+                        return BadRequest();
                     }
                 }
             }
@@ -102,26 +93,87 @@ namespace Schedure.API.Controllers
         }
 
         [HttpPost]
+        [ResponseType(typeof(string))]
+        public async Task<IHttpActionResult> ResendMail([FromUri] string email, [FromUri] string maYte)
+        {
+            var account = await db.Account_BenhNhan.FirstOrDefaultAsync(q => q.Username == maYte && q.Email == email && q.Status == CONFIRM);
+            if (account != null)
+            {
+                if (_sendMailConfirm(account.IDAccountBN))
+                {
+                    return Ok("Gửi mail thành công");
+                }
+                return Content(HttpStatusCode.Created, "Gửi mail thất bại!");
+            }
+            return NotFound();
+        }
+
+        private bool _sendMailConfirm(int IDAccountBN)
+        {
+            var acc = db.Account_BenhNhan.Find(IDAccountBN);
+            if (acc != null && acc.Status == CONFIRM)
+            {
+                acc.TokenExpiration = DateTime.Now.AddDays(1);
+                acc.Token = $"{acc.IDAccountBN}:{acc.TokenExpiration}:{new Random().Next()}".CreateMD5();
+                if (db.SaveChanges() > 0)
+                {
+                    string urlConfirm = $"{acc.Username}:{acc.Token}";
+                    urlConfirm = Convert.ToBase64String(Encoding.UTF8.GetBytes(urlConfirm));
+                    urlConfirm = "http://" + Request.RequestUri.Authority + Url.Route("Custom", new { action = "Confirm", id = urlConfirm });
+
+                    string bodyEmail = $"<a href='{urlConfirm}'>Bấm vào đây để xác nhận tài khoản.</a>" +
+                         $"<br/>THÔNG TIN TÀI KHOẢN: " +
+                         $"<br>Username: {acc.Username}" +
+                         $"<br/>Password: {acc.Password}";
+                    return MailHelper.SendMail(acc.Email, "Xác nhận tài khoản", bodyEmail);
+                }
+            }
+            return false;
+        }
+
+        [HttpGet]
+        public async Task<IHttpActionResult> Confirm(string id)
+        {
+            if (id == null) return Content(HttpStatusCode.BadRequest, "");
+
+            var url = Encoding.UTF8.GetString(Convert.FromBase64String(HttpUtility.UrlDecode(id)));
+            var decodeArray = url.Split(':');
+            if (decodeArray.Length != 2) return Content(HttpStatusCode.BadRequest, "");
+
+            var account_test = new Account_BenhNhan
+            {
+                Username = decodeArray[0],
+                Token = decodeArray[1],
+            };
+            if (db.Account_BenhNhan.FirstOrDefault(q => q.Username == account_test.Username) is Account_BenhNhan account)
+            {
+                if (account.Token == account_test.Token && account.Status == CONFIRM)
+                {
+                    if (account.TokenExpiration >= DateTime.Now)
+                    {
+                        account.Status = ACTIVE;
+                        await db.SaveChangesAsync();
+                        return Content(HttpStatusCode.OK, $"{account.Email} xác nhận thành công.");
+                    }
+                    else return Content(HttpStatusCode.OK, $"{account.Email} hết thời gian xác nhận.");
+                }
+            }
+            return Content(HttpStatusCode.BadRequest, "Xác nhận thất bại");
+        }
+        #endregion
+
+
+        [HttpPost]
         [ResponseType(typeof(Account_BenhNhanDTO))]
-        public async Task<IHttpActionResult> GetAccount(string token)
+        [BasicAuthentication]
+        public IHttpActionResult GetAccount()
         {
             try
             {
-                if (token != null)
+                var acc = LoginHelper.GetAccount();
+                if (acc != null)
                 {
-                    var decodeAuthorization = Encoding.UTF8.GetString(Convert.FromBase64String(token));
-                    var up = decodeAuthorization.Split(':');
-                    if (up.Length == 4 && up[0] == "BN")
-                    {
-                        int IDAccount = int.Parse(up[1]);
-                        string username = up[2];
-                        string password = up[3];
-                        var account = await db.Account_BenhNhan.FindAsync(IDAccount);
-                        if (account != null && account.Username == username && account.Password == password && account.Status != "DELETE")
-                        {
-                            return Ok(ConvertToAccountBNDTO(account));
-                        }
-                    }
+                    return Ok(ConvertToAccountBNDTO(acc));
                 }
             }
             catch (Exception ex)
@@ -132,77 +184,20 @@ namespace Schedure.API.Controllers
         }
 
 
-        [HttpPost]
-        [ResponseType(typeof(string))]
-        public async Task<IHttpActionResult> ResendMail([FromUri] string email, [FromUri] string maYte)
-        {
-            var account = await db.Account_BenhNhan.FirstOrDefaultAsync(q => q.Username == maYte);
-            if (account != null && account.Status == CONFIRM && account.Email == email && account.DM_BenhNhan.MaYTe == maYte)
-            {
-                string urlConfirm = $"{account.IDAccountBN}:{account.Username}:{account.Email}";
-                urlConfirm = Convert.ToBase64String(Encoding.UTF8.GetBytes(urlConfirm));
-                urlConfirm = "http://" + Request.RequestUri.Authority + Url.Route("Custom", new { action = "Confirm", id = urlConfirm });
 
-                var success = MailHelper.SendMail(account.Email, "Xác nhận lại tài khoản", $"<a href='{urlConfirm}'>Bấm để xác nhận tài khoản.</a>" +
-                     $"<br/>THÔNG TIN TÀI KHOẢN: " +
-                     $"<br>Username: {account.Username}" +
-                     $"<br/>Password: {account.Password}");
-                if (success)
-                {
-                    return Ok("Gửi mail thành công!");
-                }
-                return Content(HttpStatusCode.Created, "Gửi mail thất bại!");
-            }
-            return NotFound();
-        }
-
-        [HttpGet]
-        public async Task<IHttpActionResult> Confirm(string id)
-        {
-            if (id == null) return Content(HttpStatusCode.BadRequest, "");
-
-            var url = Encoding.UTF8.GetString(Convert.FromBase64String(HttpUtility.UrlDecode(id)));
-            var decodeArray = url.Split(':');
-            if (decodeArray.Length != 3) return Content(HttpStatusCode.BadRequest, "");
-
-            var account_test = new Account_BenhNhan
-            {
-                Username = decodeArray[1],
-                Email = decodeArray[2]
-            };
-            int idAccount = 0;
-            if (int.TryParse(decodeArray[0], out idAccount))
-            {
-                account_test.IDAccountBN = idAccount;
-
-                if (db.Account_BenhNhan.Find(account_test.IDAccountBN) is Account_BenhNhan account)
-                {
-                    if (account.Username == account_test.Username && account.Email == account_test.Email && account.Status == CONFIRM)
-                    {
-                        account.Status = ACTIVE;
-                        await db.SaveChangesAsync();
-                        return Content(HttpStatusCode.OK, $"{account.Email} xác nhận thành công.");
-                    }
-                }
-            }
-            return Content(HttpStatusCode.BadRequest, "Xác nhận thất bại");
-        }
         public static Account_BenhNhanDTO ConvertToAccountBNDTO(Account_BenhNhan account)
         {
             return new Account_BenhNhanDTO
             {
-                Adress = account.Adress,
-                Avatar = account.Avatar,
-                Birthday = account.Birthday,
                 Email = account.Email,
-                FullName = account.FullName,
-                Male = account.Male == true,
                 IDAccountBN = account.IDAccountBN,
                 Password = account.Password,
-                Phone = account.Phone,
                 Status = account.Status,
-                TieuSu = account.TieuSu,
                 Username = account.Username,
+                MaYTe = account.Username,
+                BenhNhan_Id = account.BenhNhan_Id,
+                Token = account.Token,
+                TokenExpiration = account.TokenExpiration,
             };
         }
         #endregion
@@ -219,8 +214,7 @@ namespace Schedure.API.Controllers
                 Status = account.Status,
                 Username = account.Username,
                 Password = account.Password,
-                NhanVien = ConvertToNhanVienDTO(account.NhanVien),
-                Position = ConvertToPositionDTO(account.Position),
+                Position = PositionsController.ConvertToPositionDTO(account.Position),
             };
         }
 
@@ -231,27 +225,6 @@ namespace Schedure.API.Controllers
             {
                 IDPosition = position.IDPosition,
                 Name = position.Name,
-                MoTa = position.MoTa,
-            };
-        }
-
-        private static NhanVienDTO ConvertToNhanVienDTO(NhanVien nhanVien)
-        {
-            if (nhanVien == null) return null;
-            return new NhanVienDTO
-            {
-                CMND = nhanVien.CMND,
-                DiaChi = nhanVien.DiaChi,
-                GioiTinh = nhanVien.GioiTinh,
-                Ho = nhanVien.Ho,
-                MaNhanVien = nhanVien.MaNhanVien,
-                NgaySinh = nhanVien.NgaySinh,
-                NgayTao = nhanVien.NgayTao,
-                NguoiTao_Id = nhanVien.NguoiTao_Id,
-                NhanVien_Id = nhanVien.NhanVien_Id,
-                TamNgung_Id = nhanVien.TamNgung_Id,
-                Ten = nhanVien.Ten,
-                TenTat = nhanVien.TenTat,
             };
         }
 
@@ -264,38 +237,18 @@ namespace Schedure.API.Controllers
             {
                 return NotFound();
             }
-            var token = Convert.ToBase64String(new UTF8Encoding().GetBytes($"NV:{account.IDAccountNV}:{Username}:{Password}"));
-            return Ok(token);
-        }
-
-        [HttpPost]
-        [ResponseType(typeof(Account_NhanVienDTO))]
-        public async Task<IHttpActionResult> GetAccountNV(string token)
-        {
-            try
+            var time = TimeSpan.FromHours(10);
+            var Expiration = DateTime.Now.Add(time);
+            var token = Convert.ToBase64String(new UTF8Encoding().GetBytes($"NV:{account.IDAccountNV}:{Username}:{Password}:{new Random().Next()}"));
+            token = token.CreateMD5();
+            account.Token = token;
+            account.TokenExpiration = Expiration;
+            if (await db.SaveChangesAsync() > 0)
             {
-                if (token != null)
-                {
-                    var decodeAuthorization = Encoding.UTF8.GetString(Convert.FromBase64String(token));
-                    var up = decodeAuthorization.Split(':');
-                    if (up.Length == 4 && up[0] == "NV")
-                    {
-                        int IDAccountNV = int.Parse(up[1]);
-                        string username = up[2];
-                        string password = up[3];
-                        Account_NhanVien account = await db.Account_NhanVien.FindAsync(IDAccountNV);
-                        if (account != null && account.Username == username && account.Password == password && account.Status != "DELETE")
-                        {
-                            return Ok(ConvertToAccountNVDTO(account));
-                        }
-                    }
-                }
+                token = $"{account.IDAccountNV}:{token}";
+                return Ok(Convert.ToBase64String(Encoding.UTF8.GetBytes(token)));
             }
-            catch (Exception ex)
-            {
-                ex.DebugLog();
-            }
-            return NotFound();
+            return BadRequest();
         }
 
         #endregion

@@ -14,7 +14,6 @@ using SchedureDTO;
 
 namespace Schedure.API.Controllers
 {
-    [AdminAuthentication("", "SA", "BACSI", "YTA")]
     public class AccountsController : ApiController
     {
         private SchedureEntities db = new SchedureEntities();
@@ -31,23 +30,21 @@ namespace Schedure.API.Controllers
             return lst;
         }
 
+
+
         public static Account_BenhNhanDTO ConvertToAccount_BenhNhanDTO(Account_BenhNhan item)
         {
             if (item == null) return null;
             return new Account_BenhNhanDTO
             {
-                Adress = item.Adress,
-                Avatar = item.Avatar,
-                Birthday = item.Birthday,
                 Email = item.Email,
                 IDAccountBN = item.IDAccountBN,
-                FullName = item.FullName,
-                Male = item.Male == true,
+                BenhNhan_Id = item.BenhNhan_Id,
                 Password = item.Password,
-                Phone = item.Phone,
                 Status = item.Status,
-                TieuSu = item.TieuSu,
+                Token = item.Token,
                 Username = item.Username,
+                TokenExpiration = item.TokenExpiration,
             };
         }
 
@@ -66,10 +63,9 @@ namespace Schedure.API.Controllers
                 var save = UploadHelper.SaveImage();
                 if (save.Key)
                 {
-                    Account_BenhNhan.Avatar = save.Value;
                     db.Entry(Account_BenhNhan).State = EntityState.Modified;
                     await db.SaveChangesAsync();
-                    return Ok(Account_BenhNhan.Avatar);
+                    return Ok();
                 }
                 return Content(HttpStatusCode.NotAcceptable, save.Key);
             }
@@ -178,6 +174,54 @@ namespace Schedure.API.Controllers
             return db.Account_BenhNhan.Count(e => e.IDAccountBN == id) > 0;
         }
 
+        [HttpPost]
+        [BasicAuthentication]
+        [ResponseType(typeof(bool))]
+        public bool BNChangePassword([FromUri]string oldpass, [FromUri] string newpass)
+        {
+            if (newpass.Length >= 8)
+            {
+                var acc = LoginHelper.GetAccount();
+                if (acc.Password == oldpass)
+                {
+                    var obj = db.Account_BenhNhan.Find(acc.IDAccountBN);
+                    if (obj != null)
+                    {
+                        obj.Password = newpass;
+                        db.Entry(obj).State = EntityState.Modified;
+                        return db.SaveChanges() > 0;
+                    }
+                }
+            }
+            return false;
+        }
+
+        #endregion
+
+        #region NHANVIEN
+
+        [HttpPost]
+        [AdminAuthentication]
+        [ResponseType(typeof(bool))]
+        public bool NVChangePassword(string oldpass, string newpass)
+        {
+            if (newpass.Length >= 8)
+            {
+                var acc = LoginHelper.GetAccountNV();
+                if (acc.Password == oldpass)
+                {
+                    var obj = db.Account_NhanVien.Find(acc.IDAccountNV);
+                    if (obj != null)
+                    {
+                        obj.Password = newpass;
+                        db.Entry(obj).State = EntityState.Modified;
+                        return db.SaveChanges() > 0;
+                    }
+                }
+            }
+            return false;
+        }
+
         [HttpGet]
         [AdminAuthentication]
         [ResponseType(typeof(Account_BenhNhan))]
@@ -188,9 +232,129 @@ namespace Schedure.API.Controllers
             if (acc == null || acc.Status == "DELETE") return NotFound();
             return Ok(ConvertToAccount_BenhNhanDTO(acc));
         }
-        #endregion
 
-        #region NHANVIEN
+        [HttpPost]
+        [ResponseType(typeof(Account_NhanVienDTO))]
+        [AdminAuthentication]
+        public IHttpActionResult GetAccountNV()
+        {
+            try
+            {
+                var acc = LoginHelper.GetAccountNV();
+                if (acc != null)
+                {
+                    return Ok(AuthenticateController.ConvertToAccountNVDTO(acc));
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [AdminAuthentication]
+        [ResponseType(typeof(List<Account_NhanVienDTO>))]
+        public IEnumerable<Account_NhanVienDTO> GetAllNV()
+        {
+            try
+            {
+                var data = db.SP_Account_NhanVien_GetAllOrByID(null);
+                return data.ToList().Select(q => new Account_NhanVienDTO
+                {
+                    IDAccountNV = q.IDAccountNV,
+                    IDPosition = q.IDPosition,
+                    MaNhanvien = q.MaNhanVien,
+                    NhanVien_Id = q.NhanVien_Id,
+                    Password = q.Password,
+                    Status = q.Status,
+                    TenNhanVien = q.TenNhanVien,
+                    Username = q.Username,
+                    Position = new PositionDTO
+                    {
+                        Name = q.Name,
+                        Status = q.Status
+                    }
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+            }
+            return new List<Account_NhanVienDTO>();
+        }
+
+        [HttpPost]
+        [AdminAuthentication]
+        [ResponseType(typeof(List<Account_NhanVienDTO>))]
+        public IEnumerable<Account_NhanVienDTO> GetSourceNV()
+        {
+            try
+            {
+                var data = db.SP_Account_NhanVien_GetSource();
+                return data.ToList().Select(q => new Account_NhanVienDTO
+                {
+                    MaNhanvien = q.MaNhanVien,
+                    NhanVien_Id = q.NhanVien_Id,
+                    TenNhanVien = q.TenNhanVien,
+                    Position = null
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+            }
+            return new List<Account_NhanVienDTO>();
+        }
+
+        [HttpPost]
+        [AdminAuthentication]
+        [ResponseType(typeof(bool))]
+        public IHttpActionResult Delete(int NVID)
+        {
+            var acc = db.Account_NhanVien.Find(NVID);
+            if (acc != null)
+            {
+                acc.Status = "DELETE";
+                return Ok(db.SaveChanges() > 0);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [AdminAuthentication]
+        [ResponseType(typeof(bool))]
+        public IHttpActionResult UpdateNV(Account_NhanVien nv)
+        {
+            if (nv != null)
+            {
+                var ac = db.Account_NhanVien.Find(nv.IDAccountNV);
+                if (ac != null)
+                {
+                    ac.IDPosition = nv.IDPosition;
+                    if (nv.Password?.Length >= 0)
+                    {
+                        ac.Password = nv.Password;
+                    }
+                    return Ok(db.SaveChanges() > 0);
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [AdminAuthentication]
+        [ResponseType(typeof(bool))]
+        public IHttpActionResult CreateNV(Account_NhanVien nv)
+        {
+            if (nv != null)
+            {
+                db.Account_NhanVien.Add(nv);
+                return Ok(db.SaveChanges() > 0);
+            }
+            return NotFound();
+        }
 
         #endregion
     }

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SchedureDTO.NgayKhamDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>KẾT QUẢ KHÁM BỆNH</h3>
+@Html.ValidationSummary()
+@using (Html.BeginForm())
+{
+    <div class="form-inline">
+        <div class="form-group">
+            <label for="exampleInputName2">Từ ngày</label>
+            <input type="date" name="start" class="form-control" id="exampleInputName2" value="@ViewBag.s_start">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2">Đến ngày</label>
+            <input type="date" name="end" class="form-control" id="exampleInputEmail2" value="@ViewBag.s_end">
+        </div>
+        <button type="submit" class="btn btn-success" style="margin-top: 25px">Xem</button>
+    </div>
+}
+<hr />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <TD>THỜI GIAN KHÁM</TD>
+            <TD>TRIỆU CHỨNG</TD>
+            <TD>PHÒNG BAN</TD>
+            <TD>NGÀY HẸN TÁI KHÁM</TD>
+            <TD></TD>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <TD>@item.ThoiGianKham</TD>
+                <TD>@item.TrieuChungLamSang</TD>
+                <TD>@item.TenPhongBan</TD>
+                <TD>@item.NgayHenTaiKham</TD>
+                <TD>@Html.ActionLink("Xem", "Detail", new { item.KhamBenh_Id }, new { target = "_blank" })</TD>
+            </tr>
+        }
+    </tbody>
+</table>

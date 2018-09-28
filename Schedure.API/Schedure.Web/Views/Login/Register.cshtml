@@ -31,59 +31,10 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.FullName, "Họ tên đầy đủ", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", required = "true" } })
-            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(model => model.MaYTe, "Mã Y tế", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.MaYTe, new { htmlAttributes = new { @class = "form-control", required = "true" } })
             @Html.ValidationMessageFor(model => model.MaYTe, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Male, "Giới tính nữ?", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <label>@Html.CheckBoxFor(model => model.Male, new { htmlAttributes = new { @class = "form-control", required = "true" } }) Nữ</label>
-            @Html.ValidationMessageFor(model => model.Male, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Birthday, "Ngày sinh", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control", type = "date" } })
-            @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Adress, "Địa chỉ:", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control", required = "true" } })
-            @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Phone, "Số điện thoại", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", required = "true" } })
-            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.TieuSu, "Tiểu sử", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.TieuSu, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.TieuSu, "", new { @class = "text-danger" })
         </div>
     </div>
 

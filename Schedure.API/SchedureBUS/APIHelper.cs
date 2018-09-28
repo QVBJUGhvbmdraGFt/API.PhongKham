@@ -34,6 +34,11 @@ namespace SchedureBUS
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        public APIHelper(string TokenBasic) : base()
+        {
+            this.TokenBasic = tokenBasic;
+        }
+
         #region ASYNC
 
         public async Task<KeyValuePair<bool, T>> POSTAsyns<T>(string url, object value)
@@ -43,7 +48,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, await response.Content.ReadAsAsync<T>());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -54,7 +59,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, await response.Content.ReadAsAsync<T>());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -65,7 +70,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, await response.Content.ReadAsAsync<T>());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -76,7 +81,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, await response.Content.ReadAsAsync<T>());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -90,7 +95,7 @@ namespace SchedureBUS
                 {
                     return new KeyValuePair<bool, T>(true, await response.Content.ReadAsAsync<T>());
                 }
-                response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+                response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
                 return new KeyValuePair<bool, T>(false, default(T));
             }
         }
@@ -106,7 +111,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -117,7 +122,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -128,7 +133,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -139,7 +144,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<bool, T>(true, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
             return new KeyValuePair<bool, T>(false, default(T));
         }
 
@@ -153,7 +158,7 @@ namespace SchedureBUS
                 {
                     return new KeyValuePair<bool, T>(true, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
                 }
-                response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+                response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
                 return new KeyValuePair<bool, T>(false, default(T));
             }
         }
@@ -169,7 +174,7 @@ namespace SchedureBUS
             {
                 return new KeyValuePair<HttpStatusCode, T>(response.StatusCode, response.Content.ReadAsAsync<T>().GetAwaiter().GetResult());
             }
-            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog("Response FAIL");
+            response.Content.ReadAsStringAsync().GetAwaiter().GetResult().DebugLog($"[{(int)response.StatusCode}-{response.StatusCode}] - ({url})");
             return new KeyValuePair<HttpStatusCode, T>(response.StatusCode, default(T));
         }
 

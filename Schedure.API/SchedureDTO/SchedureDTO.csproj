@@ -44,14 +44,15 @@
     <Compile Include="Account_NhanVienDTO.cs" />
     <Compile Include="ChucDanhDTO.cs" />
     <Compile Include="ChuyenKhoaDTO.cs" />
+    <Compile Include="ChanDoanKhamLS.cs" />
+    <Compile Include="NgayKhamDTO.cs" />
     <Compile Include="CTToaThuocDTO.cs" />
     <Compile Include="DM_BenhNhanDTO.cs" />
     <Compile Include="DoctorDTO.cs" />
     <Compile Include="HistoryKhamBenhDTO.cs" />
     <Compile Include="InfoHospitalDTO.cs" />
     <Compile Include="LichLamViecDTO.cs" />
-    <Compile Include="NhanVienDTO.cs" />
-    <Compile Include="PhongKhamDTO.cs" />
+    <Compile Include="PhongBanDTO.cs" />
     <Compile Include="PositionDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterDTO.cs" />

@@ -21,7 +21,9 @@ namespace SchedureDTO
         public string Status { get; set; }
         public Nullable<int> IDPosition { get; set; }
 
-        public NhanVienDTO NhanVien { get; set; }
-        public PositionDTO Position { get; set; }
+        public virtual string TenNhanVien { get; set; }
+        public virtual string MaNhanvien { get; set; }
+
+        public virtual PositionDTO Position { get; set; }
     }
 }

@@ -16,14 +16,15 @@ namespace SchedureDTO
     {
         public ChuyenKhoaDTO()
         {
-            PhongKhams = new List<PhongKhamDTO>();
+            this.PhongBans = new HashSet<PhongBanDTO>();
         }
+
         public int IDChuyenKhoa { get; set; }
         public string Avatar { get; set; }
         public string Name { get; set; }
         public Nullable<int> TimeUse { get; set; }
         public string Status { get; set; }
 
-        public List<PhongKhamDTO> PhongKhams { get; set; }
+        public virtual ICollection<PhongBanDTO> PhongBans { get; set; }
     }
 }

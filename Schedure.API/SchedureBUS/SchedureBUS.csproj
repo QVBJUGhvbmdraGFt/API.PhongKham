@@ -49,14 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extentions.cs" />
+    <Compile Include="KQKBBUS.cs" />
+    <Compile Include="PositionBUS.cs" />
+    <Compile Include="TimeSlotBUS.cs" />
     <Compile Include="LichLamViecsBUS.cs" />
     <Compile Include="PhongKhamsBUS.cs" />
-    <Compile Include="CTToaThuocsBUS.cs" />
-    <Compile Include="HistoryKhamBenhBUS.cs" />
-    <Compile Include="ThuocBUS.cs" />
-    <Compile Include="ToaThuocBUS.cs" />
     <Compile Include="RegisterBUS.cs" />
-    <Compile Include="DoctorBUS.cs" />
     <Compile Include="InfoHospitalBUS.cs" />
     <Compile Include="AccountBUS.cs" />
     <Compile Include="APIHelper.cs" />

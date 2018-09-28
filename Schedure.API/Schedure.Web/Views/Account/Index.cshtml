@@ -1,119 +1,38 @@
-﻿@model SchedureDTO.AccountDTO
-
-@{
-    ViewBag.Title = "THÔNG TIN TÀI KHOẢN";
+﻿@{
+    ViewBag.Title = "ĐỔI MẬT KHẨU";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@ViewBag.Title</h2>
-<hr />
-<a href="@Url.Action("ChangePassword")">Đổi mật khẩu tại đây</a>
-<hr />
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IDAccount)
-        @Html.HiddenFor(model => model.Username)
-        @Html.HiddenFor(model => model.Password)
-        @Html.HiddenFor(model => model.Avatar)
-        @Html.HiddenFor(model => model.Email)
-        @Html.HiddenFor(model => model.Status)
-        @Html.HiddenFor(model => model.POSITION)
-
-        <img id="Avatars" src="@Model.Avatar" alt="@Model.Avatar" style="height: 200px" />
-        <input type="file" id="uploadEditorImage" name="Avatar" value="" />
-
-        <div class="form-group">
-            @Html.Label("Tên đăng nhập", htmlAttributes: new { @class = "col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Username, new { @class = "form-control ", @readonly = "true" })
-            </div>
+    <p>@Html.ValidationSummary("", new { @class = "text-danger" })</p>
+    <div class="form-group">
+        @Html.Label("Mật khẩu cũ", new { @class = "col-md-2" })
+        <div class="col-md-10">
+            <input type="password" name="OldPass" class="form-control " />
         </div>
-
-        <div class="form-group">
-            @Html.Label("Email", htmlAttributes: new { @class = "col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", disabled = true } })
-            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.Label("Mật khẩu mới")
         </div>
-
-        <div class="form-group">
-            @Html.Label("Họ tên:", htmlAttributes: new { @class = "col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
+        <div class="col-md-10">
+            <input type="password" name="NewPass" class="form-control " />
         </div>
-
-
-        <div class="form-group">
-            @Html.Label("Ngày sinh:", htmlAttributes: new { @class = "col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Birthday, new { @class = "form-control", type = "date", Value = Model.Birthday.Value.ToString("yyyy-MM-dd") })
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Xác nhận mật khẩu", new { @class = "col-md-2" })
+        <div class="col-md-10">
+            <input type="password" name="Repass" class="form-control " />
         </div>
+    </div>
+    <p><i>Yêu cầu mật khẩu có ít nhất 8 kí tự</i> </p>
 
-        <div class="form-group">
-            @Html.Label(" Địa chỉ:", htmlAttributes: new { @class = "col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Adress, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Số điện thoại:", htmlAttributes: new { @class = "col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Giới tính", htmlAttributes: new { @class = "col-md-2" })
-            <div class="col-md-10">
-                <label><input type="checkbox" name="Male" value="true" @(Model.Male ?? false ? "checked" : "") /> Nam</label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.Label("Tiểu sử", htmlAttributes: new { @class = "col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.TieuSu, new { @class = "form-control", @rows = "8" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Hoàn thành" class="btn btn-primary" />
         </div>
     </div>
 }
-
-<script>
-    $("#uploadEditorImage").change(function () {
-        var data = new FormData();
-        var files = $("#uploadEditorImage").get(0).files;
-        if (files.length > 0) {
-            data.append("Avatar", files[0]);
-            $.ajax({
-                url: '@Url.Action("ChangeAvatar")',
-                type: "POST",
-                processData: false,
-                contentType: false,
-                data: data,
-                success: function (response) {
-                    //code after success
-                    if (response) {
-                        window.location.reload();
-                    }
-                },
-                error: function (er) {
-                    alert(er);
-                }
-            });
-        }
-    });
-</script>

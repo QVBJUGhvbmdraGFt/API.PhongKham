@@ -22,8 +22,15 @@ namespace Schedure.API.Models
     
         public int IDPosition { get; set; }
         public string Name { get; set; }
-        public string MoTa { get; set; }
         public string Status { get; set; }
+        public Nullable<bool> QL_Bac_Si { get; set; }
+        public Nullable<bool> QL_Chuyen_Khoa { get; set; }
+        public Nullable<bool> Xem_KQCLS { get; set; }
+        public Nullable<bool> QL_Lich_Lam_Viec { get; set; }
+        public Nullable<bool> QL_Phong_Ban { get; set; }
+        public Nullable<bool> QL_Dang_Ky { get; set; }
+        public Nullable<bool> QL_Thoi_Gian_Lam { get; set; }
+        public Nullable<bool> QL_Thong_Tin_Benh_Vien { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Account_NhanVien> Account_NhanVien { get; set; }

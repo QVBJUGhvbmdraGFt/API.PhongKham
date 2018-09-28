@@ -1,0 +1,245 @@
+﻿@model SchedureDTO.ChanDoanKhamLS
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table {
+        width: 100%;
+        text-align: center;
+    }
+
+    td {
+        padding: 5px;
+    }
+</style>
+<h2>KẾT QUẢ KHÁM BỆNH</h2>
+
+<p>
+    <fieldset>
+        <legend>
+            THÔNG TIN PHÒNG KHÁM
+        </legend>
+        <table class="table" border="1">
+            <tr>
+                <td>
+                    Tên phòng ban
+                </td>
+                <td>
+                    Thời gian khám
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Model.TenPhongBan
+                </td>
+                <td>
+                    @Model.ThoiGianKham
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</p>
+
+
+<p>
+    <fieldset>
+        <legend>
+            Bệnh nhân:  @Model.TenBenhNhan
+        </legend>
+        <table class="table" border="1">
+            <tr>
+                <td>
+                    Tuổi: <br /> @Model.Tuoi
+                </td>
+                <td>
+                    Giới tính:<br />  @Model.GioiTinh
+                </td>
+                <td>
+                    Mã y tế:<br /> @Model.MaYTe
+                </td>
+                <td>
+                    Số BHYT:<br /> @Model.SoBHYT
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    SDT:<br /> @Model.SoDienThoai
+                </td>
+                <td colspan="3">
+                    Địa chỉ:<br /> @Model.DiaChi
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</p>
+
+
+<p>
+    <fieldset>
+        <legend>CHỈ SỐ KHÁM</legend>
+        <table class="table" border="1">
+            <tr>
+                <td>
+                    Cân nặng
+                </td>
+                <td>
+                    Chiều cao
+                </td>
+                <td>
+                    Huyết áp
+                </td>
+                <td>
+                    Mạch
+                </td>
+                <td>
+                    Nhiệt độ
+                </td>
+                <td>
+                    Nhịp thở
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Model.CanNang
+                </td>
+                <td>
+                    @Model.ChieuCao
+                </td>
+                <td>
+                    @Model.HuyetAp
+                </td>
+                <td>
+                    @Model.Mach
+                </td>
+                <td>
+                    @Model.NhietDo
+                </td>
+                <td>
+                    @Model.NhipTho
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</p>
+
+
+<p>
+    <fieldset>
+        <legend>CHUẨN ĐOÁN</legend>
+        <table class="table" border="1">
+            <tr>
+                <td>
+                    Triệu chứng lâm sàng
+                </td>
+                <td>
+                    Chuẩn đoán khoa lam
+                </td>
+                <td>
+                    Mã bệnh
+                </td>
+                <td>
+                    Mã bệnh phụ
+                </td>
+                <td>
+                    Ngày hẹn tái khám
+                </td>
+                <td>
+                    Nội dung khám
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Model.TrieuChungLamSang
+                </td>
+                <td>
+                    @Model.ChanDoanKhoaKham
+                </td>
+                <td>
+                    @Model.MaBenh
+                </td>
+                <td>
+                    @Model.MaBenhPhu
+                </td>
+                <td>
+                    @Model.NgayHenTaiKham
+                </td>
+                <td>
+                    @Model.NoiDungKham
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</p>
+
+<p>
+    <fieldset>
+        <legend>
+            KẾT QUẢ CHUẨN LÂM SÀN
+        </legend>
+        <table class="table" border="1">
+            <tr>
+                <td>
+                    CSBT
+                </td>
+                <td>
+                    Đơn vị tính
+                </td>
+                <td>
+                    Kết quả
+                </td>
+                <td>
+                    Kết luận
+                </td>
+                <td>
+                    Mô tả
+                </td>
+                <td>
+                    Ngày KQ
+                </td>
+                <td>
+                    Nội dung
+                </td>
+                <td>
+                    Tên nhóm DV
+                </td>
+                <td>
+                    TienSu
+                </td>
+            </tr>
+            @foreach (var cls in Model.KetQuaCLS)
+            {
+                <tr>
+                    <td>
+                        @(cls?.CSBT)
+                    </td>
+                    <td>
+                        @(cls?.DonViTinh)
+                    </td>
+                    <td>
+                        @(cls?.KetQua)
+                    </td>
+                    <td>
+                        @(cls?.ket_luan)
+                    </td>
+                    <td>
+                        @(cls?.mo_ta)
+                    </td>
+                    <td>
+                        @(cls?.ngay_kq)
+                    </td>
+                    <td>
+                        @(cls?.NoiDung)
+                    </td>
+                    <td>
+                        @(cls?.TenNhomDichVu)
+                    </td>
+                    <td>
+                        @(cls?.TienSu)
+                    </td>
+                </tr>
+            }
+        </table>
+    </fieldset>
+</p>

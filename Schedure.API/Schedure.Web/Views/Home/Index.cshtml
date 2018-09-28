@@ -97,11 +97,11 @@
     }
 
     /*#tab1:checked ~ #content1,
-    #tab2:checked ~ #content2,
-    #tab3:checked ~ #content3,
-    #tab4:checked ~ #content4 {
-        display: block;
-    }*/
+        #tab2:checked ~ #content2,
+        #tab3:checked ~ #content3,
+        #tab4:checked ~ #content4 {
+            display: block;
+        }*/
 
     @@media screen and (max-width: 650px) {
         label {
@@ -142,29 +142,20 @@
     @foreach (var item in Model)
     {
         <section id="content_@item.IDChuyenKhoa">
-            @foreach (var pk in item.PhongKhams)
+            @foreach (var pk in item.PhongBans)
             {
                 <hr />
-                <h3>@pk.Name</h3>
+                <h3>@pk.TenPhongBan</h3>
                 <table class="table table-responsive table-bordered">
                     <tr>
                         <th>BÁC SĨ</th>
-                        <th>THÔNG TIN BÁC SĨ</th>
                         <th>LỊCH LÀM VIỆC</th>
                     </tr>
                     @foreach (var bs in pk.Doctors)
                     {
                         <tr>
                             <td>
-                                <img src="@bs.Avatar" alt="@bs.FullName" height="90" />
                                 <p>@bs.FullName</p>
-                            </td>
-                            <td>
-                                <ul style="padding-left: 10px">
-                                    <li>Chức danh: @(bs.ChucDanh?.Name)</li>
-                                    <li>Trình độ: @bs.Study</li>
-                                    <li>Giới thiệu: @bs.Sumary</li>
-                                </ul>
                             </td>
                             <td>
                                 <ul style="padding-left: 10px">
@@ -173,7 +164,7 @@
                                         <li>
                                             <p>
                                                 @lich.TimeSlot.HourStart - @lich.TimeSlot.HourEnd
-                                                @Html.ActionLink("Đăng kí", "Create", "Register", new { lich.IDLich }, new { @class = "btn" })
+                                                @Html.ActionLink("Đăng kí", "Index", "Register2", new { lich.IDLich }, new { @class = "btn" })
                                         </li>
                                     }
                                 </ul>

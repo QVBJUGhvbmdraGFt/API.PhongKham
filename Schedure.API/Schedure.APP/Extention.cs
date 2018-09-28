@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -141,6 +142,14 @@ namespace Schedure.APP
         {
             return new TimeSpan(dateTime.Hour, dateTime.Minute, dateTime.Second, dateTime.Millisecond);
         }
+
+        public static void DebugLog(this object message, string description = null)
+        {
+            Debug.WriteLine($">>>>>>>>>>>>>>>>>>{MethodBase.GetCurrentMethod().DeclaringType.Namespace}>>>>>>>>>>>>>>>>>>");
+            Debug.WriteLine($"\t\t[{DateTime.Now}] {description}\t\t");
+            Debug.WriteLine(message);
+            Debug.WriteLine($"<<<<<<<<<<<<<<<<<{MethodBase.GetCurrentMethod().DeclaringType.Namespace}<<<<<<<<<<<<<<<<<");
+        }
     }
 
     public static class FormExtentions
@@ -203,7 +212,7 @@ namespace Schedure.APP
             if (valueSelected != null) cmb.SelectedValue = valueSelected;
         }
 
-        public static void BindItems<T, TDisplay>(this ComboBox cmb, IList<T> source, Expression<Func<T, TDisplay>> DisplayMember, object valueSelected = null)
+        public static void BindItems<T, TDisplay>(this ComboBox cmb, IEnumerable<T> source, Expression<Func<T, TDisplay>> DisplayMember, object valueSelected = null)
         {
             cmb.Items.Clear();
             cmb.DropDownStyle = ComboBoxStyle.DropDownList;

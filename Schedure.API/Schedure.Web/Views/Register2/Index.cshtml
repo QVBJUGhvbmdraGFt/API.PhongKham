@@ -1,0 +1,62 @@
+﻿@model SchedureDTO.RegisterDTO
+
+@{
+    ViewBag.Title = "ĐĂNG KÍ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(q => q.NhanVien_Id)
+    @Html.HiddenFor(q => q.IDChuyenKhoa)
+    @Html.HiddenFor(q => q.IDLich)
+    @Html.HiddenFor(q => q.IDAccountBN)
+
+    @Html.ValidationSummary()
+
+    <h2>XÁC NHẬN THÔNG TIN ĐĂNG KÍ</h2>
+
+    <h3>Bác sĩ: @(Model.LichLamViec?.Doctor?.FullName)</h3>
+
+    <p>Thời gian làm việc: @(Model?.LichLamViec?.TimeSlot?.HourStart) - @(Model?.LichLamViec?.TimeSlot?.HourEnd)</p>
+    <div class="form-group">
+        <label for="NgayKham">Ngày đăng kí khám bệnh</label>
+        @Html.TextBoxFor(q => q.NgayKham, new { @class = "form-control", type = "date", min = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd"), max = DateTime.Now.AddDays(14).ToString("yyyy-MM-dd"), placeholder = "Nhập số điện thoại liên hệ", required = "true" })
+        <small id="NgayKham" class="form-text text-muted">Bắt buộc phải đăng ký trước 1 ngày. Tối đa là trong 2 tuần.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="Phone">Số điện thoại liên hệ</label>
+        @Html.TextBoxFor(q => q.Phone, new { @class = "form-control", placeholder = "Nhập số điện thoại liên hệ", required = "true", pattern = @"\d{10,11}", Title = "Nhập chính xác số điện thoại!" })
+        <small id="Phone" class="form-text text-muted">Vui lòng nhập đúng số điện thoại để chúng tôi có thể xác nhận!</small>
+    </div>
+
+    <div class="form-group">
+        <label for="Patient_name">Họ tên bệnh nhân</label>
+        @Html.TextBoxFor(q => q.Patient_name, new { @class = "form-control", placeholder = "Họ tên bệnh nhân", required = "true", pattern = @"\w+", Title = "Nhập vào họ tên!" })
+    </div>
+
+    if (!(Model.IDAccountBN > 0))
+    {
+        <div class="form-group">
+            <label for="Patient_name">Mã y tế</label>
+            @Html.TextBoxFor(q => q.MaYTe, new { @class = "form-control", placeholder = "Mã y tế", required = "true", pattern = @"\d+", Title = "Nhập vào Mã y tế!" })
+        </div>
+    }
+
+    <div class="form-group">
+        <label for="Status_Patient">Tình trạng bệnh</label>
+        @Html.TextBoxFor(q => q.Status_Patient, new { @class = "form-control", placeholder = "Tình trạng bệnh", required = "true", pattern = @"\w+", Title = "Nhập vào Tình trạng bệnh!" })
+    </div>
+
+    <div class="form-group">
+        <label for="Message">Lời nhắn</label>
+        @Html.TextAreaFor(q
+       => q.Message, new { @class = "form-control", rows = "3" })
+    </div>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <div style="margin-bottom: 20px" class="g-recaptcha" data-sitekey="6Lc_T3IUAAAAAJKxZHH3qqc1Q-H1UokW7uZWBw8q"></div>
+
+    <button type="submit" class="btn btn-primary mb-2">ĐĂNG KÍ</button>
+}

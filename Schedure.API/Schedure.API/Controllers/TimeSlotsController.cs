@@ -19,12 +19,12 @@ namespace Schedure.API.Controllers
         private SchedureEntities db = new SchedureEntities();
 
         // GET: api/TimeSlots
-        [AdminAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication]
         [ResponseType(typeof(List<TimeSlotDTO>))]
         public List<TimeSlotDTO> GetTimeSlots()
         {
             var lst = new List<TimeSlotDTO>();
-            foreach (var item in db.TimeSlots)
+            foreach (var item in db.TimeSlots.Where(q => q.Status != "DELETE"))
             {
                 lst.Add(ConvertToTimeSlotDTO(item));
             }
@@ -44,7 +44,7 @@ namespace Schedure.API.Controllers
 
         // GET: api/TimeSlots/5
         [ResponseType(typeof(TimeSlotDTO))]
-        [AdminAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication]
         public async Task<IHttpActionResult> GetTimeSlot(int id)
         {
             TimeSlot TimeSlot = await db.TimeSlots.FindAsync(id);
@@ -57,7 +57,7 @@ namespace Schedure.API.Controllers
         }
 
         // PUT: api/TimeSlots/5
-        [AdminAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PutTimeSlot(int id, TimeSlot TimeSlot)
         {
@@ -93,7 +93,7 @@ namespace Schedure.API.Controllers
         }
 
         // POST: api/TimeSlots
-        [AdminAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> PostTimeSlot(TimeSlot TimeSlot)
         {
@@ -124,7 +124,7 @@ namespace Schedure.API.Controllers
         }
 
         // DELETE: api/TimeSlots/5
-        [AdminAuthentication("SA", "BACSI", "YTA")]
+        [AdminAuthentication]
         [ResponseType(typeof(string))]
         public async Task<IHttpActionResult> DeleteTimeSlot(int id)
         {
@@ -134,7 +134,7 @@ namespace Schedure.API.Controllers
                 return NotFound();
             }
 
-            db.TimeSlots.Remove(TimeSlot);
+            TimeSlot.Status = "DELETE";
             await db.SaveChangesAsync();
 
             return Ok(TimeSlot);

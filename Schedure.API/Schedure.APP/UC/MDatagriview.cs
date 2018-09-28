@@ -14,12 +14,15 @@ namespace Schedure.APP.UC
     [DefaultEvent("MyCellClick")]
     public class MDataGridView : DataGridViewX
     {
+        public bool IsCellFormatting { get; set; }
+
         public MDataGridView()
         {
             AutoGenerateColumns = false;
             AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             BackgroundColor = SystemColors.Control;
             RowHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            IsCellFormatting = true;
 
             CellFormatting += MDataGridView_CellFormatting;
             InitializeComponent();
@@ -27,12 +30,15 @@ namespace Schedure.APP.UC
 
         private void MDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex < _columnFormat.Count)
+            if (IsCellFormatting)
             {
-                var obj = this.Rows[e.RowIndex].DataBoundItem;
-                if (obj != null)
+                if (e.ColumnIndex < _columnFormat.Count)
                 {
-                    e.Value = _columnFormat[e.ColumnIndex].Invoke(obj);
+                    var obj = this.Rows[e.RowIndex].DataBoundItem;
+                    if (obj != null)
+                    {
+                        e.Value = _columnFormat[e.ColumnIndex].Invoke(obj);
+                    }
                 }
             }
         }
@@ -48,29 +54,75 @@ namespace Schedure.APP.UC
                 if (columnFormat[i] != null)
                 {
                     var col = this.Columns[i];
-                    //col.DataPropertyName = columnFormat[i].DataPropertyName == null ? null : columnFormat[i].DataPropertyName.GetPropertyName();
+
                     col.DefaultCellStyle.Format = columnFormat[i].Format;
                     col.DefaultCellStyle.BackColor = columnFormat[i].BackColor;
                     col.DefaultCellStyle.Alignment = columnFormat[i].Alignment;
                     col.AutoSizeMode = columnFormat[i].AutoSizeMode;
 
-                    var func = columnFormat[i].DataPropertyName.Compile();
-                    _columnFormat.Add(x =>
+                    if (IsCellFormatting == false)
                     {
-                        return func.Invoke(x as T);
-                    });
+                        col.DataPropertyName = columnFormat[i].DataPropertyName == null ? null : columnFormat[i].DataPropertyName.GetPropertyName();
+                    }
+                    else
+                    {
+                        var express = columnFormat[i].DataPropertyName;
+                        var func = express.Compile();
+                        _columnFormat.Add(x =>
+                        {
+                            try
+                            {
+                                return func.Invoke(x as T);
+                            }
+                            catch (NullReferenceException ex)
+                            {
+                                ex.DebugLog($"({express}) {ex.TryGetMessage()}.");
+                            }
+                            return "";
+                        });
+                    }
                 }
+            }
+        }
+
+        public void SetDataSource<T>(IList<T> data)
+        {
+            if (IsCellFormatting)
+            {
+                DataSource = data;
+            }
+            else
+            {
+                DataSource = new BindingList<T>(data);
             }
         }
 
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // MDataGridView
             // 
             this.BackgroundColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.RowTemplate.Height = 24;
             this.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MDataGridView_CellClick);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();

@@ -1,4 +1,5 @@
-﻿using SchedureBUS;
+﻿using Schedure.Web.Models;
+using SchedureBUS;
 using SchedureDTO;
 using System;
 using System.Collections.Generic;
@@ -11,26 +12,23 @@ namespace Schedure.Web.Controllers
     public class RegisterController : BaseController
     {
         // GET: Register
-        public ActionResult Index()
+        public ActionResult Index(string start, string end)
         {
-            var lstRegister = new RegisterBUS(this).GetByAccount(Account.IDAccountBN);
+            DateTime d_end = DateTime.Now;
+            DateTime d_start = d_end.AddDays(-30);
+            if (string.IsNullOrWhiteSpace(start) == false)
+            {
+                d_start = DateTime.ParseExact(start, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+            }
+            if (string.IsNullOrWhiteSpace(end) == false)
+            {
+                d_end = DateTime.ParseExact(end, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+            }
+            ViewBag.s_start = d_start.ToString("yyyy-MM-dd");
+            ViewBag.s_end = d_end.ToString("yyyy-MM-dd");
+
+            var lstRegister = new RegisterBUS(this).GetByAccount(d_start, d_end);
             return View(lstRegister);
-        }
-
-        public ActionResult Create(int IDLich)
-        {
-            var data = new LichLamViecsBUS(this).GetByID(IDLich);
-            return View(new RegisterDTO { LichLamViec = data, IDLich = IDLich });
-        }
-
-        [HttpPost]
-        public ActionResult Create(RegisterDTO register)
-        {
-            register.IDAccount = Account.IDAccountBN;
-            register.CreateDate = DateTime.Now;
-            register.Status = "CONFIRM";
-            new RegisterBUS(this).Create(register);
-            return RedirectToAction("Index");
         }
 
         public JsonResult Cancle(int id)

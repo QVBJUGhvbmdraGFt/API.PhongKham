@@ -21,17 +21,8 @@ namespace SchedureDTO
 
         public int IDDoctor { get; set; }
         public string FullName { get; set; }
-        public string Avatar { get; set; }
-        public string Sumary { get; set; }
-        public string TrainingProcess { get; set; }
-        public string Study { get; set; }
-        public string Status { get; set; }
-        public Nullable<bool> Male { get; set; }
-        public Nullable<int> IDChucDanh { get; set; }
-        public Nullable<int> IDPhongKham { get; set; }
 
         public HashSet<LichLamViecDTO> LichLamViecs { get; set; }
-        public PhongKhamDTO PhongKham { get; set; }
-        public ChucDanhDTO ChucDanh { get; set; }
+        public PhongBanDTO PhongBan { get; set; }
     }
 }

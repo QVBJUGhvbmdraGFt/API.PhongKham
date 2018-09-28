@@ -20,53 +20,100 @@ namespace Schedure.API.Controllers
         private SchedureEntities db = new SchedureEntities();
 
         // GET: api/Registers
-        [AdminAuthentication]
-        [ResponseType(typeof(List<RegisterDTO>))]
-        public List<RegisterDTO> GetRegisters()
-        {
-            var lst = new List<RegisterDTO>();
-            foreach (var item in db.Registers.OrderByDescending(q => q.NgayKham))
-            {
-                lst.Add(ConvertToRegisterDTO(item));
-            }
-            return lst;
-        }
-
-        [HttpPost]
         [BasicAuthentication]
+        [HttpPost]
         [ResponseType(typeof(List<RegisterDTO>))]
-        public List<RegisterDTO> GetByAccount(int id)
+        public List<RegisterDTO> GetByAccount([FromUri]string start, [FromUri] string end)
         {
-            var lst = new List<RegisterDTO>();
-
-            var acc = LoginHelper.GetAccount();
-            if (acc.IDAccountBN != id) return lst;
-
-            foreach (var item in db.Registers.Where(q => q.IDAccount == id))
+            try
             {
-                lst.Add(ConvertToRegisterDTO(item));
+                int? iDAccount = LoginHelper.GetAccount()?.IDAccountBN;
+                if (iDAccount != null)
+                {
+                    DateTime? d_start = DateTime.ParseExact(start, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                    DateTime? d_end = DateTime.ParseExact(end, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                    var all = db.SP_Register_GetAllOrBy(d_start, d_end, null, null, null, iDAccount);
+                    return all.ToList().Select(q => ConvertToRegisterDTO(q)).ToList();
+                }
             }
-            return lst;
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+            }
+            return null;
+        }
+
+        private RegisterDTO ConvertToRegisterDTO(SP_Register_GetAllOrBy_Result q)
+        {
+            if (q == null) return null;
+            return new RegisterDTO
+            {
+                ChuyenKhoa = new ChuyenKhoaDTO
+                {
+                    Name = q.ChuyenKhoa_Name,
+                    IDChuyenKhoa = q.IDChuyenKhoa ?? 0
+                },
+                CreateDate = q.CreateDate,
+                IDAccountBN = q.IDAccountBN,
+                IDChuyenKhoa = q.IDChuyenKhoa,
+                IDLich = q.IDLich,
+                IDRegister = q.IDRegister,
+                LichLamViec = new LichLamViecDTO
+                {
+                    IDLich = q.IDLich,
+                    CreaterDate = q.CreateDate,
+                    Doctor = new DoctorDTO
+                    {
+                        FullName = q.TenNhanVien,
+                        IDDoctor = q.NhanVien_Id ?? 0
+                    },
+                    NhanVien_Id = q.NhanVien_Id,
+                    IDPhongKham = q.IDPhongKham,
+                    PhongKham = new PhongBanDTO
+                    {
+                        IDPhongBan = q.IDPhongKham ?? 0,
+                        PhongBan_Id = q.IDPhongKham,
+                        TenPhongBan = q.TenPhongBan,
+                        ChuyenKhoa = new ChuyenKhoaDTO
+                        {
+                            Name = q.ChuyenKhoa_Name,
+                            IDChuyenKhoa = q.IDChuyenKhoa ?? 0
+                        }
+                    },
+                    TimeSlot = new TimeSlotDTO
+                    {
+                        HourStart = q.HourStart,
+                        HourEnd = q.HourEnd,
+                        Name = q.TimeSlot_Name,
+                        Status = q.TimeSlot_Status
+                    }
+                },
+                Message = q.Message,
+                NgayKham = q.NgayKham,
+                NhanVien_Id = q.NhanVien_Id,
+                Patient_name = q.Patient_name,
+                Phone = q.Phone,
+                Status = q.Status,
+                Status_Patient = q.Status_Patient,
+                Account_BenhNhan = new Account_BenhNhanDTO
+                {
+                    IDAccountBN = q.IDAccountBN ?? 0,
+                    Username = q.Username
+                }
+            };
         }
 
         [HttpPost]
         [AdminAuthentication]
         [ResponseType(typeof(List<RegisterDTO>))]
-        public List<RegisterDTO> Fillter([FromUri]string start, [FromUri] string end, [FromUri] int? IDChuyenKhoa, [FromUri]string Status)
+        public List<RegisterDTO> Fillter([FromUri]string start, [FromUri] string end, [FromUri] int? IDPhongBan, [FromUri]string Status)
         {
             try
             {
                 DateTime? d_start = DateTime.ParseExact(start, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 DateTime? d_end = DateTime.ParseExact(end, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                var all = db.Registers.Where(q => q.NgayKham >= d_start && q.NgayKham <= d_end);
-                if (string.IsNullOrWhiteSpace(Status) == false)
-                {
-                    all = all.Where(q => q.Status == Status);
-                }
-                if (IDChuyenKhoa > 0)
-                {
-                    all = all.Where(q => q.LichLamViec.Doctor.PhongKham.IDChuyenKhoa == IDChuyenKhoa);
-                }
+                IDPhongBan = IDPhongBan > 0 ? IDPhongBan : null;
+                var all = db.SP_Register_GetAllOrBy(d_start, d_end, Status, IDPhongBan, null, null);
                 return all.AsEnumerable().Select(q => ConvertToRegisterDTO(q)).ToList();
             }
             catch (Exception ex)
@@ -81,48 +128,41 @@ namespace Schedure.API.Controllers
             return new RegisterDTO
             {
                 CreateDate = item.CreateDate,
-                IDAccount = item.IDAccount,
+                IDAccountBN = item.IDAccountBN,
                 IDRegister = item.IDRegister,
                 Message = item.Message,
                 Status = item.Status,
                 IDLich = item.IDLich,
                 Phone = item.Phone,
                 Account_BenhNhan = AccountsController.ConvertToAccount_BenhNhanDTO(item.Account_BenhNhan),
+                IDChuyenKhoa = item.IDChuyenKhoa,
                 LichLamViec = LichLamViecsController.ConvertToLichLamViecDTO(item.LichLamViec),
-                NgayKham = item.NgayKham
+                NgayKham = item.NgayKham,
+                NhanVien_Id = item.NhanVien_Id,
+                Patient_name = item.Patient_name,
+                Status_Patient = item.Status_Patient,
             };
-        }
-
-        // GET: api/Registers/5
-        [BasicAuthentication]
-        [ResponseType(typeof(RegisterDTO))]
-        public async Task<IHttpActionResult> GetRegister(int id)
-        {
-            Register item = await db.Registers.FindAsync(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            var acc = LoginHelper.GetAccount();
-            if (acc.IDAccountBN != item.IDAccount)
-                return NotFound();
-
-            return Ok(ConvertToRegisterDTO(item));
         }
 
         [HttpPost]
         [AdminAuthentication]
         [ResponseType(typeof(RegisterDTO))]
-        public async Task<IHttpActionResult> NVGetByID(int id)
+        public IHttpActionResult NVGetByID(int id)
         {
-            Register item = await db.Registers.FindAsync(id);
-            if (item == null)
+            try
             {
-                return NotFound();
+                var all = db.SP_Register_GetAllOrBy(null, null, null, null, id, null);
+                var q = all.AsEnumerable().FirstOrDefault();
+                if (q != null)
+                {
+                    return Ok(ConvertToRegisterDTO(q));
+                }
             }
-
-            return Ok(ConvertToRegisterDTO(item));
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+            }
+            return null;
         }
 
         [HttpPost]
@@ -134,28 +174,6 @@ namespace Schedure.API.Controllers
             register.CreateDate = DateTime.Now;
             db.Registers.Add(register);
             return Ok((await db.SaveChangesAsync()) > 0);
-        }
-
-        [ResponseType(typeof(string))]
-        [BasicAuthentication]
-        public async Task<IHttpActionResult> Cancle(int id)
-        {
-            Register item = await db.Registers.FindAsync(id);
-
-            if (LoginHelper.CheckAccount(item.IDAccount ?? 0) == false)
-                return NotFound();
-
-            if (item == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                item.Status = "CANCLE";
-                db.SaveChanges();
-            }
-
-            return Ok("SUCCESS");
         }
 
         [ResponseType(typeof(bool))]
@@ -185,20 +203,29 @@ namespace Schedure.API.Controllers
             return BadRequest();
         }
 
-        //[HttpPost]
-        //[AdminAuthentication("SA", "BACSI", "YTA")]
-        //[ResponseType(typeof(List<RegisterDTO>))]
-        //public List<RegisterDTO> GetByIDSpecia(int id)
-        //{
-        //    var all = db.Registers.ToList().Where(q => q.Doctor.IDSpecia == id);
-
-        //    var lst = new List<RegisterDTO>();
-        //    foreach (var item in all)
-        //    {
-        //        lst.Add(ConvertToRegisterDTO(item));
-        //    }
-        //    return lst;
-        //}
+        [ResponseType(typeof(bool))]
+        [BasicAuthentication]
+        public async Task<IHttpActionResult> Cancle(int id)
+        {
+            try
+            {
+                Register item = await db.Registers.FindAsync(id);
+                if (item != null && item.Status == "CONFIRM")
+                {
+                    if (LoginHelper.CheckAccount(item.IDAccountBN))
+                    {
+                        item.Status = "CANCLE";
+                        db.SaveChanges();
+                        return Ok(true);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+            }
+            return BadRequest();
+        }
 
         // PUT: api/Registers/5
         [AdminAuthentication]
@@ -237,29 +264,18 @@ namespace Schedure.API.Controllers
         }
 
         // POST: api/Registers
-        [BasicAuthentication]
-        [ResponseType(typeof(Register))]
-        public async Task<IHttpActionResult> PostRegister(Register register)
+        [ResponseType(typeof(bool))]
+        public IHttpActionResult PostRegister(RegisterDTO register)
         {
             try
             {
-                if (LoginHelper.CheckAccount(register.IDAccount ?? 0) == false)
-                    return NotFound();
-
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                db.Registers.Add(register);
-                await db.SaveChangesAsync();
-
-                return CreatedAtRoute("DefaultApi", new { id = register.IDRegister }, register);
+                register.Status = "CONFIRM";
+                return Ok(db.SP_Register_Insert(register.IDAccountBN, register.MaYTe, register.Message, register.Status, register.IDLich, register.Phone, register.NgayKham, register.Status_Patient, register.Patient_name, register.NhanVien_Id, register.IDChuyenKhoa) > 0);
             }
             catch (Exception ex)
             {
                 ex.DebugLog();
-                return BadRequest();
+                return BadRequest("false");
             }
         }
 

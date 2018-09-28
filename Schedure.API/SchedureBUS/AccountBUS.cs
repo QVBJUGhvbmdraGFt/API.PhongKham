@@ -15,7 +15,7 @@ namespace SchedureBUS
 
         const string controlerAPI = "Accounts";
 
-        public List<Account_BenhNhanDTO> GetAll()
+        public List<Account_BenhNhanDTO> GetAllBN()
         {
             return API.GET<List<Account_BenhNhanDTO>>($"api/{controlerAPI}").Value ?? new List<Account_BenhNhanDTO>();
         }
@@ -23,7 +23,7 @@ namespace SchedureBUS
         public Account_BenhNhanDTO GetByID(int id)
         {
             var res = API.GET<Account_BenhNhanDTO>($"api/{controlerAPI}/{id}");
-            return res.Key? res.Value: null;
+            return res.Key ? res.Value : null;
         }
 
         public bool Create(Account_BenhNhanDTO account)
@@ -49,6 +49,73 @@ namespace SchedureBUS
         public Account_BenhNhanDTO FindBN(string MaYTe)
         {
             return API.GET<Account_BenhNhanDTO>($"apis/{controlerAPI}/FindBN?MaYTe={MaYTe}").Value;
+        }
+
+        public Account_NhanVienDTO GetAccountNV()
+        {
+            return API.POST<Account_NhanVienDTO>($"apis/{controlerAPI}/GetAccountNV", "").Value;
+        }
+
+        public List<Account_NhanVienDTO> GetAllNV()
+        {
+            return API.POST<List<Account_NhanVienDTO>>($"apis/{controlerAPI}/GetAllNV", "").Value;
+        }
+
+        public List<Account_NhanVienDTO> GetSourceNV()
+        {
+            return API.POST<List<Account_NhanVienDTO>>($"apis/{controlerAPI}/GetSourceNV", "").Value;
+        }
+
+        public bool BNChangePassword(string OldPass, string NewPass, string RePass, ref string error)
+        {
+            bool validate = true;
+            if (NewPass.Length < 8)
+            {
+                error = "Mật khẩu có ít nhất 8 kí tự. ";
+                validate = false;
+            }
+            if (NewPass != RePass)
+            {
+                error += "Vui lòng xác nhận mật khẩu trùng khớp. ";
+                validate = false;
+            }
+            if (validate)
+            {
+                return API.POST<bool>($"apis/{controlerAPI}/BNChangePassword?oldpass={OldPass}&newpass={NewPass}", "").Value;
+            }
+
+            return false;
+        }
+
+        public bool NVChangePassword(string OldPass, string NewPass, string RePass, ref string error)
+        {
+            bool validate = true;
+            if (NewPass.Length < 8)
+            {
+                error = "Mật khẩu có ít nhất 8 kí tự. ";
+                validate = false;
+            }
+            if (NewPass != RePass)
+            {
+                error += "Vui lòng xác nhận mật khẩu trùng khớp. ";
+                validate = false;
+            }
+            if (validate)
+            {
+                return API.POST<bool>($"apis/{controlerAPI}/NVChangePassword?oldpass={OldPass}&newpass={NewPass}", "").Value;
+            }
+
+            return false;
+        }
+
+        public bool UpdateNV(Account_NhanVienDTO nhanvien)
+        {
+            return API.POST<bool>($"apis/{controlerAPI}/UpdateNV", nhanvien).Value;
+        }
+
+        public bool CreateNV(Account_NhanVienDTO nhanvien)
+        {
+            return API.POST<bool>($"apis/{controlerAPI}/CreateNV", nhanvien).Value;
         }
     }
 }

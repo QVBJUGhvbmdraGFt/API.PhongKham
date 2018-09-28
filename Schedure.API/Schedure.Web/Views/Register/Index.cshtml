@@ -5,16 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h3>LỊCH SỬ ĐĂNG KÍ KHÁM BỆNH</h3>
+@using (Html.BeginForm())
+{
+    <div class="form-inline">
+        <div class="form-group">
+            <label for="exampleInputName2">Từ ngày</label>
+            <input type="date" name="start" class="form-control" id="exampleInputName2" value="@ViewBag.s_start">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2">Đến ngày</label>
+            <input type="date" name="end" class="form-control" id="exampleInputEmail2" value="@ViewBag.s_end">
+        </div>
+        <button type="submit" class="btn btn-success" style="margin-top: 25px">Xem</button>
+    </div>
+}
+    <hr />
 <table class="table table-bordered">
     <tr>
         <th>
             MÃ ĐĂNG KÍ
         </th>
         <th>
-            BÁC SĨ
-        </th>
-        <th>
-            THÔNG TIN ĐĂNG KÍ
+            THÔNG TIN BÁC SĨ
         </th>
         <th>
             NGÀY ĐĂNG KÍ
@@ -24,46 +37,42 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.IDRegister)
-            </td>
-            <td>
-                <img style="max-height: 100px" src="@item.LichLamViec.Doctor.Avatar" />
-                <h4>@Html.DisplayFor(modelItem => item.LichLamViec.Doctor.FullName)</h4>
-            </td>
-            <td>
-                <ul>
-                    <li>Thời gian: @Html.DisplayFor(modelItem => item.LichLamViec.TimeSlot.HourStart) - @Html.DisplayFor(modelItem => item.LichLamViec.TimeSlot.HourEnd)</li>
-                    <li>Phòng khám: @Html.DisplayFor(modelItem => item.LichLamViec.Doctor.PhongKham.Name)</li>
-                    <li>Chuyên khoa: @Html.DisplayFor(modelItem => item.LichLamViec.Doctor.PhongKham.ChuyenKhoa.Name)</li>
-                </ul>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateDate)
-            </td>
-            <td>
-                @switch (item.Status)
-                {
-                    case "CONFIRM":
-                        <b>Chờ duyệt</b>
-                        <button onclick="cancleRegister(this,@item.IDRegister)" class="btn btn-warning">Hủy</button>
-                        break;
-                    case "CANCLE":
-                        <b>Đã hủy</b>
-                        break;
-                    case "DONE":
-                        <b>Đã khám</b>
-                        break;
-                    case "CHOKHAM":
-                        <b>Chờ khám</b>
-                        break;
-                    default:
-                        <b>@item.Status</b>
-                        break;
-                }
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDRegister)
+        </td>
+        <td>
+            <ul>
+                <li>Bác sĩ: <b>@(item.LichLamViec.Doctor.FullName)</b></li>
+                <li>Phòng khám: @(item.LichLamViec.PhongKham?.TenPhongBan)</li>
+                <li>Chuyên khoa: @(item.ChuyenKhoa.Name)</li>
+            </ul>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateDate)
+        </td>
+        <td>
+            @switch (item.Status)
+            {
+                case "CONFIRM":
+                    <b>Chờ duyệt</b>
+                    <button onclick="cancleRegister(this,@item.IDRegister)" class="btn btn-warning">Hủy</button>
+                    break;
+                case "CANCLE":
+                    <b>Đã hủy</b>
+                    break;
+                case "DONE":
+                    <b>Đã khám</b>
+                    break;
+                case "CHOKHAM":
+                    <b>Chờ khám</b>
+                    break;
+                default:
+                    <b>@item.Status</b>
+                    break;
+            }
+        </td>
+    </tr>
     }
 </table>
 
@@ -75,8 +84,12 @@
                 type: 'POST',
                 data: { id: id },
                 success: function (d) {
-                    $(target).closest("tr").find(".Status").html("CANCLE");
-                    $(target).closest("td").html("<b>Đã hủy</b>");
+                    if (d) {
+                        $(target).closest("tr").find(".Status").html("CANCLE");
+                        $(target).closest("td").html("<b>Đã hủy</b>");
+                    } else {
+                        alert("Hủy thất bại");
+                    }
                 }
             });
         }

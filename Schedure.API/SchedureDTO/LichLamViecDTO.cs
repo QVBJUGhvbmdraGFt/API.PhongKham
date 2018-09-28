@@ -14,14 +14,23 @@ namespace SchedureDTO
     
     public partial class LichLamViecDTO
     {
+        public LichLamViecDTO()
+        {
+            this.Registers = new HashSet<RegisterDTO>();
+        }
+
         public int IDLich { get; set; }
-        public Nullable<int> IDDoctor { get; set; }
-        public Nullable<System.TimeSpan> Time { get; set; }
+        public Nullable<int> NhanVien_Id { get; set; }
         public Nullable<int> IDTimeSlot { get; set; }
         public Nullable<int> Creater_Id { get; set; }
         public Nullable<System.DateTime> CreaterDate { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string Status { get; set; }
+        public Nullable<int> IDPhongKham { get; set; }
 
-        public TimeSlotDTO TimeSlot { get; set; }
-        public DoctorDTO Doctor { get; set; }
+        public virtual TimeSlotDTO TimeSlot { get; set; }
+        public virtual DoctorDTO Doctor { get; set; }
+        public virtual PhongBanDTO PhongKham { get; set; }
+        public virtual ICollection<RegisterDTO> Registers { get; set; }
     }
 }

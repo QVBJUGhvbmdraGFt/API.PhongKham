@@ -14,17 +14,16 @@ namespace Schedure.API.Models
             try
             {
                 var Authorization = HttpContext.Current.Request.Headers["Authorization"];
-                if (Authorization != null || Authorization.StartsWith("Basic"))
+                if (Authorization != null && Authorization.StartsWith("Basic"))
                 {
                     var decodeAuthorization = Encoding.UTF8.GetString(Convert.FromBase64String(Authorization.Remove(0, "Basic ".Length)));
                     var up = decodeAuthorization.Split(':');
-                    if (up.Length == 4 && up[0] == "BN")
+                    if (up.Length == 2)
                     {
-                        int IDBN = int.Parse(up[1]);
-                        string username = up[2];
-                        string password = up[3];
+                        int IDBN = int.Parse(up[0]);
+                        string stoken = up[1];
                         var acc = new SchedureEntities().Account_BenhNhan.Find(IDBN);
-                        if (acc != null && acc.Username == username && acc.Password == password && acc.Status == "ACTIVE")
+                        if (acc != null && acc.Token == stoken && acc.TokenExpiration >= DateTime.Now && acc.Status == "ACTIVE")
                         {
                             return acc;
                         }
@@ -38,7 +37,7 @@ namespace Schedure.API.Models
             return null;
         }
 
-        public static bool CheckAccount(int id)
+        public static bool CheckAccount(int? id)
         {
             var acc = LoginHelper.GetAccount();
             return acc != null && acc.IDAccountBN == id;
@@ -53,19 +52,14 @@ namespace Schedure.API.Models
                 {
                     var decodeAuthorization = Encoding.UTF8.GetString(Convert.FromBase64String(Authorization.Remove(0, "Basic ".Length)));
                     var up = decodeAuthorization.Split(':');
-                    if (up.Length == 4)
+                    if (up.Length == 2)
                     {
-                        string key = up[0];
-                        if (key == "NV")
+                        int IDAccountNV = int.Parse(up[0]);
+                        string stoken = up[1];
+                        Account_NhanVien account = new SchedureEntities().Account_NhanVien.Find(IDAccountNV);
+                        if (account != null && account.Token == stoken && account.TokenExpiration >= DateTime.Now && account.Status == "ACTIVE")
                         {
-                            int IDAccountNV = int.Parse(up[1]);
-                            string username = up[2];
-                            string password = up[3];
-                            Account_NhanVien account =  new SchedureEntities().Account_NhanVien.Find(IDAccountNV);
-                            if (account != null && account.Username == username && account.Password == password && account.Status != "DELETE")
-                            {
-                                return account;
-                            }
+                            return account;
                         }
                     }
                 }

@@ -13,32 +13,47 @@ namespace SchedureBUS
         {
         }
 
-        const string controlerAPI = "PhongKhams";
+        const string controlerAPI = "PhongBans";
 
-        public List<PhongKhamDTO> GetAll()
+        public List<PhongBanDTO> GetAll()
         {
-            return API.GET<List<PhongKhamDTO>>($"api/{controlerAPI}").Value ?? new List<PhongKhamDTO>();
+            return API.GET<List<PhongBanDTO>>($"api/{controlerAPI}").Value ?? new List<PhongBanDTO>();
         }
 
-        public PhongKhamDTO GetByID(int id)
+        public List<PhongBanDTO> GetSource()
         {
-            var res = API.GET<PhongKhamDTO>($"api/{controlerAPI}/{id}");
+            return API.POST<List<PhongBanDTO>>($"apis/{controlerAPI}/GetSource", "").Value ?? new List<PhongBanDTO>();
+        }
+
+        public PhongBanDTO GetByID(int id)
+        {
+            var res = API.GET<PhongBanDTO>($"api/{controlerAPI}/{id}");
             return res.Key ? res.Value : null;
         }
 
-        public bool Create(PhongKhamDTO obj)
+        public bool Create(PhongBanDTO obj)
         {
-            return API.POST<object>($"api/{controlerAPI}", obj).Key;
+            return API.POST<object>($"apis/{controlerAPI}/PostPhongBan", obj).Key;
         }
 
-        public bool Update(PhongKhamDTO obj)
+        public bool Update(PhongBanDTO obj)
         {
-            return API.PUT<string>($"api/{controlerAPI}/{obj.IDPhongKham}", obj).Key;
+            return API.PUT<string>($"api/{controlerAPI}/{obj.IDPhongBan}", obj).Key;
         }
 
         public bool Delete(int id)
         {
             return API.DELETE<object>($"api/{controlerAPI}/{id}").Key;
+        }
+
+        public List<DoctorDTO> GetDoctorByPhongKham(int iDPhongBan)
+        {
+            return API.POST<List<DoctorDTO>>($"apis/{controlerAPI}/GetDoctorByPhongKham/{iDPhongBan}", "").Value ?? new List<DoctorDTO>();
+        }
+
+        public List<DoctorDTO> GetAllDoctor()
+        {
+            return API.POST<List<DoctorDTO>>($"apis/{controlerAPI}/GetAllDoctor", "").Value ?? new List<DoctorDTO>();
         }
     }
 }

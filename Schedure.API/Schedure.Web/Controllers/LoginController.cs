@@ -1,8 +1,11 @@
-﻿using SchedureBUS;
+﻿using Newtonsoft.Json;
+using Schedure.Web.Models;
+using SchedureBUS;
 using SchedureDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -20,12 +23,19 @@ namespace Schedure.Web.Controllers
         [HttpPost]
         public ActionResult Index(string Username, string Password)
         {
-            var res = new AuthenticateBUS().Login(Username, Password);
-            Session["TOKEN"] = res.Value;
-            if (res.Key)
+            if (CaptchaGoogle.CheckCaptcha().IsSuccess)
             {
-                Session["LOGIN"] = new AuthenticateBUS().GetAccount(res.Value);
-                return RedirectToAction("Index", "Home");
+                var res = new AuthenticateBUS().Login(Username, Password);
+                Session["TOKEN"] = res.Value;
+                if (res.Key)
+                {
+                    Session["LOGIN"] = new AuthenticateBUS().GetAccount(res.Value);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Vui lòng nhập capcha");
             }
             ModelState.AddModelError("", "Đăng nhập thất bại.");
             return View();
@@ -67,18 +77,15 @@ namespace Schedure.Web.Controllers
         {
             var res = await new AuthenticateBUS().ResendMail(Email, MaYte);
             ModelState.AddModelError("", "ResendMail: " + res.Value);
-            return RedirectToAction("Confirm", new Account_BenhNhanDTO
-            {
-                Email = Email,
-                MaYTe = MaYte,
-            });
+            return View();
         }
 
         public ActionResult Logout()
         {
-            Session["TOKEN"] = null;
-            Session["LOGIN"] = null;
-            return RedirectToAction("Index");
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
+
+
 }

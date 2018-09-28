@@ -6,11 +6,15 @@
 <body>
 
     <div id="main">
-        <form method="POST">
+        <form method="POST" style="width: 500px; padding: 50px 100px">
             <h3 style="text-align:center; color: white">ĐĂNG NHẬP</h3>
             <p>@Html.ValidationMessage("", new { @class = "text-danger" })</p>
             <p><input type="text" placeholder="Username" name="Username" /></p>
             <p><input type="password" placeholder="Password" name="Password" /></p>
+
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+            <div style="margin-bottom: 20px" class="g-recaptcha" data-sitekey="6Lc_T3IUAAAAAJKxZHH3qqc1Q-H1UokW7uZWBw8q"></div>
+
             <p><input type="submit" value="LOGIN" /></p>
             <p><a href="@Url.Action("Register")">Đăng kí tài khoản mới.</a></p>
         </form>

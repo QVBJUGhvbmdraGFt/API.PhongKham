@@ -7,11 +7,12 @@ using System.Web.Mvc;
 
 namespace Schedure.Web.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            return View(new ChuyenKhoasBUS(this).GetAll());
+            var data = ChuyenKhoasBUS.JoinAllChuyenKhoa();
+            return View(data);
         }
     }
 }

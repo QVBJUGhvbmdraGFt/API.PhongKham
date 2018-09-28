@@ -35,11 +35,11 @@
             this.lblmesage = new DevComponents.DotNetBar.LabelX();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblchuyenkhoa = new DevComponents.DotNetBar.LabelX();
-            this.lblphongkham = new DevComponents.DotNetBar.LabelX();
-            this.lblbacsi = new DevComponents.DotNetBar.LabelX();
-            this.lblngaykham = new DevComponents.DotNetBar.LabelX();
             this.lbllichlamviec = new DevComponents.DotNetBar.LabelX();
+            this.lblngaykham = new DevComponents.DotNetBar.LabelX();
+            this.lblbacsi = new DevComponents.DotNetBar.LabelX();
+            this.lblphongkham = new DevComponents.DotNetBar.LabelX();
+            this.lblchuyenkhoa = new DevComponents.DotNetBar.LabelX();
             this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
             this.buttonX2 = new DevComponents.DotNetBar.ButtonX();
             this.buttonX3 = new DevComponents.DotNetBar.ButtonX();
@@ -78,7 +78,7 @@
             // 
             // 
             this.lblMayte.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblMayte.Location = new System.Drawing.Point(26, 66);
+            this.lblMayte.Location = new System.Drawing.Point(26, 74);
             this.lblMayte.Name = "lblMayte";
             this.lblMayte.Size = new System.Drawing.Size(595, 23);
             this.lblMayte.TabIndex = 1;
@@ -91,7 +91,7 @@
             // 
             // 
             this.lblsdt.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblsdt.Location = new System.Drawing.Point(26, 95);
+            this.lblsdt.Location = new System.Drawing.Point(26, 111);
             this.lblsdt.Name = "lblsdt";
             this.lblsdt.Size = new System.Drawing.Size(595, 23);
             this.lblsdt.TabIndex = 1;
@@ -104,7 +104,7 @@
             // 
             // 
             this.lblmesage.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblmesage.Location = new System.Drawing.Point(26, 124);
+            this.lblmesage.Location = new System.Drawing.Point(26, 148);
             this.lblmesage.Name = "lblmesage";
             this.lblmesage.Size = new System.Drawing.Size(595, 62);
             this.lblmesage.TabIndex = 1;
@@ -138,44 +138,18 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Thông tin đăng kí";
             // 
-            // lblchuyenkhoa
+            // lbllichlamviec
             // 
             // 
             // 
             // 
-            this.lblchuyenkhoa.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblchuyenkhoa.Location = new System.Drawing.Point(26, 27);
-            this.lblchuyenkhoa.Name = "lblchuyenkhoa";
-            this.lblchuyenkhoa.Size = new System.Drawing.Size(595, 23);
-            this.lblchuyenkhoa.TabIndex = 2;
-            this.lblchuyenkhoa.Tag = "Chuyên khoa: {0}";
-            this.lblchuyenkhoa.Text = "Chuyên khoa: {0}";
-            // 
-            // lblphongkham
-            // 
-            // 
-            // 
-            // 
-            this.lblphongkham.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblphongkham.Location = new System.Drawing.Point(26, 56);
-            this.lblphongkham.Name = "lblphongkham";
-            this.lblphongkham.Size = new System.Drawing.Size(595, 23);
-            this.lblphongkham.TabIndex = 2;
-            this.lblphongkham.Tag = "Phòng khám: {0}";
-            this.lblphongkham.Text = "Phòng khám: {0}";
-            // 
-            // lblbacsi
-            // 
-            // 
-            // 
-            // 
-            this.lblbacsi.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblbacsi.Location = new System.Drawing.Point(26, 85);
-            this.lblbacsi.Name = "lblbacsi";
-            this.lblbacsi.Size = new System.Drawing.Size(595, 23);
-            this.lblbacsi.TabIndex = 2;
-            this.lblbacsi.Tag = "Bác sĩ: {0}";
-            this.lblbacsi.Text = "Bác sĩ: {0}";
+            this.lbllichlamviec.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lbllichlamviec.Location = new System.Drawing.Point(27, 167);
+            this.lbllichlamviec.Name = "lbllichlamviec";
+            this.lbllichlamviec.Size = new System.Drawing.Size(595, 23);
+            this.lbllichlamviec.TabIndex = 2;
+            this.lbllichlamviec.Tag = "Lịch làm việc: {0}";
+            this.lbllichlamviec.Text = "Lịch làm việc: {0}";
             // 
             // lblngaykham
             // 
@@ -183,25 +157,51 @@
             // 
             // 
             this.lblngaykham.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lblngaykham.Location = new System.Drawing.Point(26, 114);
+            this.lblngaykham.Location = new System.Drawing.Point(27, 132);
             this.lblngaykham.Name = "lblngaykham";
             this.lblngaykham.Size = new System.Drawing.Size(595, 23);
             this.lblngaykham.TabIndex = 2;
             this.lblngaykham.Tag = "Ngày khám: {0}";
             this.lblngaykham.Text = "Ngày khám: {0}";
             // 
-            // lbllichlamviec
+            // lblbacsi
             // 
             // 
             // 
             // 
-            this.lbllichlamviec.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lbllichlamviec.Location = new System.Drawing.Point(26, 143);
-            this.lbllichlamviec.Name = "lbllichlamviec";
-            this.lbllichlamviec.Size = new System.Drawing.Size(595, 23);
-            this.lbllichlamviec.TabIndex = 2;
-            this.lbllichlamviec.Tag = "Lịch làm việc: {0}";
-            this.lbllichlamviec.Text = "Lịch làm việc: {0}";
+            this.lblbacsi.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lblbacsi.Location = new System.Drawing.Point(27, 97);
+            this.lblbacsi.Name = "lblbacsi";
+            this.lblbacsi.Size = new System.Drawing.Size(595, 23);
+            this.lblbacsi.TabIndex = 2;
+            this.lblbacsi.Tag = "Bác sĩ: {0}";
+            this.lblbacsi.Text = "Bác sĩ: {0}";
+            // 
+            // lblphongkham
+            // 
+            // 
+            // 
+            // 
+            this.lblphongkham.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lblphongkham.Location = new System.Drawing.Point(27, 62);
+            this.lblphongkham.Name = "lblphongkham";
+            this.lblphongkham.Size = new System.Drawing.Size(595, 23);
+            this.lblphongkham.TabIndex = 2;
+            this.lblphongkham.Tag = "Phòng khám: {0}";
+            this.lblphongkham.Text = "Phòng khám: {0}";
+            // 
+            // lblchuyenkhoa
+            // 
+            // 
+            // 
+            // 
+            this.lblchuyenkhoa.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lblchuyenkhoa.Location = new System.Drawing.Point(27, 27);
+            this.lblchuyenkhoa.Name = "lblchuyenkhoa";
+            this.lblchuyenkhoa.Size = new System.Drawing.Size(595, 23);
+            this.lblchuyenkhoa.TabIndex = 2;
+            this.lblchuyenkhoa.Tag = "Chuyên khoa: {0}";
+            this.lblchuyenkhoa.Text = "Chuyên khoa: {0}";
             // 
             // buttonX1
             // 

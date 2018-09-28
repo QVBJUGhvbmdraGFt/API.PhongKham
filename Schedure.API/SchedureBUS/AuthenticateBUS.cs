@@ -45,7 +45,9 @@ namespace SchedureBUS
 
         public Account_BenhNhanDTO GetAccount(string token)
         {
-            return API.POST<Account_BenhNhanDTO>($"apis/{controlerAPI}/GetAccount?token={token}", "").Value;
+            var api = new APIHelper();
+            api.TokenBasic = token;
+            return api.POST<Account_BenhNhanDTO>($"apis/{controlerAPI}/GetAccount", "").Value;
         }
 
         public async Task<KeyValuePair<bool, string>> ResendMail(string email, string maYte)
@@ -58,11 +60,6 @@ namespace SchedureBUS
         public KeyValuePair<bool, string> LoginNV(string Username, string Password)
         {
             return API.POST<string>($"apis/{controlerAPI}/LoginNV?Username={Username}&Password={Password}", "");
-        }
-
-        public Account_NhanVienDTO GetAccountNV(string token)
-        {
-            return API.POST<Account_NhanVienDTO>($"apis/{controlerAPI}/GetAccountNV?token={token}", "").Value;
         }
 
         #endregion
