@@ -36,7 +36,7 @@ namespace Schedure.API.Controllers
                 IDChuyenKhoa = q.IDChuyenKhoa,
                 IDPhongBan = q.IDPhongBan,
                 Status = q.PhongBan_Status,
-            }).ToList();
+            }).OrderBy(q => q.TenPhongBan).ToList();
         }
 
         [AdminAuthentication()]
@@ -63,7 +63,7 @@ namespace Schedure.API.Controllers
                     IDPhongBan = q.IDPhongBan,
                     TenPhongBan = q.TenPhongBan,
                 }
-            }).ToList();
+            }).OrderBy(q => q.FullName).ToList();
         }
 
         [HttpPost]
@@ -90,7 +90,7 @@ namespace Schedure.API.Controllers
                     IDPhongBan = q.IDPhongBan,
                     TenPhongBan = q.TenPhongBan,
                 }
-            }).ToList();
+            }).OrderBy(q => q.FullName).ToList();
         }
 
         [HttpPost]
@@ -104,7 +104,7 @@ namespace Schedure.API.Controllers
                 TenPhongBan = q.TenPhongBan,
                 IDPhongBan = q.PhongBan_Id
 
-            }).ToList();
+            }).OrderBy(q => q.TenPhongBan).ToList();
         }
 
         public static PhongBanDTO ConvertToPhongBanDTO(PhongBan item)
