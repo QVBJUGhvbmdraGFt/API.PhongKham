@@ -3,3 +3,9 @@ D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\SchedureDTO\bin\Debug\Schedur
 D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\SchedureDTO\obj\Debug\SchedureDTO.csproj.CoreCompileInputs.cache
 D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\SchedureDTO\obj\Debug\SchedureDTO.dll
 D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\SchedureDTO\obj\Debug\SchedureDTO.pdb
+C:\Users\admin\Desktop\API\demo4\API.PhongKham\Schedure.API\SchedureDTO\bin\Debug\SchedureDTO.dll
+C:\Users\admin\Desktop\API\demo4\API.PhongKham\Schedure.API\SchedureDTO\bin\Debug\SchedureDTO.pdb
+C:\Users\admin\Desktop\API\demo4\API.PhongKham\Schedure.API\SchedureDTO\obj\Debug\SchedureDTO.csprojAssemblyReference.cache
+C:\Users\admin\Desktop\API\demo4\API.PhongKham\Schedure.API\SchedureDTO\obj\Debug\SchedureDTO.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\API\demo4\API.PhongKham\Schedure.API\SchedureDTO\obj\Debug\SchedureDTO.dll
+C:\Users\admin\Desktop\API\demo4\API.PhongKham\Schedure.API\SchedureDTO\obj\Debug\SchedureDTO.pdb
