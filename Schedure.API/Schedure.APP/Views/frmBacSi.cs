@@ -27,7 +27,7 @@ namespace Schedure.APP.Views
                 new ColumnFormat<DoctorDTO>(q => q.FullName)
                 );
 
-            cmbChuyenKhoa.BindItems(new ChuyenKhoasBUS(this).NVAllChuyenKhoa().OrderBy(q => q.Name).ToList(), q => q.Name);
+            cmbChuyenKhoa.BindItems(new ChuyenKhoasBUS(this).NVChuyenKhoaJoinBacSi().OrderBy(q => q.Name).ToList(), q => q.Name);
         }
 
         private void buttonX1_Click(object sender, EventArgs e)
