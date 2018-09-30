@@ -39,9 +39,9 @@ namespace SchedureBUS
             return new APIHelper(token.GetToken()).DELETE<object>($"api/{controlerAPI}/{id}").Key;
         }
 
-        public List<LichLamViecDTO> GetByIDPhongBan(int iDPhongBan)
+        public List<LichLamViecDTO> GetByIDPhongBan(int iDPhongBan,DateTime date)
         {
-            return API.POST<List<LichLamViecDTO>>($"apis/{controlerAPI}/GetByIDPhongBan?iDPhongBan={iDPhongBan}", iDPhongBan).Value ?? new List<LichLamViecDTO>();
+            return API.POST<List<LichLamViecDTO>>($"apis/{controlerAPI}/GetByIDPhongBan?iDPhongBan={iDPhongBan}&date={date.ToString("dd-MM-yyyy")}", iDPhongBan).Value ?? new List<LichLamViecDTO>();
         }
     }
 }

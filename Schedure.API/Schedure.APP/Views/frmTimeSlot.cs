@@ -21,10 +21,11 @@ namespace Schedure.APP.Views
 
         private void frmTimeSlot_Load(object sender, EventArgs e)
         {
+            mDataGridView1.IsCellFormatting = false;
             mDataGridView1.BinDataPropertyName<TimeSlotDTO>(
                 new ColumnFormat<TimeSlotDTO>(q => q.Name),
-                new ColumnFormat<TimeSlotDTO>(q => q.HourStart),
-                new ColumnFormat<TimeSlotDTO>(q => q.HourEnd)
+                new ColumnFormat<TimeSlotDTO>(q => q.HourStart,"hh\\:ss"),
+                new ColumnFormat<TimeSlotDTO>(q => q.HourEnd, "hh\\:ss")
                 );
 
             _reload();
@@ -50,29 +51,42 @@ namespace Schedure.APP.Views
 
         private void buttonX1_Click(object sender, EventArgs e)
         {
-            if (IsEdit)
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                new TimeSlotBUS(this).Update(new TimeSlotDTO
-                {
-                    IDTimeSlot = (int)txtName.Tag,
-                    HourEnd = new TimeSpan(dateENd.Value.Hour, dateENd.Value.Minute, dateENd.Value.Second),
-                    HourStart = new TimeSpan(dateStart.Value.Hour, dateStart.Value.Minute, dateStart.Value.Second),
-                    Status = "ACTIVE",
-                    Name = txtName.Text,
-                });
+                SetStatus(false, "Vui lòng nhập Tên.");
+            }
+            else if ((mDataGridView1.DataSource as IList<TimeSlotDTO>).Any(q => q.Name.ToLower() == txtName.Text.Trim().ToLower()))
+            {
+                SetStatus(false, "Tên đã được sử dụng");
             }
             else
             {
-                new TimeSlotBUS(this).Create(new TimeSlotDTO
+                bool success = false;
+                if (IsEdit)
                 {
-                    IDTimeSlot = 0,
-                    HourEnd = new TimeSpan(dateENd.Value.Hour, dateENd.Value.Minute, dateENd.Value.Second),
-                    HourStart = new TimeSpan(dateStart.Value.Hour, dateStart.Value.Minute, dateStart.Value.Second),
-                    Status = "ACTIVE",
-                    Name = txtName.Text,
-                });
+                    success = new TimeSlotBUS(this).Update(new TimeSlotDTO
+                    {
+                        IDTimeSlot = (int)txtName.Tag,
+                        HourEnd = new TimeSpan(dateENd.Value.Hour, dateENd.Value.Minute, dateENd.Value.Second),
+                        HourStart = new TimeSpan(dateStart.Value.Hour, dateStart.Value.Minute, dateStart.Value.Second),
+                        Status = "ACTIVE",
+                        Name = txtName.Text,
+                    });
+                }
+                else
+                {
+                    success = new TimeSlotBUS(this).Create(new TimeSlotDTO
+                    {
+                        IDTimeSlot = 0,
+                        HourEnd = new TimeSpan(dateENd.Value.Hour, dateENd.Value.Minute, dateENd.Value.Second),
+                        HourStart = new TimeSpan(dateStart.Value.Hour, dateStart.Value.Minute, dateStart.Value.Second),
+                        Status = "ACTIVE",
+                        Name = txtName.Text,
+                    });
+                }
+                SetStatus(success);
+                _reload();
             }
-            _reload();
         }
 
         private void mDataGridView1_MyCellClick(object sender, DataGridViewCellEventArgs e, object dataBoundItem)
@@ -84,7 +98,7 @@ namespace Schedure.APP.Views
                 {
                     if ($"Bạn có muốn xóa {obj.Name}".XacNhan() == DialogResult.OK)
                     {
-                        new TimeSlotBUS(this).Delete(obj.IDTimeSlot);
+                        SetStatus(new TimeSlotBUS(this).Delete(obj.IDTimeSlot));
                         _reload();
                     }
                 }

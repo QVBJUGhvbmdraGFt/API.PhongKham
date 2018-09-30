@@ -44,13 +44,13 @@ namespace Schedure.APP.Views
 
         private void buttonX1_Click(object sender, EventArgs e)
         {
-            if (new PhongKhamsBUS(this).Create(new PhongBanDTO
+            if (SetStatus(new PhongKhamsBUS(this).Create(new PhongBanDTO
             {
                 IDChuyenKhoa = (cmbChuyenKhoa.SelectedItem as ChuyenKhoaDTO).IDChuyenKhoa,
                 PhongBan_Id = (cmbPhongBan.SelectedItem as PhongBanDTO).PhongBan_Id,
                 IDPhongBan = (cmbPhongBan.SelectedItem as PhongBanDTO).PhongBan_Id ?? 0,
                 Status = "ACTIVE"
-            }))
+            })))
             {
                 _reload();
             }
@@ -63,7 +63,7 @@ namespace Schedure.APP.Views
                 var obj = dataBoundItem as PhongBanDTO;
                 if ($"Bạn muốn xóa phòng ban {obj.TenPhongBan}?".XacNhan() == DialogResult.OK)
                 {
-                    new PhongKhamsBUS(this).Delete(obj.IDPhongBan);
+                    SetStatus(new PhongKhamsBUS(this).Delete(obj.IDPhongBan));
                     _reload();
                 }
             }

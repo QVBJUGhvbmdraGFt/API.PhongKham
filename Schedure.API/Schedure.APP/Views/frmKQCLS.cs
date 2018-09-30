@@ -69,6 +69,7 @@ namespace Schedure.APP.Views
             int? benhnhan_id = numSearch.Value > 0 ? (int?)numSearch.Value : null;
             var data = new KQKBBUS(this).NVFillter(benhnhan_id, datestart.Value, dateend.Value);
             mDataGridView1.DataSource = data;
+            SetStatus();
         }
 
         private void mDataGridView1_MyCellClick(object sender, DataGridViewCellEventArgs e, object dataBoundItem)

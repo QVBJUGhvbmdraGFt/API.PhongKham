@@ -10,6 +10,7 @@ namespace SchedureBUS
     {
         public APIHelper API { get; private set; }
         public IToken token { get; private set; }
+        public ILogin login { get; set; }
 
         public BaseBUS(IToken token)
         {
@@ -18,6 +19,16 @@ namespace SchedureBUS
             {
                 TokenBasic = token.GetToken()
             };
+
+            API.ResponseMessage += API_ResponseMessage;
+        }
+
+        public virtual void API_ResponseMessage(System.Net.Http.HttpResponseMessage responseMessage)
+        {
+            if (responseMessage.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                login?.Login();
+            }
         }
     }
 }

@@ -53,7 +53,7 @@ namespace Schedure.APP.Views
                 {
                     if ($"Xóa nhân viên {_nhanvien.TenNhanVien}".XacNhan() == DialogResult.OK)
                     {
-                        new AccountBUS(this).Delete(_nhanvien.IDAccountNV);
+                        SetStatus(new AccountBUS(this).Delete(_nhanvien.IDAccountNV));
                         _reload();
                     }
                 }
@@ -69,8 +69,8 @@ namespace Schedure.APP.Views
 
         private void _reload()
         {
-            var data = new AccountBUS(this).GetAllNV();
-            var src = new AccountBUS(this).GetSourceNV();
+            var data = new AccountBUS(this).GetAllNV().OrderBy(q=>q.TenNhanVien).ToList();
+            var src = new AccountBUS(this).GetSourceNV().OrderBy(q => q.TenNhanVien).ToList();
 
             //loai bo nhung nv da có
             src = src.Where(q => !data.Any(a => a.NhanVien_Id == q.NhanVien_Id)).ToList();
@@ -85,6 +85,8 @@ namespace Schedure.APP.Views
             txtPassword.Clear();
 
             mDataGridView2.SetDataSource(data);
+
+            IsEdit = false;
         }
 
         private void btnReload_Click(object sender, EventArgs e)
@@ -104,6 +106,7 @@ namespace Schedure.APP.Views
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
+            bool success = false;
             if (IsEdit)
             {
                 if (string.IsNullOrEmpty(txtPassword.Text) == false)
@@ -119,7 +122,8 @@ namespace Schedure.APP.Views
                     }
                 }
                 _nhanvien.IDPosition = (int?)cmbPosition.SelectedValue;
-                if (new AccountBUS(this).UpdateNV(_nhanvien) == false)
+                success = new AccountBUS(this).UpdateNV(_nhanvien);
+                if (success == false)
                 {
                     "Sửa thất bại".ThongBao();
                 }
@@ -146,7 +150,8 @@ namespace Schedure.APP.Views
                     Status = "ACTIVE",
                     NhanVien_Id = (cmbNVSrc.SelectedItem as Account_NhanVienDTO).NhanVien_Id
                 };
-                if (new AccountBUS(this).CreateNV(_nhanvien))
+                success = new AccountBUS(this).CreateNV(_nhanvien);
+                if (success)
                 {
                     string message = $@"Tạo thành công tải khoản NV.
 Mã NV: {(cmbNVSrc.SelectedItem as Account_NhanVienDTO).MaNhanvien}
@@ -166,6 +171,7 @@ Copy thông tin vào bộ nhớ đệm?
                     "Thất bại".ThongBao();
                 }
             }
+            SetStatus(success);
         }
 
         private void cmbNVSrc_SelectedIndexChanged(object sender, EventArgs e)

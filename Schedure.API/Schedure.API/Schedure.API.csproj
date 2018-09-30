@@ -188,6 +188,7 @@
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\BasicAuthenticationAttribute.cs" />
     <Compile Include="Controllers\ChuyenKhoasController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\KQKBController.cs" />
     <Compile Include="Controllers\PositionsController.cs" />
     <Compile Include="Controllers\TimeSlotsController.cs" />
@@ -207,7 +208,7 @@
     <Compile Include="Models\ChuyenKhoa.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Encode.cs" />
+    <Compile Include="Models\Encoder.cs" />
     <Compile Include="Models\Extentions.cs" />
     <Compile Include="Models\InfoHospital.cs">
       <DependentUpon>Model1.tt</DependentUpon>

@@ -47,6 +47,9 @@
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
+            // panelBaseMain
+            // 
+            // 
             // labelX1
             // 
             // 
@@ -250,13 +253,21 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelX1);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmConfirm";
             this.Text = "XÁC NHẬN";
             this.Load += new System.EventHandler(this.frmConfirm_Load);
+            this.Controls.SetChildIndex(this.labelX1, 0);
+            this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.groupBox2, 0);
+            this.Controls.SetChildIndex(this.buttonX1, 0);
+            this.Controls.SetChildIndex(this.buttonX2, 0);
+            this.Controls.SetChildIndex(this.buttonX3, 0);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

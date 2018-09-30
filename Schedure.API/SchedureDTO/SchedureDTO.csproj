@@ -42,11 +42,10 @@
   <ItemGroup>
     <Compile Include="Account_BenhNhanDTO.cs" />
     <Compile Include="Account_NhanVienDTO.cs" />
-    <Compile Include="ChucDanhDTO.cs" />
     <Compile Include="ChuyenKhoaDTO.cs" />
     <Compile Include="ChanDoanKhamLS.cs" />
+    <Compile Include="DM_BenhNhan.cs" />
     <Compile Include="NgayKhamDTO.cs" />
-    <Compile Include="CTToaThuocDTO.cs" />
     <Compile Include="DM_BenhNhanDTO.cs" />
     <Compile Include="DoctorDTO.cs" />
     <Compile Include="HistoryKhamBenhDTO.cs" />
@@ -56,9 +55,7 @@
     <Compile Include="PositionDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterDTO.cs" />
-    <Compile Include="ThuocDTO.cs" />
     <Compile Include="TimeSlotDTO.cs" />
-    <Compile Include="ToaThuocDTO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

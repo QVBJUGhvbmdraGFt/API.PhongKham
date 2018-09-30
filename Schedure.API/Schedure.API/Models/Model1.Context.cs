@@ -222,13 +222,17 @@ namespace Schedure.API.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_PhongBan_GetSource_Result>("SP_PhongBan_GetSource");
         }
     
-        public virtual ObjectResult<SP_LichLamViec_GetByPhongBan_Id_Result> SP_LichLamViec_GetByPhongBan_Id(Nullable<int> phongBan_Id)
+        public virtual ObjectResult<SP_LichLamViec_GetByPhongBan_Id_Result> SP_LichLamViec_GetByPhongBan_Id(Nullable<int> phongBan_Id, Nullable<System.DateTime> date)
         {
             var phongBan_IdParameter = phongBan_Id.HasValue ?
                 new ObjectParameter("PhongBan_Id", phongBan_Id) :
                 new ObjectParameter("PhongBan_Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_LichLamViec_GetByPhongBan_Id_Result>("SP_LichLamViec_GetByPhongBan_Id", phongBan_IdParameter);
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("date", date) :
+                new ObjectParameter("date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_LichLamViec_GetByPhongBan_Id_Result>("SP_LichLamViec_GetByPhongBan_Id", phongBan_IdParameter, dateParameter);
         }
     
         public virtual ObjectResult<SP_Register_GetAllOrBy_Result> SP_Register_GetAllOrBy(Nullable<System.DateTime> start, Nullable<System.DateTime> end, string status, Nullable<int> iDPhongBan, Nullable<int> iDRegiter, Nullable<int> iDAccount)

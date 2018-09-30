@@ -47,22 +47,36 @@ namespace Schedure.APP.Views
 
         private void buttonX1_Click(object sender, EventArgs e)
         {
-            if (Isedit)
+            SetStatus("Vui lòng chờ...");
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                new ChuyenKhoasBUS(this).Update(new ChuyenKhoaDTO
-                {
-                    Name = txtName.Text,
-                    IDChuyenKhoa = (int)txtName.Tag
-                });
+                SetStatus(false,"Vui lòng nhập tên chuyên khoa");
+            }
+            else if ((mDataGridView1.DataSource as IList<ChuyenKhoaDTO>).Any(q => q.Name.ToLower() == txtName.Text.Trim().ToLower()))
+            {
+                SetStatus(false, "Tên chuyên khoa đã được sử dụng");
             }
             else
             {
-                new ChuyenKhoasBUS(this).Create(new ChuyenKhoaDTO
+                bool success = false;
+                if (Isedit)
                 {
-                    Name = txtName.Text
-                });
+                    success = new ChuyenKhoasBUS(this).Update(new ChuyenKhoaDTO
+                    {
+                        Name = txtName.Text.Trim(),
+                        IDChuyenKhoa = (int)txtName.Tag
+                    });
+                }
+                else
+                {
+                    success = new ChuyenKhoasBUS(this).Create(new ChuyenKhoaDTO
+                    {
+                        Name = txtName.Text.Trim()
+                    });
+                }
+                SetStatus(success);
+                _reload();
             }
-            _reload();
         }
 
         private void mDataGridView1_MyCellClick(object sender, DataGridViewCellEventArgs e, object dataBoundItem)
@@ -75,7 +89,9 @@ namespace Schedure.APP.Views
                 {
                     new ChuyenKhoasBUS(this).Delete(obj.IDChuyenKhoa);
                     _reload();
+                    SetStatus(true);
                 }
+                SetStatus(false);
             }
             else
             {

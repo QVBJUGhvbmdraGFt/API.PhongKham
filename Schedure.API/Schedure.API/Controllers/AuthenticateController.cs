@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Results;
 
 namespace Schedure.API.Controllers
 {
@@ -86,7 +87,7 @@ namespace Schedure.API.Controllers
                 }
                 else if (acc.Status == ACTIVE)
                 {
-                    return Content(HttpStatusCode.NotAcceptable, "Tài khoản đã tồn tại");
+                    return Content(HttpStatusCode.NotAcceptable, "Thông tin Mã Y tế đã được sử dụng.");
                 }
             }
             return Content(HttpStatusCode.NotAcceptable, "Thông tin Email hoặc Mã y tế đã được sử dụng");
@@ -134,11 +135,11 @@ namespace Schedure.API.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Confirm(string id)
         {
-            if (id == null) return Content(HttpStatusCode.BadRequest, "");
+            if (id == null) return Content(HttpStatusCode.BadRequest, "Mã xác nhận không tồn tại.");
 
             var url = Encoding.UTF8.GetString(Convert.FromBase64String(HttpUtility.UrlDecode(id)));
             var decodeArray = url.Split(':');
-            if (decodeArray.Length != 2) return Content(HttpStatusCode.BadRequest, "");
+            if (decodeArray.Length != 2) return Content(HttpStatusCode.BadRequest, "Mã xác nhận không hợp lệ.");
 
             var account_test = new Account_BenhNhan
             {
@@ -147,18 +148,26 @@ namespace Schedure.API.Controllers
             };
             if (db.Account_BenhNhan.FirstOrDefault(q => q.Username == account_test.Username) is Account_BenhNhan account)
             {
-                if (account.Token == account_test.Token && account.Status == CONFIRM)
+                if (account.Status == CONFIRM)
                 {
-                    if (account.TokenExpiration >= DateTime.Now)
+                    if (account.Token == account_test.Token)
                     {
-                        account.Status = ACTIVE;
-                        await db.SaveChangesAsync();
-                        return Content(HttpStatusCode.OK, $"{account.Email} xác nhận thành công.");
+                        if (account.TokenExpiration >= DateTime.Now)
+                        {
+                            account.Status = ACTIVE;
+                            await db.SaveChangesAsync();
+                            return Content(HttpStatusCode.OK, $"{account.Email} xác nhận thành công.");
+                        }
+                        else return Content(HttpStatusCode.OK, $"{account.Email} hết thời gian xác nhận.");
                     }
-                    else return Content(HttpStatusCode.OK, $"{account.Email} hết thời gian xác nhận.");
+                    return Content(HttpStatusCode.BadRequest, "Xác nhận thất bại, mã xác nhận không chính xác.");
+                }
+                else
+                {
+                    return Content(HttpStatusCode.BadRequest, "Tài khoản đã được xác nhận trước đó.");
                 }
             }
-            return Content(HttpStatusCode.BadRequest, "Xác nhận thất bại");
+            return Content(HttpStatusCode.BadRequest, "Xác nhận thất bại, tài khoản không tồn tại");
         }
         #endregion
 
@@ -182,7 +191,6 @@ namespace Schedure.API.Controllers
             }
             return NotFound();
         }
-
 
 
         public static Account_BenhNhanDTO ConvertToAccountBNDTO(Account_BenhNhan account)

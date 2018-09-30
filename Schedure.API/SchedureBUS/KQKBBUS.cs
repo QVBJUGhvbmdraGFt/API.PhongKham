@@ -1,4 +1,5 @@
-﻿using SchedureDTO;
+﻿using Newtonsoft.Json;
+using SchedureDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,22 +18,36 @@ namespace SchedureBUS
 
         public List<NgayKhamDTO> Fillter(DateTime tuNgay, DateTime denNgay)
         {
-            return API.POST<List<NgayKhamDTO>>($"apis/{controlerAPI}/Fillter?s_tuNgay={tuNgay.ToString("dd-MM-yyyy")}&s_denNgay={denNgay.ToString("dd-MM-yyyy")}", "").Value ?? new List<NgayKhamDTO>();
+            var input = API.POST<string>($"apis/{controlerAPI}/Fillter?s_tuNgay={tuNgay.ToString("dd-MM-yyyy")}&s_denNgay={denNgay.ToString("dd-MM-yyyy")}", "").Value;
+            return _decode<List<NgayKhamDTO>>(input) ?? new List<NgayKhamDTO>();
+        }
+
+        T _decode<T>(string input)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(Convert.FromBase64String(input)));
+            }
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+            }
+            return default(T);
         }
 
         public List<NgayKhamDTO> NVFillter(int? benhNhan_Id, DateTime tuNgay, DateTime denNgay)
         {
-            return API.POST<List<NgayKhamDTO>>($"apis/{controlerAPI}/NVFillter?s_tuNgay={tuNgay.ToString("dd-MM-yyyy")}&s_denNgay={denNgay.ToString("dd-MM-yyyy")}", benhNhan_Id).Value ?? new List<NgayKhamDTO>();
+            return _decode<List<NgayKhamDTO>>(API.POST<string>($"apis/{controlerAPI}/NVFillter?s_tuNgay={tuNgay.ToString("dd-MM-yyyy")}&s_denNgay={denNgay.ToString("dd-MM-yyyy")}", benhNhan_Id).Value) ?? new List<NgayKhamDTO>();
         }
 
         public ChanDoanKhamLS GetByKhamBenhId(int KhamBenh_Id)
         {
-            return API.POST<ChanDoanKhamLS>($"apis/{controlerAPI}/GetByKhamBenhId", KhamBenh_Id).Value;
+            return _decode<ChanDoanKhamLS>(API.POST<string>($"apis/{controlerAPI}/GetByKhamBenhId", KhamBenh_Id).Value);
         }
 
         public ChanDoanKhamLS NVGetByKhamBenhId(int KhamBenh_Id)
         {
-            return API.POST<ChanDoanKhamLS>($"apis/{controlerAPI}/NVGetByKhamBenhId", KhamBenh_Id).Value;
+            return _decode<ChanDoanKhamLS>(API.POST<string>($"apis/{controlerAPI}/NVGetByKhamBenhId", KhamBenh_Id).Value);
         }
     }
 }

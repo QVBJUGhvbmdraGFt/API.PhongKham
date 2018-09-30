@@ -10,4 +10,9 @@ namespace SchedureBUS
     {
         string GetToken();
     }
+
+    public interface ILogin
+    {
+        void Login();
+    }
 }

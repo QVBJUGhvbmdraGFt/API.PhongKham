@@ -32,8 +32,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dateDate = new System.Windows.Forms.DateTimePicker();
             this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
             this.cmbPhongKham = new DevComponents.DotNetBar.Controls.ComboBoxEx();
+            this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -49,23 +51,35 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.dateDate);
             this.panel1.Controls.Add(this.buttonX1);
             this.panel1.Controls.Add(this.cmbPhongKham);
+            this.panel1.Controls.Add(this.labelX2);
             this.panel1.Controls.Add(this.labelX1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1183, 88);
+            this.panel1.Size = new System.Drawing.Size(1183, 107);
             this.panel1.TabIndex = 0;
+            // 
+            // dateDate
+            // 
+            this.dateDate.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.dateDate.CustomFormat = "dd-MM-yyyy";
+            this.dateDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateDate.Location = new System.Drawing.Point(456, 22);
+            this.dateDate.Name = "dateDate";
+            this.dateDate.Size = new System.Drawing.Size(302, 28);
+            this.dateDate.TabIndex = 3;
             // 
             // buttonX1
             // 
             this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.buttonX1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.buttonX1.Location = new System.Drawing.Point(741, 12);
+            this.buttonX1.Location = new System.Drawing.Point(764, 23);
             this.buttonX1.Name = "buttonX1";
-            this.buttonX1.Size = new System.Drawing.Size(167, 51);
+            this.buttonX1.Size = new System.Drawing.Size(167, 61);
             this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonX1.TabIndex = 2;
             this.buttonX1.Text = "LỌC";
@@ -78,11 +92,25 @@
             this.cmbPhongKham.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbPhongKham.FormattingEnabled = true;
             this.cmbPhongKham.ItemHeight = 22;
-            this.cmbPhongKham.Location = new System.Drawing.Point(433, 21);
+            this.cmbPhongKham.Location = new System.Drawing.Point(456, 56);
             this.cmbPhongKham.Name = "cmbPhongKham";
             this.cmbPhongKham.Size = new System.Drawing.Size(302, 28);
             this.cmbPhongKham.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cmbPhongKham.TabIndex = 1;
+            // 
+            // labelX2
+            // 
+            this.labelX2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            // 
+            // 
+            // 
+            this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.labelX2.Location = new System.Drawing.Point(248, 26);
+            this.labelX2.Name = "labelX2";
+            this.labelX2.Size = new System.Drawing.Size(202, 23);
+            this.labelX2.TabIndex = 0;
+            this.labelX2.Text = "Ngày phân công";
+            this.labelX2.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // labelX1
             // 
@@ -91,20 +119,21 @@
             // 
             // 
             this.labelX1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX1.Location = new System.Drawing.Point(225, 26);
+            this.labelX1.Location = new System.Drawing.Point(248, 61);
             this.labelX1.Name = "labelX1";
             this.labelX1.Size = new System.Drawing.Size(202, 23);
             this.labelX1.TabIndex = 0;
             this.labelX1.Text = "Lọc theo phòng khám";
+            this.labelX1.TextAlignment = System.Drawing.StringAlignment.Far;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 88);
+            this.panel2.Location = new System.Drawing.Point(0, 107);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1183, 619);
+            this.panel2.Size = new System.Drawing.Size(1183, 575);
             this.panel2.TabIndex = 0;
             // 
             // panel4
@@ -113,7 +142,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1183, 560);
+            this.panel4.Size = new System.Drawing.Size(1183, 516);
             this.panel4.TabIndex = 1;
             // 
             // mDataGridView1
@@ -140,7 +169,8 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.mDataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.mDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mDataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
+            this.mDataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.mDataGridView1.IsCellFormatting = true;
             this.mDataGridView1.Location = new System.Drawing.Point(0, 0);
             this.mDataGridView1.Name = "mDataGridView1";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -152,7 +182,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.mDataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.mDataGridView1.RowTemplate.Height = 24;
-            this.mDataGridView1.Size = new System.Drawing.Size(1183, 560);
+            this.mDataGridView1.Size = new System.Drawing.Size(1183, 516);
             this.mDataGridView1.TabIndex = 0;
             this.mDataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.mDataGridView1_CellFormatting);
             // 
@@ -160,7 +190,7 @@
             // 
             this.panel3.Controls.Add(this.buttonX2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 560);
+            this.panel3.Location = new System.Drawing.Point(0, 516);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1183, 59);
             this.panel3.TabIndex = 1;
@@ -185,16 +215,20 @@
             this.ClientSize = new System.Drawing.Size(1183, 707);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmLichLamViec";
             this.Text = "LỊCH LÀM VIỆC";
             this.Load += new System.EventHandler(this.frmLichLamViec_Load);
+            this.Controls.SetChildIndex(this.panel1, 0);
+            this.Controls.SetChildIndex(this.panel2, 0);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mDataGridView1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -209,5 +243,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private DevComponents.DotNetBar.ButtonX buttonX2;
+        private System.Windows.Forms.DateTimePicker dateDate;
+        private DevComponents.DotNetBar.LabelX labelX2;
     }
 }

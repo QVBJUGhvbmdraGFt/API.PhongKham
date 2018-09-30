@@ -104,7 +104,7 @@ namespace Schedure.APP.Views
             dateend.Value = DateTime.Now.AddDays(14);
             var lst = new List<KeyValuePair<string, string>>();
             lst.Add(new KeyValuePair<string, string>(null, "Tất cả"));
-            lst.Add(new KeyValuePair<string, string>("ACTIVE", "Chờ khám"));
+            lst.Add(new KeyValuePair<string, string>("ACTIVE", "Đã xác nhận"));
             lst.Add(new KeyValuePair<string, string>("CONFIRM", "Chờ xác nhận"));
             lst.Add(new KeyValuePair<string, string>("DONE", "Đã khám"));
             lst.Add(new KeyValuePair<string, string>("CANCLE", "Đã hủy"));
@@ -155,11 +155,6 @@ namespace Schedure.APP.Views
             {
                 _reload();
             }
-        }
-
-        public string GetToken()
-        {
-            return COMMON.TokenBasic + "";
         }
 
         private void mDataGridView1_MyCellClick(object sender, DataGridViewCellEventArgs e, object dataBoundItem)
@@ -230,6 +225,26 @@ namespace Schedure.APP.Views
         private void buttonItem12_Click(object sender, EventArgs e)
         {
             _dialog(new frmNhanVien());
+        }
+
+        public string GetToken()
+        {
+            return COMMON.TokenBasic + "";
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            lblTime.Text = string.Format(lblTime.Tag + "", DateTime.Now);
+        }
+
+        public void SetStatus(object message)
+        {
+            lblStatus.Text = string.Format(lblStatus.Tag + "", DateTime.Now, message + "");
+        }
+
+        public void SetStatus(bool success)
+        {
+            lblStatus.Text = string.Format(lblStatus.Tag + "", DateTime.Now, success ? "Thành công." : "Thất bại.");
         }
     }
 }

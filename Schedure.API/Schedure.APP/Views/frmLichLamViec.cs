@@ -24,6 +24,7 @@ namespace Schedure.APP.Views
 
         private void frmLichLamViec_Load(object sender, EventArgs e)
         {
+            dateDate.Value = DateTime.Now;
             mDataGridView1.AutoGenerateColumns = true;
             cmbPhongKham.BindItems(new PhongKhamsBUS(this).GetAll(), q => q.TenPhongBan);
         }
@@ -38,8 +39,8 @@ namespace Schedure.APP.Views
             var obj = cmbPhongKham.SelectedItem as PhongBanDTO;
             if (obj != null)
             {
-
-                var lich = new LichLamViecsBUS().GetByIDPhongBan(obj.IDPhongBan);
+                var date = dateDate.Value;
+                var lich = new LichLamViecsBUS().GetByIDPhongBan(obj.IDPhongBan, date);
                 var bacsi = new PhongKhamsBUS(this).GetDoctorByPhongKham(obj.IDPhongBan);
                 DataTable table = new DataTable();
 
@@ -77,6 +78,7 @@ namespace Schedure.APP.Views
                 {
                     mDataGridView1.Columns[i].Visible = false;
                 }
+                SetStatus();
             }
         }
 
@@ -103,9 +105,9 @@ namespace Schedure.APP.Views
                                     IDTimeSlot = int.Parse(mDataGridView1.Columns[i].Name),
                                     IDPhongKham = id_phongban,
                                     CreaterDate = DateTime.Now,
-                                    Status = "ACTIVE",
+                                    Status = "LamViec",
                                     Creater_Id = User.IDAccountNV,
-                                    Date = DateTime.Now
+                                    Date = dateDate.Value
                                 });
                             }
                             else if (id_lich > 0 && new_value == false)
@@ -118,6 +120,7 @@ namespace Schedure.APP.Views
 
                 _fillter();
                 "Lưu thành công".ThongBao();
+                SetStatus();
             }
         }
 

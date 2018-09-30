@@ -1,10 +1,12 @@
-﻿using Schedure.API.Models;
+﻿using Newtonsoft.Json;
+using Schedure.API.Models;
 using SchedureDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -12,21 +14,22 @@ namespace Schedure.API.Controllers
 {
     public class KQKBController : ApiController
     {
-        [ResponseType(typeof(List<ChuyenKhoaDTO>))]
+        [ResponseType(typeof(string))]
         [BasicAuthentication]
         [HttpPost]
-        public List<NgayKhamDTO> Fillter([FromUri]string s_tuNgay, [FromUri]string s_denNgay)
+        public IHttpActionResult Fillter([FromUri]string s_tuNgay, [FromUri]string s_denNgay)
         {
             int benhNhan_Id = LoginHelper.GetAccount().BenhNhan_Id ?? 0;
-            return _Fillter(benhNhan_Id, s_tuNgay, s_denNgay);
+            var data = _Fillter(benhNhan_Id, s_tuNgay, s_denNgay);
+            return Ok(_encode(data));
         }
 
-        [ResponseType(typeof(List<ChuyenKhoaDTO>))]
+        [ResponseType(typeof(string))]
         [HttpPost]
         [AdminAuthentication]
-        public List<NgayKhamDTO> NVFillter([FromBody]int? benhNhan_Id, [FromUri]string s_tuNgay, [FromUri]string s_denNgay)
+        public IHttpActionResult NVFillter([FromBody]int? benhNhan_Id, [FromUri]string s_tuNgay, [FromUri]string s_denNgay)
         {
-            return _Fillter(benhNhan_Id, s_tuNgay, s_denNgay);
+            return Ok(_encode(_Fillter(benhNhan_Id, s_tuNgay, s_denNgay)));
         }
 
         private List<NgayKhamDTO> _Fillter(int? benhNhan_Id, string s_tuNgay, string s_denNgay)
@@ -59,7 +62,7 @@ namespace Schedure.API.Controllers
                         TrieuChungLamSang = q.TrieuChungLamSang,
                         KhamBenh_Id = q.KhamBenh_Id,
                         Tuoi = q.Tuoi,
-                    }).ToList();
+                    }).OrderByDescending(q => q.ThoiGianKham).ToList();
                 }
             }
             catch (Exception ex)
@@ -69,26 +72,32 @@ namespace Schedure.API.Controllers
             return new List<NgayKhamDTO>();
         }
 
-        [ResponseType(typeof(ChanDoanKhamLS))]
+        [ResponseType(typeof(string))]
         [HttpPost]
         [BasicAuthentication]
-        public ChanDoanKhamLS GetByKhamBenhId([FromBody]int KhamBenh_Id)
+        public IHttpActionResult GetByKhamBenhId([FromBody]int KhamBenh_Id)
         {
-            var data= _GetByKhamBenhId(KhamBenh_Id);
+            var data = _GetByKhamBenhId(KhamBenh_Id);
             var acc = LoginHelper.GetAccount();
-            if(acc != null && acc.BenhNhan_Id == data.BenhNhan_Id)
+            if (acc != null && acc.BenhNhan_Id == data.BenhNhan_Id)
             {
-                return data;
+                return Ok(_encode(_GetByKhamBenhId(KhamBenh_Id)));
+
             }
-            return null;
+            return NotFound();
         }
 
-        [ResponseType(typeof(ChanDoanKhamLS))]
+        [ResponseType(typeof(string))]
         [HttpPost]
         [AdminAuthentication]
-        public ChanDoanKhamLS NVGetByKhamBenhId([FromBody]int KhamBenh_Id)
+        public IHttpActionResult NVGetByKhamBenhId([FromBody]int KhamBenh_Id)
         {
-            return _GetByKhamBenhId(KhamBenh_Id);
+            return Ok(_encode(_GetByKhamBenhId(KhamBenh_Id)));
+        }
+
+        string _encode(object data)
+        {
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data)));
         }
 
         private ChanDoanKhamLS _GetByKhamBenhId(int khamBenh_Id)

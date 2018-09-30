@@ -168,12 +168,18 @@ namespace Schedure.API.Controllers
         [HttpPost]
         [AdminAuthentication]
         [ResponseType(typeof(bool))]
-        public async Task<IHttpActionResult> NVCreate(Register register)
+        public IHttpActionResult NVCreate(Register register,[FromUri]string MaYTe)
         {
-            register.Status = "ACTIVE";
-            register.CreateDate = DateTime.Now;
-            db.Registers.Add(register);
-            return Ok((await db.SaveChangesAsync()) > 0);
+            try
+            {
+                register.Status = "ACTIVE";
+                return Ok(db.SP_Register_Insert(register.IDAccountBN, MaYTe, register.Message, register.Status, register.IDLich, register.Phone, register.NgayKham, register.Status_Patient, register.Patient_name, register.NhanVien_Id, register.IDChuyenKhoa) > 0);
+            }
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+                return BadRequest("false");
+            }
         }
 
         [ResponseType(typeof(bool))]

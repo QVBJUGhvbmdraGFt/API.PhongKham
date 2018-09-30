@@ -63,37 +63,46 @@ namespace Schedure.API.Controllers
 
         [ResponseType(typeof(List<LichLamViecDTO>))]
         [HttpPost]
-        public List<LichLamViecDTO> GetByIDPhongBan(int iDPhongBan)
+        public List<LichLamViecDTO> GetByIDPhongBan(int iDPhongBan, string date)
         {
-            return db.SP_LichLamViec_GetByPhongBan_Id(iDPhongBan).Select(q => new LichLamViecDTO
+            try
             {
-                CreaterDate = q.CreaterDate,
-                Creater_Id = q.Creater_Id,
-                Date = q.Date,
-                IDLich = q.IDLich,
-                IDPhongKham = q.IDPhongKham,
-                IDTimeSlot = q.IDTimeSlot,
-                NhanVien_Id = q.NhanVien_Id,
-                Registers = null,
-                Status = q.LichLamViec_Status,
-                TimeSlot = new TimeSlotDTO
+                DateTime d_date = DateTime.ParseExact(date, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                return db.SP_LichLamViec_GetByPhongBan_Id(iDPhongBan, d_date).Select(q => new LichLamViecDTO
                 {
-                    Name = q.Name,
-                    HourEnd = q.HourEnd,
-                    HourStart = q.HourStart,
-                    Status = q.TimeSlot_Status,
-                    IDTimeSlot = q.IDTimeSlot ?? 0,
-                },
-                Doctor = new DoctorDTO
-                {
-                    FullName = q.TenNhanVien,
-                    IDDoctor = q.NhanVien_Id ?? 0,
-                    PhongBan = new PhongBanDTO
+                    CreaterDate = q.CreaterDate,
+                    Creater_Id = q.Creater_Id,
+                    Date = q.Date,
+                    IDLich = q.IDLich,
+                    IDPhongKham = q.IDPhongKham,
+                    IDTimeSlot = q.IDTimeSlot,
+                    NhanVien_Id = q.NhanVien_Id,
+                    Registers = null,
+                    Status = q.LichLamViec_Status,
+                    TimeSlot = new TimeSlotDTO
                     {
-                        IDPhongBan = q.IDPhongKham ?? 0,
-                    }
-                },
-            }).ToList();
+                        Name = q.Name,
+                        HourEnd = q.HourEnd,
+                        HourStart = q.HourStart,
+                        Status = q.TimeSlot_Status,
+                        IDTimeSlot = q.IDTimeSlot ?? 0,
+                    },
+                    Doctor = new DoctorDTO
+                    {
+                        FullName = q.TenNhanVien,
+                        IDDoctor = q.NhanVien_Id ?? 0,
+                        PhongBan = new PhongBanDTO
+                        {
+                            IDPhongBan = q.IDPhongKham ?? 0,
+                        }
+                    },
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+            }
+            return new List<LichLamViecDTO>();
         }
 
 

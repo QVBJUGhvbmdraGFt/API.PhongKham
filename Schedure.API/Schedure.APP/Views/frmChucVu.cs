@@ -53,7 +53,7 @@ namespace Schedure.APP.Views
         {
             if (_position != null && $"Bạn có muốn xóa {_position.Name}?".XacNhan() == DialogResult.OK)
             {
-                new PositionBUS(this).Delete(_position.IDPosition);
+                SetStatus(new PositionBUS(this).Delete(_position.IDPosition));
                 _reload();
             }
         }
@@ -68,20 +68,31 @@ namespace Schedure.APP.Views
 
         private void buttonX1_Click(object sender, EventArgs e)
         {
-            if (IsEdit)
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                _position.Name = txtName.Text;
-                new PositionBUS(this).Update(_position);
+                SetStatus(false, "Vui lòng nhập Tên chức vụ");
+            }
+            else if ((mDataGridView1.DataSource as IList<PositionDTO>).Any(q => q.Name.ToLower() == txtName.Text.Trim().ToLower()))
+            {
+                SetStatus(false, "Tên chức vụ đã được sử dụng");
             }
             else
             {
-                _position = new PositionDTO
+                if (IsEdit)
                 {
-                    Name = txtName.Text
-                };
-                new PositionBUS(this).Create(_position);
+                    _position.Name = txtName.Text.Trim();
+                    SetStatus(new PositionBUS(this).Update(_position));
+                }
+                else
+                {
+                    _position = new PositionDTO
+                    {
+                        Name = txtName.Text.Trim()
+                    };
+                    SetStatus(new PositionBUS(this).Create(_position));
+                }
+                _reload();
             }
-            _reload();
         }
 
         private void buttonX1_Click_1(object sender, EventArgs e)
@@ -90,6 +101,7 @@ namespace Schedure.APP.Views
             {
                 new PositionBUS(this).Update(item);
             }
+            SetStatus(true);
             _reload();
         }
 

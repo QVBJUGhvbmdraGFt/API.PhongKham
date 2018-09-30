@@ -27,8 +27,7 @@ namespace Schedure.APP.Views
                 new ColumnFormat<DoctorDTO>(q => q.FullName)
                 );
 
-            cmbPhongBan.BindItems(new PhongKhamsBUS(this).GetAll(), q => q.TenPhongBan);
-            _fillter();
+            cmbChuyenKhoa.BindItems(new ChuyenKhoasBUS(this).NVJoinAllChuyenKhoa().OrderBy(q => q.Name).ToList(), q => q.Name);
         }
 
         private void buttonX1_Click(object sender, EventArgs e)
@@ -42,6 +41,15 @@ namespace Schedure.APP.Views
             if (obj != null)
             {
                 mDataGridView1.DataSource = new PhongKhamsBUS(this).GetDoctorByPhongKham(obj.IDPhongBan);
+            }
+        }
+
+        private void cmbChuyenKhoa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var obj = cmbChuyenKhoa.SelectedItem as ChuyenKhoaDTO;
+            if (obj != null)
+            {
+                cmbPhongBan.BindItems(obj.PhongBans.OrderBy(q => q.TenPhongBan).ToList(), q => q.TenPhongBan);
             }
         }
     }

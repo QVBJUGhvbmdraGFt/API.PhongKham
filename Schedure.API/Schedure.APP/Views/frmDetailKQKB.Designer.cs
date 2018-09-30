@@ -62,6 +62,9 @@
             this.labelX9 = new DevComponents.DotNetBar.LabelX();
             this.SuspendLayout();
             // 
+            // panelBaseMain
+            // 
+            // 
             // TenBenhNhan
             // 
             // 
@@ -514,11 +517,45 @@
             this.Controls.Add(this.NguoiLienHe);
             this.Controls.Add(this.DiaChi);
             this.Controls.Add(this.TenBenhNhan);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmDetailKQKB";
             this.Text = "CHI TIẾT KẾT QUẢ KHÁM BỆNH";
             this.Load += new System.EventHandler(this.frmDetailKQKB_Load);
+            this.Controls.SetChildIndex(this.TenBenhNhan, 0);
+            this.Controls.SetChildIndex(this.DiaChi, 0);
+            this.Controls.SetChildIndex(this.NguoiLienHe, 0);
+            this.Controls.SetChildIndex(this.TrieuChungLamSang, 0);
+            this.Controls.SetChildIndex(this.MaYTe, 0);
+            this.Controls.SetChildIndex(this.NgayhentaiKham, 0);
+            this.Controls.SetChildIndex(this.NhipTho, 0);
+            this.Controls.SetChildIndex(this.SDT, 0);
+            this.Controls.SetChildIndex(this.labelX1, 0);
+            this.Controls.SetChildIndex(this.ChuanDoanLamSang, 0);
+            this.Controls.SetChildIndex(this.Tuoi, 0);
+            this.Controls.SetChildIndex(this.MaBenh, 0);
+            this.Controls.SetChildIndex(this.ChieuCao, 0);
+            this.Controls.SetChildIndex(this.THoiGianKham, 0);
+            this.Controls.SetChildIndex(this.labelX2, 0);
+            this.Controls.SetChildIndex(this.Mach, 0);
+            this.Controls.SetChildIndex(this.TenPhongBan, 0);
+            this.Controls.SetChildIndex(this.CanNang, 0);
+            this.Controls.SetChildIndex(this.GioiTinh, 0);
+            this.Controls.SetChildIndex(this.labelX3, 0);
+            this.Controls.SetChildIndex(this.labelX7, 0);
+            this.Controls.SetChildIndex(this.MaBenhPhu, 0);
+            this.Controls.SetChildIndex(this.NoiDungKham, 0);
+            this.Controls.SetChildIndex(this.NhietDo, 0);
+            this.Controls.SetChildIndex(this.labelX4, 0);
+            this.Controls.SetChildIndex(this.HuyeAp, 0);
+            this.Controls.SetChildIndex(this.labelX5, 0);
+            this.Controls.SetChildIndex(this.labelX8, 0);
+            this.Controls.SetChildIndex(this.SoBHYT, 0);
+            this.Controls.SetChildIndex(this.labelX6, 0);
+            this.Controls.SetChildIndex(this.labelX9, 0);
+            this.Controls.SetChildIndex(this.buttonX1, 0);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

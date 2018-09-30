@@ -126,6 +126,12 @@ namespace Schedure.API.Controllers
                                     HourStart = lich.HourStart,
                                     Name = lich.TimeSplot_Name,
                                     Status = lich.TimeSlot_Status,
+                                },
+                                Doctor = new DoctorDTO
+                                {
+                                    IDDoctor = bs_first.NhanVien_Id,
+                                    FullName = bs_first.TenNhanVien,
+                                    LichLamViecs = new HashSet<LichLamViecDTO>(),
                                 }
                             };
                             bacsi.LichLamViecs.Add(lichLamViec);
@@ -139,7 +145,7 @@ namespace Schedure.API.Controllers
 
                 lst.Add(chuyenKhoa);
             }
-            return lst;
+            return lst.OrderBy(q => q.Name).ToList();
         }
 
         // GET: api/ChuyenKhoas1/5

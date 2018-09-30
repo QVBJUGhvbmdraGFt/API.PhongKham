@@ -224,13 +224,39 @@ namespace Schedure.API.Controllers
 
         [HttpGet]
         [AdminAuthentication]
-        [ResponseType(typeof(Account_BenhNhan))]
-        public async Task<IHttpActionResult> FindBN([FromUri]string MaYTe)
+        [ResponseType(typeof(DM_BenhNhan))]
+        public IHttpActionResult FindBN([FromUri]string MaYTe)
         {
             if (string.IsNullOrWhiteSpace(MaYTe)) return NotFound();
-            var acc = await db.Account_BenhNhan.FirstOrDefaultAsync(q => q.Username == MaYTe);
-            if (acc == null || acc.Status == "DELETE") return NotFound();
-            return Ok(ConvertToAccount_BenhNhanDTO(acc));
+            var acc = db.SP_DM_BenhNhan_GetByMaYTe(MaYTe);
+            foreach (var item in acc)
+            {
+                return Ok(new DM_BenhNhan
+                {
+                    BenhNhan_Id = item.BenhNhan_Id,
+                    ChucVu = item.ChucVu,
+                    CMND = item.CMND,
+                    DiaChi = item.DiaChi,
+                    Email = item.Email,
+                    GhiChu = item.GhiChu,
+                    GioiTinh = item.GioiTinh,
+                    Ho = item.Ho,
+                    MaBenhVien = item.MaBenhVien,
+                    MaYTe = item.MaYTe,
+                    NamSinh = item.NamSinh,
+                    NgayHetHieuLuc_BHYT = item.NgayHetHieuLuc_BHYT,
+                    NgayHieuLuc_BHYT = item.NgayHieuLuc_BHYT,
+                    NgaySinh = item.NgaySinh,
+                    SoThe_BHYT = item.SoThe_BHYT,
+                    SoVaoVien = item.SoVaoVien,
+                    Ten = item.Ten,
+                    TenBenhNhan = item.TenBenhNhan,
+                    TenKhongDau = item.TenKhongDau,
+                    TienSuBenh = item.TienSuBenh,
+                    VietKieu = item.VietKieu,
+                });
+            }
+            return NotFound();
         }
 
         [HttpPost]

@@ -256,6 +256,7 @@
         </Function>
         <Function Name="SP_LichLamViec_GetByPhongBan_Id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="PhongBan_Id" Type="int" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
         </Function>
         <Function Name="SP_PhongBan_GetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_PhongBan_GetSource" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -382,6 +383,7 @@
           <FunctionImport Name="SP_PhongBan_GetSource" ReturnType="Collection(SchedureModel.SP_PhongBan_GetSource_Result)" />
           <FunctionImport Name="SP_LichLamViec_GetByPhongBan_Id" ReturnType="Collection(SchedureModel.SP_LichLamViec_GetByPhongBan_Id_Result)">
           <Parameter Name="PhongBan_Id" Mode="In" Type="Int32" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="SP_Register_GetAllOrBy" ReturnType="Collection(SchedureModel.SP_Register_GetAllOrBy_Result)">
             <Parameter Name="start" Mode="In" Type="DateTime" />

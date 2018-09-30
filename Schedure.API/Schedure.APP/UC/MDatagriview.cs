@@ -60,11 +60,7 @@ namespace Schedure.APP.UC
                     col.DefaultCellStyle.Alignment = columnFormat[i].Alignment;
                     col.AutoSizeMode = columnFormat[i].AutoSizeMode;
 
-                    if (IsCellFormatting == false)
-                    {
-                        col.DataPropertyName = columnFormat[i].DataPropertyName == null ? null : columnFormat[i].DataPropertyName.GetPropertyName();
-                    }
-                    else
+                    if (IsCellFormatting)
                     {
                         var express = columnFormat[i].DataPropertyName;
                         var func = express.Compile();
@@ -80,6 +76,10 @@ namespace Schedure.APP.UC
                             }
                             return "";
                         });
+                    }
+                    else
+                    {
+                        col.DataPropertyName = columnFormat[i].DataPropertyName == null ? null : columnFormat[i].DataPropertyName.GetPropertyName();
                     }
                 }
             }

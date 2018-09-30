@@ -64,12 +64,6 @@
     <Compile Include="UC\MDatagriview.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UC\ucMatrix.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UC\ucMatrix.Designer.cs">
-      <DependentUpon>ucMatrix.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\PositionManager.cs" />
     <Compile Include="Views\frmBacSi.cs">
       <SubType>Form</SubType>
@@ -192,9 +186,6 @@
     </Compile>
     <EmbeddedResource Include="UC\MDatagriview.resx">
       <DependentUpon>MDatagriview.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UC\ucMatrix.resx">
-      <DependentUpon>ucMatrix.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmBacSi.resx">
       <DependentUpon>frmBacSi.cs</DependentUpon>

@@ -46,9 +46,9 @@ namespace SchedureBUS
             return API.UploadImage<string>($"apis/{controlerAPI}/ChangeAvatar/{iDAccount}", imageData, nameImage);
         }
 
-        public Account_BenhNhanDTO FindBN(string MaYTe)
+        public DM_BenhNhan FindBN(string MaYTe)
         {
-            return API.GET<Account_BenhNhanDTO>($"apis/{controlerAPI}/FindBN?MaYTe={MaYTe}").Value;
+            return API.GET<DM_BenhNhan>($"apis/{controlerAPI}/FindBN?MaYTe={MaYTe}").Value;
         }
 
         public Account_NhanVienDTO GetAccountNV()

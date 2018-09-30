@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,8 +16,6 @@ namespace Schedure.APP.Views
     public partial class frmRegister : FormBase
     {
         private List<ChuyenKhoaDTO> _allChuyenKhoa;
-
-        public Account_BenhNhanDTO Account_BenhNhan { get; private set; }
 
         public frmRegister()
         {
@@ -27,14 +26,14 @@ namespace Schedure.APP.Views
         {
             mDataGridView1.BinDataPropertyName<LichLamViecDTO>(
                 new ColumnFormat<LichLamViecDTO>(q => q.Doctor.FullName),
-                new ColumnFormat<LichLamViecDTO>(q => q.TimeSlot.HourStart),
-                new ColumnFormat<LichLamViecDTO>(q => q.TimeSlot.HourEnd)
+                new ColumnFormat<LichLamViecDTO>(q => q.Date, "dd-MM-yyyy"),
+                new ColumnFormat<LichLamViecDTO>(q => $"{q.TimeSlot.Name} ({q.TimeSlot.HourStart} - {q.TimeSlot.HourEnd})")
                 );
 
             dateNgayKham.MinDate = DateTime.Now.AddDays(1);
             dateNgayKham.MaxDate = DateTime.Now.AddDays(14);
 
-            _allChuyenKhoa = new ChuyenKhoasBUS(this).NVAllChuyenKhoa();
+            _allChuyenKhoa = new ChuyenKhoasBUS(this).NVJoinAllChuyenKhoa();
             cmbChuyenKhoa.BindItems(_allChuyenKhoa, q => q.Name);
 
         }
@@ -48,7 +47,8 @@ namespace Schedure.APP.Views
         private void cmbBacSi_SelectedIndexChanged(object sender, EventArgs e)
         {
             var obj = cmbBacSi.SelectedItem as DoctorDTO;
-            mDataGridView1.DataSource = new List<LichLamViecDTO>(obj.LichLamViecs);
+            var date = _onlydate(dateNgayKham.Value);
+            mDataGridView1.DataSource = new List<LichLamViecDTO>(obj.LichLamViecs.Where(q => _onlydate(q.Date) == date).ToList());
         }
 
         private void cmbPhongKham_SelectedIndexChanged(object sender, EventArgs e)
@@ -59,50 +59,81 @@ namespace Schedure.APP.Views
 
         private void mDataGridView1_MyCellClick(object sender, DataGridViewCellEventArgs e, object dataBoundItem)
         {
-            if(Account_BenhNhan == null)
+            if (e.ColumnIndex == mDataGridView1.ColumnCount - 1)
             {
-                "Vui lòng tìm bệnh nhân".ThongBao();
-                return;
-            }
-            var obj = dataBoundItem as LichLamViecDTO;
-            if ($"Xác nhận đăng kí cho bệnh nhân {Account_BenhNhan.Username}({Account_BenhNhan.Username})?".XacNhan() == DialogResult.OK)
-            {
-                if(new RegisterBUS(this).NVCreate(new RegisterDTO
+                var obj = dataBoundItem as LichLamViecDTO;
+                if (obj != null)
                 {
-                    Account_BenhNhan = null,
-                    CreateDate = DateTime.Now,
-                    IDAccountBN = Account_BenhNhan.IDAccountBN,
-                    IDLich = obj.IDLich,
-                    IDRegister = 0,
-                    LichLamViec = null,
-                    Message = "",
-                    NgayKham = dateNgayKham.Value,
-                    Phone = txtPhone.Text,
-                    Status = "ACTIVE"
-                }))
-                {
-                    "Thành công".ThongBao();
-                    DialogResult = DialogResult.OK;
-                    Close();
-                }
-                else
-                {
-                    "Thất bại".ThongBao();
+                    if (new Regex(@"^\d{10}$").IsMatch(txtPhone.Text))
+                    {
+                        if ($"Xác nhận đăng kí cho bệnh nhân?".XacNhan() == DialogResult.OK)
+                        {
+                            if (new RegisterBUS(this).NVCreate(new RegisterDTO
+                            {
+                                IDAccountBN = null,
+                                CreateDate = DateTime.Now,
+                                IDChuyenKhoa = (cmbChuyenKhoa.SelectedItem as ChuyenKhoaDTO).IDChuyenKhoa,
+                                IDLich = obj.IDLich,
+                                MaYTe = txtName.Text,
+                                Message = txtMessage.Text,
+                                NhanVien_Id = obj.NhanVien_Id,
+                                NgayKham = dateNgayKham.Value,
+                                Patient_name = txtName.Text,
+                                Status_Patient = txtStatus.Text,
+                                Phone = txtPhone.Text,
+                            }, txtMaYTe.Text))
+                            {
+                                "Thành công".ThongBao();
+                                DialogResult = DialogResult.OK;
+                                Close();
+                            }
+                            else
+                            {
+                                "Thất bại".ThongBao();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var message = "Vui lòng nhập SDT có 10 số";
+                        SetStatus(message);
+                        message.ThongBao();
+                    }
                 }
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Account_BenhNhan = new AccountBUS(this).FindBN(txtMaYTe.Text);
-            if(Account_BenhNhan == null)
+            var bn = new AccountBUS(this).FindBN(txtMaYTe.Text);
+            mDataGridView1.Enabled = bn != null;
+            if (bn == null)
             {
-                "Không tìm thấy tài khoản bệnh nhân! Bệnh nhân vui lòng tạo tài khoản theo Mã Y tế của mình!".ThongBao();
+                var message = $"Không tìm thấy Bệnh nhân mã {txtMaYTe.Text}!";
+                message.ThongBao();
+                SetStatus(message);
             }
             else
             {
-                lblBenhNhan.Text = $"Tài khoản: {Account_BenhNhan.Username} - MaYTe: {Account_BenhNhan.Username}";
+                txtName.Text = bn.TenBenhNhan;
+                SetStatus(bn.TenBenhNhan);
             }
+        }
+
+        private void dateNgayKham_ValueChanged(object sender, EventArgs e)
+        {
+            var obj = cmbBacSi.SelectedItem as DoctorDTO;
+            if (obj != null)
+            {
+                var date = _onlydate(dateNgayKham.Value);
+                mDataGridView1.DataSource = new List<LichLamViecDTO>(obj.LichLamViecs.Where(q => _onlydate(q.Date) == date).ToList());
+            }
+        }
+
+        private DateTime? _onlydate(DateTime? date)
+        {
+            if (date == null) return null;
+            return new DateTime(date.Value.Year, date.Value.Month, date.Value.Day);
         }
     }
 }

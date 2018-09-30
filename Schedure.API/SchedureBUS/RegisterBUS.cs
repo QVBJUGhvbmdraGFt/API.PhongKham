@@ -73,9 +73,9 @@ namespace SchedureBUS
             return res.Key ? res.Value : null;
         }
 
-        public bool NVCreate(RegisterDTO registerDTO)
+        public bool NVCreate(RegisterDTO registerDTO,string MaYTe)
         {
-            return API.POST<bool>($"apis/{controlerAPI}/NVCreate", registerDTO).Value;
+            return API.POST<bool>($"apis/{controlerAPI}/NVCreate?MaYTe={MaYTe}", registerDTO).Value;
         }
     }
 }

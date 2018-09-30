@@ -45,9 +45,11 @@ namespace Schedure.APP.Views
         {
             if ("Xác nhận bệnh nhân tới khám thành công?".XacNhan() == DialogResult.OK)
             {
-                new RegisterBUS(this).Confirm(register.IDRegister, "ACTIVE");
-                DialogResult = DialogResult.OK;
-                Close();
+                if (SetStatus(new RegisterBUS(this).Confirm(register.IDRegister, "ACTIVE")))
+                {
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
             }
         }
 
@@ -55,9 +57,11 @@ namespace Schedure.APP.Views
         {
             if ("Xác nhận bệnh nhân hủy khám?".XacNhan() == DialogResult.OK)
             {
-                new RegisterBUS(this).Confirm(register.IDRegister, "CANCLE");
-                DialogResult = DialogResult.OK;
-                Close();
+                if (SetStatus(new RegisterBUS(this).Confirm(register.IDRegister, "CANCLE")))
+                {
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
             }
         }
     }

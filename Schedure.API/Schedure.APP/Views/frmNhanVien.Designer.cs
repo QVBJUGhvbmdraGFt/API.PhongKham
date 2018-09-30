@@ -55,6 +55,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.mDataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
+            // panelBaseMain
+            // 
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.button1);
@@ -293,15 +296,19 @@
             this.ClientSize = new System.Drawing.Size(1107, 704);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "frmNhanVien";
             this.Text = "QUẢN LÝ NHÂN VIÊN";
             this.Load += new System.EventHandler(this.frmNhanVien_Load);
+            this.Controls.SetChildIndex(this.panel1, 0);
+            this.Controls.SetChildIndex(this.panel2, 0);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mDataGridView2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
