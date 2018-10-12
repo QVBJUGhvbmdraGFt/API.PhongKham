@@ -44,29 +44,29 @@
             this.lblStatus,
             this.toolStripStatusLabel2,
             this.lblTime});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 565);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 568);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(900, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(900, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // lblStatus
             // 
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(68, 20);
+            this.lblStatus.Size = new System.Drawing.Size(54, 17);
             this.lblStatus.Tag = "[{0:HH:mm:ss}] {1}";
             this.lblStatus.Text = "Sẵn sàng";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(754, 20);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(751, 17);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // lblTime
             // 
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(63, 20);
+            this.lblTime.Size = new System.Drawing.Size(49, 17);
             this.lblTime.Tag = "{0:HH:mm:ss dd/MM/yyyy}";
             this.lblTime.Text = "12:00:00";
             // 
@@ -78,7 +78,7 @@
             // 
             // FormBase
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 590);
             this.Controls.Add(this.statusStrip1);
