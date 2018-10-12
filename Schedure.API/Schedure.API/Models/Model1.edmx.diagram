@@ -5,16 +5,16 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cb409a1cf9fd40f895776e5db056edd2" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="SchedureModel.Account_BenhNhan" Width="1.5" PointX="3" PointY="5.5" />
-        <EntityTypeShape EntityType="SchedureModel.Account_NhanVien" Width="1.5" PointX="8" PointY="6.25" />
+        <EntityTypeShape EntityType="SchedureModel.Account_BenhNhan" Width="1.5" PointX="3" PointY="6.5" />
+        <EntityTypeShape EntityType="SchedureModel.Account_NhanVien" Width="1.5" PointX="8" PointY="7.25" />
         <EntityTypeShape EntityType="SchedureModel.ChuyenKhoa" Width="1.5" PointX="7.75" PointY="0.875" />
-        <EntityTypeShape EntityType="SchedureModel.InfoHospital" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="SchedureModel.InfoHospital" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="SchedureModel.LichLamViec" Width="1.5" PointX="3" PointY="1.375" />
         <EntityTypeShape EntityType="SchedureModel.PhongBan" Width="1.5" PointX="10" PointY="0.875" />
-        <EntityTypeShape EntityType="SchedureModel.Position" Width="1.5" PointX="5.75" PointY="6" />
+        <EntityTypeShape EntityType="SchedureModel.Position" Width="1.5" PointX="5.75" PointY="7" />
         <EntityTypeShape EntityType="SchedureModel.Register" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="SchedureModel.sysdiagram" Width="1.5" PointX="2.75" PointY="9.75" />
-        <EntityTypeShape EntityType="SchedureModel.TimeSlot" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="SchedureModel.sysdiagram" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="SchedureModel.TimeSlot" Width="1.5" PointX="0.75" PointY="2" />
         <AssociationConnector Association="SchedureModel.FK_Register_Account" />
         <AssociationConnector Association="SchedureModel.FK_Account_NhanVien_Position" />
         <AssociationConnector Association="SchedureModel.FK_PhongKham_ChuyenKhoa" />

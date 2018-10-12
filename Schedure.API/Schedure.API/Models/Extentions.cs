@@ -16,5 +16,10 @@ namespace Schedure.API.Models
             Debug.WriteLine(message);
             Debug.WriteLine($"<<<<<<<<<<<<<<<<<{MethodBase.GetCurrentMethod().DeclaringType.Namespace}<<<<<<<<<<<<<<<<<");
         }
+
+        public static DateTime? OnlyDate(this DateTime date)
+        {
+            return new DateTime(date.Year, date.Month, date.Day);
+        }
     }
 }

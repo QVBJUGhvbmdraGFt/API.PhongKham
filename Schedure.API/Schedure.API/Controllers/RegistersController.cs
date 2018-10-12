@@ -141,6 +141,7 @@ namespace Schedure.API.Controllers
                 NhanVien_Id = item.NhanVien_Id,
                 Patient_name = item.Patient_name,
                 Status_Patient = item.Status_Patient,
+                MaDangKy = item.MaDangKy,
             };
         }
 
@@ -168,7 +169,7 @@ namespace Schedure.API.Controllers
         [HttpPost]
         [AdminAuthentication]
         [ResponseType(typeof(bool))]
-        public IHttpActionResult NVCreate(Register register,[FromUri]string MaYTe)
+        public IHttpActionResult NVCreate(Register register, [FromUri]string MaYTe)
         {
             try
             {
@@ -197,6 +198,8 @@ namespace Schedure.API.Controllers
                 else
                 {
                     item.Status = status;
+                    item.Modified_Id = LoginHelper.GetAccountNV().IDAccountNV;
+                    item.ModifiedDate = DateTime.Now;
                     db.SaveChanges();
                 }
 
@@ -220,9 +223,16 @@ namespace Schedure.API.Controllers
                 {
                     if (LoginHelper.CheckAccount(item.IDAccountBN))
                     {
-                        item.Status = "CANCLE";
-                        db.SaveChanges();
-                        return Ok(true);
+                        if ((item.NgayKham - DateTime.Now).Value > TimeSpan.FromDays(1))
+                        {
+                            item.Status = "CANCLE";
+                            db.SaveChanges();
+                            return Ok(true);
+                        }
+                        else
+                        {
+                            return BadRequest("Chỉ được xóa trước ngày khám 24h.");
+                        }
                     }
                 }
             }
@@ -276,6 +286,7 @@ namespace Schedure.API.Controllers
             try
             {
                 register.Status = "CONFIRM";
+                register.Message = register.Message.RemoveMetaCharacter();
                 return Ok(db.SP_Register_Insert(register.IDAccountBN, register.MaYTe, register.Message, register.Status, register.IDLich, register.Phone, register.NgayKham, register.Status_Patient, register.Patient_name, register.NhanVien_Id, register.IDChuyenKhoa) > 0);
             }
             catch (Exception ex)

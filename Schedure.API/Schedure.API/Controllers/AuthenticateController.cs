@@ -63,20 +63,30 @@ namespace Schedure.API.Controllers
                 var bn = db.SP_DM_BenhNhan_GetByMaYTe(account.MaYTe).FirstOrDefault();
                 if (bn != null)
                 {
-                    var id = db.SP_Account_BenhNhan_Insert(account.Password, account.Email, account.MaYTe).FirstOrDefault();
-                    if (id != null)
+                    if (bn.TenBenhNhan.ToUpper().Equals(account.HoTen.ToUpper()) && bn.NgaySinh?.OnlyDate() == account.NgaySinh.OnlyDate())
                     {
-
-                        if (_sendMailConfirm(id.IDAccountBN ?? 0))
+                        var id = db.SP_Account_BenhNhan_Insert(account.Password, account.Email, account.MaYTe).FirstOrDefault();
+                        if (id != null)
                         {
-                            return Ok("Vui lòng xác nhận tài khoản, kiểm tra mail " + account.Email);
+                            if (_sendMailConfirm(id.IDAccountBN ?? 0))
+                            {
+                                return Ok("Vui lòng xác nhận tài khoản, kiểm tra mail " + account.Email);
+                            }
+                            return Content(HttpStatusCode.Created, "Vui lòng xác nhận tài khoản, thử lại gửi mail: " + account.Email);
                         }
-                        return Content(HttpStatusCode.Created, "Vui lòng xác nhận tài khoản, thử lại gửi mail: " + account.Email);
+                        else
+                        {
+                            return BadRequest();
+                        }
                     }
                     else
                     {
-                        return BadRequest();
+                        return Content(HttpStatusCode.NotAcceptable, "Thông tin họ tên và ngày sinh không trùng khớp với Mã Y Tế.");
                     }
+                }
+                else
+                {
+                    return Content(HttpStatusCode.NotAcceptable, "Mã y tế không tồn tại.");
                 }
             }
             else
@@ -89,8 +99,8 @@ namespace Schedure.API.Controllers
                 {
                     return Content(HttpStatusCode.NotAcceptable, "Thông tin Mã Y tế đã được sử dụng.");
                 }
+                return Content(HttpStatusCode.NotAcceptable, "Tài khoản đã được tạo trước đó.");
             }
-            return Content(HttpStatusCode.NotAcceptable, "Thông tin Email hoặc Mã y tế đã được sử dụng");
         }
 
         [HttpPost]

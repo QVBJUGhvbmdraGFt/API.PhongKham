@@ -35,9 +35,9 @@ namespace SchedureBUS
             return default(T);
         }
 
-        public List<NgayKhamDTO> NVFillter(int? benhNhan_Id, DateTime tuNgay, DateTime denNgay)
+        public List<NgayKhamDTO> NVFillter(string MaYTe, DateTime tuNgay, DateTime denNgay)
         {
-            return _decode<List<NgayKhamDTO>>(API.POST<string>($"apis/{controlerAPI}/NVFillter?s_tuNgay={tuNgay.ToString("dd-MM-yyyy")}&s_denNgay={denNgay.ToString("dd-MM-yyyy")}", benhNhan_Id).Value) ?? new List<NgayKhamDTO>();
+            return _decode<List<NgayKhamDTO>>(API.POST<string>($"apis/{controlerAPI}/NVFillter?s_tuNgay={tuNgay.ToString("dd-MM-yyyy")}&s_denNgay={denNgay.ToString("dd-MM-yyyy")}", MaYTe).Value) ?? new List<NgayKhamDTO>();
         }
 
         public ChanDoanKhamLS GetByKhamBenhId(int KhamBenh_Id)

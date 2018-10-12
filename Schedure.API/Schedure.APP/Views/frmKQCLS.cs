@@ -45,7 +45,7 @@ namespace Schedure.APP.Views
             dateend.Value = DateTime.Now;
             datestart.Value = dateend.Value.AddDays(-10);
 
-            numSearch.Value = 0;
+            txtMaYTe.Clear();
 
             _fillter();
         }
@@ -66,8 +66,7 @@ namespace Schedure.APP.Views
 
         private void _fillter()
         {
-            int? benhnhan_id = numSearch.Value > 0 ? (int?)numSearch.Value : null;
-            var data = new KQKBBUS(this).NVFillter(benhnhan_id, datestart.Value, dateend.Value);
+            var data = new KQKBBUS(this).NVFillter(txtMaYTe.Text, datestart.Value, dateend.Value);
             mDataGridView1.DataSource = data;
             SetStatus();
         }

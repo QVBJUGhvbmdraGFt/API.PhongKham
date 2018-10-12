@@ -284,113 +284,128 @@ namespace Schedure.APP.Views
 <p>
     <fieldset>
         <legend>
-            KẾT QUẢ CHUẨN LÂM SÀN
+            KẾT QUẢ CẬN LÂM SÀNG VÀ CHẨN ĐOÁN HÌNH ẢNH
         </legend>
         <table class=""table"" border=""1"">
             <tr>
+                <td>STT</td>
+                <td>
+                    Nội dung
+                </td>
+                <td>
+                    Đơn vị tính
+                </td>
+                <td>
+                    Kết quả
+                </td>
                 <td>
                     CSBT
                 </td>
                 <td>
-                    DonViTinh
+                    Kết luận
                 </td>
                 <td>
-                    KetQua
+                    Mô tả
                 </td>
                 <td>
-                    ket_luan
-                </td>
-                <td>
-                    mo_ta
-                </td>
-                <td>
-                    ngay_kq
-                </td>
-                <td>
-                    NoiDung
-                </td>
-                <td>
-                    TenNhomDichVu
-                </td>
-                <td>
-                    TienSu
+                    Ngày KQ
                 </td>
             </tr>
             ");
             
-            #line 211 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-	foreach (var cls in Model.KetQuaCLS)
-	{ 
+            #line 206 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+ foreach (var gr in Model.KetQuaCLS.GroupBy(q => q.TenNhomDichVu))
+            {
             
             #line default
             #line hidden
-            this.Write("                <tr>\r\n                    <td>\r\n                        ");
+            this.Write("                <tr>\r\n                    <td colspan=\"9\">\r\n                     " +
+                    "   <b>");
             
-            #line 215 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(cls.CSBT));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n                    </td>\r\n                    <td>\r\n                        ");
-            
-            #line 218 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(cls.DonViTinh));
+            #line 210 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+		Write(gr.Key); 
             
             #line default
             #line hidden
-            this.Write("\r\n                    </td>\r\n                    <td>\r\n                        ");
+            this.Write("</b>\r\n                    </td>\r\n                </tr>\r\n               ");
             
-            #line 221 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(cls.KetQua));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n                    </td>\r\n                    <td>\r\n                        ");
-            
-            #line 224 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(cls.ket_luan));
+            #line 213 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+  for (int i = 0; i < gr.Count(); i++)
+                {
+                    var cls = gr.ElementAt(i);
+
             
             #line default
             #line hidden
-            this.Write("\r\n                    </td>\r\n                    <td>\r\n                        ");
+            this.Write("                 \r\n   <tr>\r\n                        <td>\r\n                       " +
+                    "      ");
             
-            #line 227 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(cls.mo_ta));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n                    </td>\r\n                    <td>\r\n                        ");
-            
-            #line 230 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(cls.ngay_kq));
+            #line 219 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+			Write(i + 1); 
             
             #line default
             #line hidden
-            this.Write("\r\n                    </td>\r\n                    <td>\r\n                        ");
+            this.Write(" \r\n                        </td>\r\n                        <td>\r\n                 " +
+                    "           ");
             
-            #line 233 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(cls.NoiDung));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n                    </td>\r\n                    <td>\r\n                        ");
-            
-            #line 236 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(cls.TenNhomDichVu));
+            #line 222 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+ Write(cls.NoiDung); 
             
             #line default
             #line hidden
-            this.Write("\r\n                    </td>\r\n                    <td>\r\n                        ");
+            this.Write("                        </td>\r\n                        <td>\r\n                    " +
+                    "        ");
             
-            #line 239 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(cls.TienSu));
+            #line 225 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+ Write(cls.DonViTinh); 
             
             #line default
             #line hidden
-            this.Write("\r\n                    </td>\r\n                </tr>\r\n           ");
+            this.Write(" \r\n                        </td>\r\n                        <td>\r\n                 " +
+                    "           ");
             
-            #line 242 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
-	} 
+            #line 228 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+ Write(cls.KetQua); 
+            
+            #line default
+            #line hidden
+            this.Write(" \r\n                        </td>\r\n                        <td>\r\n                 " +
+                    "           ");
+            
+            #line 231 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+ Write(cls.CSBT); 
+            
+            #line default
+            #line hidden
+            this.Write(" \r\n                        </td>\r\n                        <td>\r\n                 " +
+                    "           ");
+            
+            #line 234 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+ Write(cls.ket_luan); 
+            
+            #line default
+            #line hidden
+            this.Write(" \r\n                        </td>\r\n                        <td>\r\n                 " +
+                    "           ");
+            
+            #line 237 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+ Write(cls.mo_ta); 
+            
+            #line default
+            #line hidden
+            this.Write(" \r\n                        </td>\r\n                        <td>\r\n                 " +
+                    "           ");
+            
+            #line 240 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+ Write(cls.ngay_kq.Value.ToString("dd/MM/yyyy")); 
+            
+            #line default
+            #line hidden
+            this.Write(" \r\n                        </td>\r\n                    </tr>\r\n                ");
+            
+            #line 243 "D:\FLANCER\C#\TEMP\Schedure.API-fix02\Schedure.API\Schedure.APP\Views\templateDetailKQKB2.tt"
+ }
+            } 
             
             #line default
             #line hidden

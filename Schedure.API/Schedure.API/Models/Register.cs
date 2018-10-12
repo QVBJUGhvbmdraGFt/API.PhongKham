@@ -26,6 +26,9 @@ namespace Schedure.API.Models
         public string Patient_name { get; set; }
         public Nullable<int> NhanVien_Id { get; set; }
         public Nullable<int> IDChuyenKhoa { get; set; }
+        public Nullable<int> Modified_Id { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public string MaDangKy { get; set; }
     
         public virtual Account_BenhNhan Account_BenhNhan { get; set; }
         public virtual LichLamViec LichLamViec { get; set; }

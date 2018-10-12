@@ -27,8 +27,12 @@ namespace SchedureDTO
         public Nullable<int> BenhNhan_Id { get; set; }
         public string Token { get; set; }
         public Nullable<System.DateTime> TokenExpiration { get; set; }
+        public Nullable<int> Modified_Id { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
 
         public virtual string MaYTe { get; set; }
+        public virtual string HoTen { get; set; }
+        public virtual DateTime NgaySinh { get; set; }
     
         public virtual ICollection<RegisterDTO> Registers { get; set; }
     }

@@ -39,6 +39,7 @@
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.panel2 = new System.Windows.Forms.Panel();
             this.mDataGridView1 = new Schedure.APP.UC.MDataGridView();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -127,7 +128,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 113);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(929, 505);
+            this.panel2.Size = new System.Drawing.Size(929, 480);
             this.panel2.TabIndex = 1;
             // 
             // mDataGridView1
@@ -146,6 +147,7 @@
             this.mDataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.mDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.mDataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column4,
             this.Column1,
             this.Column2,
             this.Column3});
@@ -158,7 +160,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.mDataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.mDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mDataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.mDataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.mDataGridView1.IsCellFormatting = true;
             this.mDataGridView1.Location = new System.Drawing.Point(0, 0);
             this.mDataGridView1.Name = "mDataGridView1";
@@ -172,8 +174,17 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.mDataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.mDataGridView1.RowTemplate.Height = 24;
-            this.mDataGridView1.Size = new System.Drawing.Size(929, 505);
+            this.mDataGridView1.Size = new System.Drawing.Size(929, 480);
             this.mDataGridView1.TabIndex = 0;
+            this.mDataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.mDataGridView1_CellFormatting);
+            // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column4.HeaderText = "STT";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 68;
             // 
             // Column1
             // 
@@ -223,10 +234,11 @@
         private DevComponents.DotNetBar.LabelX labelX1;
         private UC.MDataGridView mDataGridView1;
         private DevComponents.DotNetBar.Controls.ComboBoxEx cmbPhongBan;
+        private DevComponents.DotNetBar.Controls.ComboBoxEx cmbChuyenKhoa;
+        private DevComponents.DotNetBar.LabelX labelX2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private DevComponents.DotNetBar.Controls.ComboBoxEx cmbChuyenKhoa;
-        private DevComponents.DotNetBar.LabelX labelX2;
     }
 }

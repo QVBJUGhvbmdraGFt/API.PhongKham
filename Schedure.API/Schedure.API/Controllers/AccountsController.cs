@@ -105,6 +105,8 @@ namespace Schedure.API.Controllers
                 return BadRequest();
             }
 
+            Account_BenhNhan.Modified_Id = LoginHelper.GetAccountNV().IDAccountNV;
+            Account_BenhNhan.ModifiedDate = DateTime.Now;
             db.Entry(Account_BenhNhan).State = EntityState.Modified;
 
             try
@@ -153,6 +155,8 @@ namespace Schedure.API.Controllers
                 return NotFound();
             }
 
+            Account_BenhNhan.Modified_Id = LoginHelper.GetAccountNV().IDAccountNV;
+            Account_BenhNhan.ModifiedDate = DateTime.Now;
             Account_BenhNhan.Status = "DELETE";
             await db.SaveChangesAsync();
 

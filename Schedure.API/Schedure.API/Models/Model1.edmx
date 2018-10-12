@@ -17,6 +17,8 @@
           <Property Name="BenhNhan_Id" Type="int" />
           <Property Name="Token" Type="nvarchar" MaxLength="50" />
           <Property Name="TokenExpiration" Type="datetime" />
+          <Property Name="Modified_Id" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Account_NhanVien">
           <Key>
@@ -66,6 +68,8 @@
           <Property Name="Date" Type="datetime" />
           <Property Name="Status" Type="nchar" MaxLength="10" />
           <Property Name="IDPhongKham" Type="int" />
+          <Property Name="Modified_Id" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="PhongBan">
           <Key>
@@ -98,6 +102,7 @@
             <PropertyRef Name="IDRegister" />
           </Key>
           <Property Name="IDRegister" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaDangKy" Type="nvarchar" MaxLength="50" />
           <Property Name="IDAccountBN" Type="int" />
           <Property Name="CreateDate" Type="datetime" />
           <Property Name="Message" Type="nvarchar" MaxLength="500" />
@@ -109,6 +114,8 @@
           <Property Name="Patient_name" Type="nvarchar" MaxLength="50" />
           <Property Name="NhanVien_Id" Type="int" />
           <Property Name="IDChuyenKhoa" Type="int" />
+          <Property Name="Modified_Id" Type="int" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -382,7 +389,7 @@
           <FunctionImport Name="SP_PhongBan_GetAll" ReturnType="Collection(SchedureModel.SP_PhongBan_GetAll_Result)" />
           <FunctionImport Name="SP_PhongBan_GetSource" ReturnType="Collection(SchedureModel.SP_PhongBan_GetSource_Result)" />
           <FunctionImport Name="SP_LichLamViec_GetByPhongBan_Id" ReturnType="Collection(SchedureModel.SP_LichLamViec_GetByPhongBan_Id_Result)">
-          <Parameter Name="PhongBan_Id" Mode="In" Type="Int32" />
+            <Parameter Name="PhongBan_Id" Mode="In" Type="Int32" />
             <Parameter Name="date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="SP_Register_GetAllOrBy" ReturnType="Collection(SchedureModel.SP_Register_GetAllOrBy_Result)">
@@ -421,6 +428,13 @@
           <FunctionImport Name="sp_LayChanDoanKhamLS" ReturnType="Collection(SchedureModel.sp_LayChanDoanKhamLS_Result)">
           <Parameter Name="KhamBenh_Id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_LayKetQuaCLS" ReturnType="Collection(SchedureModel.SP_LayKetQuaCLS_Result)">
+          <Parameter Name="khambenh_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Account_NhanVien_GetAllOrByID" ReturnType="Collection(SchedureModel.SP_Account_NhanVien_GetAllOrByID_Result)">
+          <Parameter Name="IDAccountNV" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_Account_NhanVien_GetSource" ReturnType="Collection(SchedureModel.SP_Account_NhanVien_GetSource_Result)" />
           <EntitySet Name="Account_BenhNhan" EntityType="SchedureModel.Account_BenhNhan" />
           <EntitySet Name="Account_NhanVien" EntityType="SchedureModel.Account_NhanVien" />
           <EntitySet Name="ChuyenKhoas" EntityType="SchedureModel.ChuyenKhoa" />
@@ -451,13 +465,6 @@
             <End Role="LichLamViec" EntitySet="LichLamViecs" />
             <End Role="Register" EntitySet="Registers" />
           </AssociationSet>
-          <FunctionImport Name="SP_LayKetQuaCLS" ReturnType="Collection(SchedureModel.SP_LayKetQuaCLS_Result)">
-          <Parameter Name="khambenh_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="SP_Account_NhanVien_GetAllOrByID" ReturnType="Collection(SchedureModel.SP_Account_NhanVien_GetAllOrByID_Result)">
-          <Parameter Name="IDAccountNV" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="SP_Account_NhanVien_GetSource" ReturnType="Collection(SchedureModel.SP_Account_NhanVien_GetSource_Result)" />
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -710,6 +717,36 @@
           <Property Type="String" Name="SoVaoVien" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="BenhNhan_Id" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="SP_Account_NhanVien_GetAllOrByID_Result">
+          <Property Type="Int32" Name="IDAccountNV" Nullable="false" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDPosition" Nullable="true" />
+          <Property Type="String" Name="Token" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="TokenExpiration" Nullable="true" Precision="23" />
+          <Property Type="String" Name="MaNhanVien" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Position_Status" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="SP_Account_NhanVien_GetSource_Result">
+          <Property Type="String" Name="MaNhanVien" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="NhanVien_Id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_LayKetQuaCLS_Result">
+          <Property Type="String" Name="NoiDung" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="KetQua" Nullable="true" />
+          <Property Type="String" Name="CSBT" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="TienSu" Nullable="true" />
+          <Property Type="String" Name="DonViTinh" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="TenNhomDichVu" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="mo_ta" Nullable="true" />
+          <Property Type="String" Name="ket_luan" Nullable="true" />
+          <Property Type="DateTime" Name="ngay_kq" Nullable="true" Precision="23" />
+        </ComplexType>
         <EntityType Name="Account_BenhNhan">
           <Key>
             <PropertyRef Name="IDAccountBN" />
@@ -722,6 +759,8 @@
           <Property Name="BenhNhan_Id" Type="Int32" />
           <Property Name="Token" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TokenExpiration" Type="DateTime" Precision="3" />
+          <Property Name="Modified_Id" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Registers" Relationship="SchedureModel.FK_Register_Account" FromRole="Account_BenhNhan" ToRole="Register" />
         </EntityType>
         <EntityType Name="Account_NhanVien">
@@ -774,6 +813,8 @@
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="IDPhongKham" Type="Int32" />
+          <Property Name="Modified_Id" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="TimeSlot" Relationship="SchedureModel.FK_LichLamViec_TimeSlot" FromRole="LichLamViec" ToRole="TimeSlot" />
           <NavigationProperty Name="Registers" Relationship="SchedureModel.FK_Register_LichLamViec" FromRole="LichLamViec" ToRole="Register" />
         </EntityType>
@@ -821,8 +862,11 @@
           <Property Name="Patient_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NhanVien_Id" Type="Int32" />
           <Property Name="IDChuyenKhoa" Type="Int32" />
+          <Property Name="Modified_Id" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Account_BenhNhan" Relationship="SchedureModel.FK_Register_Account" FromRole="Register" ToRole="Account_BenhNhan" />
           <NavigationProperty Name="LichLamViec" Relationship="SchedureModel.FK_Register_LichLamViec" FromRole="Register" ToRole="LichLamViec" />
+          <Property Name="MaDangKy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -905,36 +949,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="SP_Account_NhanVien_GetAllOrByID_Result">
-          <Property Type="Int32" Name="IDAccountNV" Nullable="false" />
-          <Property Type="String" Name="Username" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="NhanVien_Id" Nullable="true" />
-          <Property Type="String" Name="Status" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="IDPosition" Nullable="true" />
-          <Property Type="String" Name="Token" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="TokenExpiration" Nullable="true" Precision="23" />
-          <Property Type="String" Name="MaNhanVien" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="Position_Status" Nullable="true" MaxLength="500" />
-        </ComplexType>
-        <ComplexType Name="SP_Account_NhanVien_GetSource_Result">
-          <Property Type="String" Name="MaNhanVien" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="TenNhanVien" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="NhanVien_Id" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="SP_LayKetQuaCLS_Result">
-          <Property Type="String" Name="NoiDung" Nullable="true" MaxLength="4000" />
-          <Property Type="String" Name="KetQua" Nullable="true" />
-          <Property Type="String" Name="CSBT" Nullable="true" MaxLength="100" />
-          <Property Type="Boolean" Name="TienSu" Nullable="true" />
-          <Property Type="String" Name="DonViTinh" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="TenNhomDichVu" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="mo_ta" Nullable="true" />
-          <Property Type="String" Name="ket_luan" Nullable="true" />
-          <Property Type="DateTime" Name="ngay_kq" Nullable="true" Precision="23" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1220,9 +1234,53 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_LayKetQuaCLS" FunctionName="SchedureModel.Store.SP_LayKetQuaCLS" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_LayKetQuaCLS_Result">
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="KetQua" ColumnName="KetQua" />
+                <ScalarProperty Name="CSBT" ColumnName="CSBT" />
+                <ScalarProperty Name="TienSu" ColumnName="TienSu" />
+                <ScalarProperty Name="DonViTinh" ColumnName="DonViTinh" />
+                <ScalarProperty Name="TenNhomDichVu" ColumnName="TenNhomDichVu" />
+                <ScalarProperty Name="mo_ta" ColumnName="mo_ta" />
+                <ScalarProperty Name="ket_luan" ColumnName="ket_luan" />
+                <ScalarProperty Name="ngay_kq" ColumnName="ngay_kq" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Account_NhanVien_GetAllOrByID" FunctionName="SchedureModel.Store.SP_Account_NhanVien_GetAllOrByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_Account_NhanVien_GetAllOrByID_Result">
+                <ScalarProperty Name="IDAccountNV" ColumnName="IDAccountNV" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IDPosition" ColumnName="IDPosition" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="TokenExpiration" ColumnName="TokenExpiration" />
+                <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Position_Status" ColumnName="Position_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_Account_NhanVien_GetSource" FunctionName="SchedureModel.Store.SP_Account_NhanVien_GetSource">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SchedureModel.SP_Account_NhanVien_GetSource_Result">
+                <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
+                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
+                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="Account_BenhNhan">
             <EntityTypeMapping TypeName="SchedureModel.Account_BenhNhan">
               <MappingFragment StoreEntitySet="Account_BenhNhan">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Modified_Id" ColumnName="Modified_Id" />
                 <ScalarProperty Name="TokenExpiration" ColumnName="TokenExpiration" />
                 <ScalarProperty Name="Token" ColumnName="Token" />
                 <ScalarProperty Name="BenhNhan_Id" ColumnName="BenhNhan_Id" />
@@ -1276,6 +1334,8 @@
           <EntitySetMapping Name="LichLamViecs">
             <EntityTypeMapping TypeName="SchedureModel.LichLamViec">
               <MappingFragment StoreEntitySet="LichLamViec">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Modified_Id" ColumnName="Modified_Id" />
                 <ScalarProperty Name="IDPhongKham" ColumnName="IDPhongKham" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -1318,6 +1378,9 @@
           <EntitySetMapping Name="Registers">
             <EntityTypeMapping TypeName="SchedureModel.Register">
               <MappingFragment StoreEntitySet="Register">
+                <ScalarProperty Name="MaDangKy" ColumnName="MaDangKy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="Modified_Id" ColumnName="Modified_Id" />
                 <ScalarProperty Name="IDChuyenKhoa" ColumnName="IDChuyenKhoa" />
                 <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
                 <ScalarProperty Name="Patient_name" ColumnName="Patient_name" />
@@ -1355,48 +1418,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SP_LayKetQuaCLS" FunctionName="SchedureModel.Store.SP_LayKetQuaCLS" >
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SchedureModel.SP_LayKetQuaCLS_Result">
-                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
-                <ScalarProperty Name="KetQua" ColumnName="KetQua" />
-                <ScalarProperty Name="CSBT" ColumnName="CSBT" />
-                <ScalarProperty Name="TienSu" ColumnName="TienSu" />
-                <ScalarProperty Name="DonViTinh" ColumnName="DonViTinh" />
-                <ScalarProperty Name="TenNhomDichVu" ColumnName="TenNhomDichVu" />
-                <ScalarProperty Name="mo_ta" ColumnName="mo_ta" />
-                <ScalarProperty Name="ket_luan" ColumnName="ket_luan" />
-                <ScalarProperty Name="ngay_kq" ColumnName="ngay_kq" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_Account_NhanVien_GetAllOrByID" FunctionName="SchedureModel.Store.SP_Account_NhanVien_GetAllOrByID">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SchedureModel.SP_Account_NhanVien_GetAllOrByID_Result">
-                <ScalarProperty Name="IDAccountNV" ColumnName="IDAccountNV" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="IDPosition" ColumnName="IDPosition" />
-                <ScalarProperty Name="Token" ColumnName="Token" />
-                <ScalarProperty Name="TokenExpiration" ColumnName="TokenExpiration" />
-                <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
-                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Position_Status" ColumnName="Position_Status" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_Account_NhanVien_GetSource" FunctionName="SchedureModel.Store.SP_Account_NhanVien_GetSource">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SchedureModel.SP_Account_NhanVien_GetSource_Result">
-                <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
-                <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
-                <ScalarProperty Name="NhanVien_Id" ColumnName="NhanVien_Id" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

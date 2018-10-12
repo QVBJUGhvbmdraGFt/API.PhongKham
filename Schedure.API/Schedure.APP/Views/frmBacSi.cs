@@ -22,6 +22,7 @@ namespace Schedure.APP.Views
         private void frmBacSi_Load(object sender, EventArgs e)
         {
             mDataGridView1.BinDataPropertyName<DoctorDTO>(
+                null,
                 new ColumnFormat<DoctorDTO>(q => q.PhongBan.ChuyenKhoa.Name),
                 new ColumnFormat<DoctorDTO>(q => q.PhongBan.TenPhongBan),
                 new ColumnFormat<DoctorDTO>(q => q.FullName)
@@ -50,6 +51,14 @@ namespace Schedure.APP.Views
             if (obj != null)
             {
                 cmbPhongBan.BindItems(obj.PhongBans.OrderBy(q => q.TenPhongBan).ToList(), q => q.TenPhongBan);
+            }
+        }
+
+        private void mDataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                e.Value = e.RowIndex + 1;
             }
         }
     }

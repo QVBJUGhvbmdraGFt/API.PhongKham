@@ -27,6 +27,8 @@ namespace SchedureDTO
         public Nullable<System.DateTime> Date { get; set; }
         public string Status { get; set; }
         public Nullable<int> IDPhongKham { get; set; }
+        public Nullable<int> Modified_Id { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
 
         public virtual TimeSlotDTO TimeSlot { get; set; }
         public virtual DoctorDTO Doctor { get; set; }

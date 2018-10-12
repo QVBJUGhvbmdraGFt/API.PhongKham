@@ -33,7 +33,7 @@
 
     <div class="form-group">
         <label for="Patient_name">Họ tên bệnh nhân</label>
-        @Html.TextBoxFor(q => q.Patient_name, new { @class = "form-control", placeholder = "Họ tên bệnh nhân", required = "true", pattern = @"\w+", Title = "Nhập vào họ tên!" })
+        @Html.TextBoxFor(q => q.Patient_name, new { @class = "form-control", placeholder = "Họ tên bệnh nhân", required = "true", pattern = @".+", Title = "Nhập vào họ tên!" })
     </div>
 
     if (Model.IDAccountBN <= 0)
@@ -46,7 +46,7 @@
 
     <div class="form-group">
         <label for="Status_Patient">Tình trạng bệnh</label>
-        @Html.TextBoxFor(q => q.Status_Patient, new { @class = "form-control", placeholder = "Tình trạng bệnh", required = "true", pattern = @"\w+", Title = "Nhập vào Tình trạng bệnh!" })
+        @Html.TextBoxFor(q => q.Status_Patient, new { @class = "form-control", placeholder = "Tình trạng bệnh", required = "true", pattern = @".+", Title = "Nhập vào Tình trạng bệnh!" })
     </div>
 
     <div class="form-group">

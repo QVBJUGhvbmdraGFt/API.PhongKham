@@ -24,21 +24,17 @@ namespace Schedure.Web.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult Index(RegisterDTO register)
         {
-#if DEBUG == false || true
-            if (CaptchaGoogle.CheckCaptcha().IsSuccess)
-            {
-#endif
+            //if (CaptchaGoogle.CheckCaptcha().IsSuccess)
+            //{
             register.IDAccountBN = LoginHelper.GetAccountBN()?.IDAccountBN;
             string message = RegisterBUS.Create(register) ? "Đăng kí thành công" : "Đăng kí thất bại";
             return RedirectToAction("Result", "Register2", new { message = message });
-#if DEBUG == false || true
-            }
-            ModelState.AddModelError("", "Vui lòng nhập captcha");
-            return View(register.IDLich);
-#endif
+            //}
+            //ModelState.AddModelError("", "Vui lòng nhập captcha");
+            //return RedirectToAction("Index", register.IDLich);
         }
 
         public ActionResult Result(string message)

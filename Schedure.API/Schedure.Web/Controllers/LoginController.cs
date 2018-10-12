@@ -59,12 +59,11 @@ namespace Schedure.Web.Controllers
                 case 2:
                     return RedirectToAction("Confirm", account);
                 case 3:
-                    ModelState.AddModelError("", "Thông tin tài khoản đã tồn tại!");
+                    ModelState.AddModelError("", res.Value);
                     break;
                 default:
                     break;
             }
-            ModelState.AddModelError("", res.Value);
             return View();
         }
 

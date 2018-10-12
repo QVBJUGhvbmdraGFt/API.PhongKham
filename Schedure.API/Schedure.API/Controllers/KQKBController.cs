@@ -27,8 +27,20 @@ namespace Schedure.API.Controllers
         [ResponseType(typeof(string))]
         [HttpPost]
         [AdminAuthentication]
-        public IHttpActionResult NVFillter([FromBody]int? benhNhan_Id, [FromUri]string s_tuNgay, [FromUri]string s_denNgay)
+        public IHttpActionResult NVFillter([FromBody]string MaYTe, [FromUri]string s_tuNgay, [FromUri]string s_denNgay)
         {
+            int? benhNhan_Id = null;
+            if (string.IsNullOrWhiteSpace(MaYTe) == false)
+            {
+                foreach (var item in db.SP_DM_BenhNhan_GetByMaYTe(MaYTe))
+                {
+                    benhNhan_Id = item.BenhNhan_Id;
+                }
+                if (benhNhan_Id == null)
+                {
+                    return BadRequest("Không tìm thấy bệnh nhân.");
+                }
+            }
             return Ok(_encode(_Fillter(benhNhan_Id, s_tuNgay, s_denNgay)));
         }
 

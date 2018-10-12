@@ -25,7 +25,7 @@ namespace Schedure.APP.Views
         {
 
             mDataGridView1.BinDataPropertyName<RegisterDTO>(
-                new ColumnFormat<RegisterDTO>(q => q.IDRegister),
+                new ColumnFormat<RegisterDTO>(q => q.MaDangKy),
                 new ColumnFormat<RegisterDTO>(q => q.LichLamViec.PhongKham.ChuyenKhoa.Name),
                 new ColumnFormat<RegisterDTO>(q => q.LichLamViec.PhongKham.TenPhongBan),
                 new ColumnFormat<RegisterDTO>(q => q.Account_BenhNhan.Username),

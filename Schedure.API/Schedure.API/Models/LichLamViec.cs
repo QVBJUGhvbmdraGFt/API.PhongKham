@@ -28,6 +28,8 @@ namespace Schedure.API.Models
         public Nullable<System.DateTime> Date { get; set; }
         public string Status { get; set; }
         public Nullable<int> IDPhongKham { get; set; }
+        public Nullable<int> Modified_Id { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual TimeSlot TimeSlot { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

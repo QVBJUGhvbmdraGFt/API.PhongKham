@@ -218,6 +218,7 @@
     </Compile>
     <Compile Include="Models\LoginHelper.cs" />
     <Compile Include="Models\MailHelper.cs" />
+    <Compile Include="Models\MetaCharacter.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

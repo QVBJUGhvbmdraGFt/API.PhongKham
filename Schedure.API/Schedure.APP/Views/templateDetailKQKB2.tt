@@ -176,70 +176,72 @@
 <p>
     <fieldset>
         <legend>
-            KẾT QUẢ CHUẨN LÂM SÀN
+            KẾT QUẢ CẬN LÂM SÀNG VÀ CHẨN ĐOÁN HÌNH ẢNH
         </legend>
         <table class="table" border="1">
             <tr>
+                <td>STT</td>
+                <td>
+                    Nội dung
+                </td>
+                <td>
+                    Đơn vị tính
+                </td>
+                <td>
+                    Kết quả
+                </td>
                 <td>
                     CSBT
                 </td>
                 <td>
-                    DonViTinh
+                    Kết luận
                 </td>
                 <td>
-                    KetQua
+                    Mô tả
                 </td>
                 <td>
-                    ket_luan
-                </td>
-                <td>
-                    mo_ta
-                </td>
-                <td>
-                    ngay_kq
-                </td>
-                <td>
-                    NoiDung
-                </td>
-                <td>
-                    TenNhomDichVu
-                </td>
-                <td>
-                    TienSu
+                    Ngày KQ
                 </td>
             </tr>
-            <#	foreach (var cls in Model.KetQuaCLS)
-	{ #>
+            <# foreach (var gr in Model.KetQuaCLS.GroupBy(q => q.TenNhomDichVu))
+            {#>
                 <tr>
-                    <td>
-                        <#=			cls.CSBT #>
-                    </td>
-                    <td>
-                        <#=			cls.DonViTinh #>
-                    </td>
-                    <td>
-                        <#=			cls.KetQua #>
-                    </td>
-                    <td>
-                        <#=			cls.ket_luan #>
-                    </td>
-                    <td>
-                        <#=			cls.mo_ta #>
-                    </td>
-                    <td>
-                        <#=			cls.ngay_kq #>
-                    </td>
-                    <td>
-                        <#=			cls.NoiDung #>
-                    </td>
-                    <td>
-                        <#=			cls.TenNhomDichVu #>
-                    </td>
-                    <td>
-                        <#=			cls.TienSu #>
+                    <td colspan="9">
+                        <b><#		Write(gr.Key); #></b>
                     </td>
                 </tr>
-           <#	} #>
+               <#  for (int i = 0; i < gr.Count(); i++)
+                {
+                    var cls = gr.ElementAt(i);
+#>                 
+   <tr>
+                        <td>
+                             <#			Write(i + 1); #> 
+                        </td>
+                        <td>
+                            <# Write(cls.NoiDung); #>
+                        </td>
+                        <td>
+                            <# Write(cls.DonViTinh); #> 
+                        </td>
+                        <td>
+                            <# Write(cls.KetQua); #> 
+                        </td>
+                        <td>
+                            <# Write(cls.CSBT); #> 
+                        </td>
+                        <td>
+                            <# Write(cls.ket_luan); #> 
+                        </td>
+                        <td>
+                            <# Write(cls.mo_ta); #> 
+                        </td>
+                        <td>
+                            <# Write(cls.ngay_kq.Value.ToString("dd/MM/yyyy")); #> 
+                        </td>
+                    </tr>
+                <# }
+            } #>
         </table>
     </fieldset>
 </p>

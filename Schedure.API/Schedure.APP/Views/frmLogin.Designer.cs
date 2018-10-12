@@ -55,7 +55,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(240, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 17);
+            this.label1.Size = new System.Drawing.Size(121, 21);
             this.label1.TabIndex = 1;
             this.label1.Text = "Tên đăng nhập";
             // 
@@ -64,7 +64,7 @@
             this.txtUsername.Location = new System.Drawing.Point(364, 72);
             this.txtUsername.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(224, 24);
+            this.txtUsername.Size = new System.Drawing.Size(224, 28);
             this.txtUsername.TabIndex = 2;
             this.txtUsername.Text = "admin";
             // 
@@ -95,7 +95,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(240, 113);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 17);
+            this.label2.Size = new System.Drawing.Size(78, 21);
             this.label2.TabIndex = 1;
             this.label2.Text = "Mật khẩu";
             // 
@@ -104,7 +104,7 @@
             this.txtPassword.Location = new System.Drawing.Point(364, 109);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(224, 24);
+            this.txtPassword.Size = new System.Drawing.Size(224, 28);
             this.txtPassword.TabIndex = 2;
             this.txtPassword.Text = "admin";
             this.txtPassword.UseSystemPasswordChar = true;
@@ -114,14 +114,14 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(296, 20);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(152, 17);
+            this.label3.Size = new System.Drawing.Size(188, 21);
             this.label3.TabIndex = 1;
             this.label3.Text = "ĐĂNG NHẬP HỆ THỐNG";
             // 
             // frmLogin
             // 
             this.AcceptButton = this.btnLogin;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 240);
             this.Controls.Add(this.btnExit);

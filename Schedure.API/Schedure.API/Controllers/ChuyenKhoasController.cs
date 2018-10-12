@@ -47,6 +47,14 @@ namespace Schedure.API.Controllers
                     Name = q.Name,
                     Status = q.Status,
                     TimeUse = q.TimeUse,
+                    PhongBans = q.PhongBans.Select(a => new PhongBanDTO
+                    {
+                        IDChuyenKhoa = a.IDChuyenKhoa,
+                        PhongBan_Id = a.PhongBan_Id,
+                        Status = a.Status,
+                        IDPhongBan = a.IDPhongBan,
+                        TenPhongBan = a.TenPhongBan,
+                    }).ToList()
                 }).ToList();
             }
             catch (Exception ex)

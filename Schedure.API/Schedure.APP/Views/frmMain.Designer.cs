@@ -120,7 +120,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(5, 167);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1181, 460);
+            this.panel1.Size = new System.Drawing.Size(1181, 458);
             this.panel1.TabIndex = 1;
             // 
             // panel3
@@ -129,7 +129,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 150);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1181, 286);
+            this.panel3.Size = new System.Drawing.Size(1181, 284);
             this.panel3.TabIndex = 1;
             // 
             // mDataGridView1
@@ -182,7 +182,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.mDataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.mDataGridView1.RowTemplate.Height = 24;
-            this.mDataGridView1.Size = new System.Drawing.Size(1181, 286);
+            this.mDataGridView1.Size = new System.Drawing.Size(1181, 284);
             this.mDataGridView1.TabIndex = 1;
             this.mDataGridView1.MyCellClick += new Schedure.APP.UC.MDataGridView.Mdata(this.mDataGridView1_MyCellClick);
             // 
@@ -252,7 +252,7 @@
             // 
             this.panel4.Controls.Add(this.statusStrip1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 436);
+            this.panel4.Location = new System.Drawing.Point(0, 434);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(1181, 24);
             this.panel4.TabIndex = 0;
@@ -871,7 +871,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1191, 629);
+            this.ClientSize = new System.Drawing.Size(1191, 627);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.ribbonControl1);
             this.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

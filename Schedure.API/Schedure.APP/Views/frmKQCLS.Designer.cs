@@ -32,7 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.numSearch = new DevComponents.Editors.IntegerInput();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.labelX6 = new DevComponents.DotNetBar.LabelX();
             this.dateend = new System.Windows.Forms.DateTimePicker();
@@ -49,15 +48,15 @@
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new DevComponents.DotNetBar.Controls.DataGridViewButtonXColumn();
+            this.txtMaYTe = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSearch)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mDataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.numSearch);
+            this.panel1.Controls.Add(this.txtMaYTe);
             this.panel1.Controls.Add(this.labelX3);
             this.panel1.Controls.Add(this.labelX6);
             this.panel1.Controls.Add(this.dateend);
@@ -71,21 +70,6 @@
             this.panel1.Size = new System.Drawing.Size(1190, 107);
             this.panel1.TabIndex = 0;
             // 
-            // numSearch
-            // 
-            this.numSearch.Anchor = System.Windows.Forms.AnchorStyles.None;
-            // 
-            // 
-            // 
-            this.numSearch.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.numSearch.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.numSearch.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.numSearch.Location = new System.Drawing.Point(751, 40);
-            this.numSearch.Name = "numSearch";
-            this.numSearch.ShowUpDown = true;
-            this.numSearch.Size = new System.Drawing.Size(130, 28);
-            this.numSearch.TabIndex = 26;
-            // 
             // labelX3
             // 
             this.labelX3.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -97,7 +81,7 @@
             this.labelX3.Name = "labelX3";
             this.labelX3.Size = new System.Drawing.Size(134, 23);
             this.labelX3.TabIndex = 24;
-            this.labelX3.Text = "ID Bệnh nhân: ";
+            this.labelX3.Text = "Mã y tế BN:";
             // 
             // labelX6
             // 
@@ -175,7 +159,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 107);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1190, 497);
+            this.panel3.Size = new System.Drawing.Size(1190, 472);
             this.panel3.TabIndex = 2;
             // 
             // mDataGridView1
@@ -211,7 +195,7 @@
             this.mDataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.mDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mDataGridView1.EnableHeadersVisualStyles = false;
-            this.mDataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.mDataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.mDataGridView1.IsCellFormatting = true;
             this.mDataGridView1.Location = new System.Drawing.Point(0, 0);
             this.mDataGridView1.Name = "mDataGridView1";
@@ -225,7 +209,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.mDataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.mDataGridView1.RowTemplate.Height = 24;
-            this.mDataGridView1.Size = new System.Drawing.Size(1190, 497);
+            this.mDataGridView1.Size = new System.Drawing.Size(1190, 472);
             this.mDataGridView1.TabIndex = 0;
             this.mDataGridView1.MyCellClick += new Schedure.APP.UC.MDataGridView.Mdata(this.mDataGridView1_MyCellClick);
             // 
@@ -273,6 +257,13 @@
             this.Column6.Text = "Chi tiết";
             this.Column6.UseColumnTextForButtonValue = true;
             // 
+            // txtMaYTe
+            // 
+            this.txtMaYTe.Location = new System.Drawing.Point(751, 43);
+            this.txtMaYTe.Name = "txtMaYTe";
+            this.txtMaYTe.Size = new System.Drawing.Size(179, 28);
+            this.txtMaYTe.TabIndex = 25;
+            // 
             // frmKQCLS
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -288,7 +279,7 @@
             this.Controls.SetChildIndex(this.panel1, 0);
             this.Controls.SetChildIndex(this.panel3, 0);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numSearch)).EndInit();
+            this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mDataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -315,6 +306,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private DevComponents.DotNetBar.Controls.DataGridViewButtonXColumn Column6;
-        private DevComponents.Editors.IntegerInput numSearch;
+        private System.Windows.Forms.TextBox txtMaYTe;
     }
 }

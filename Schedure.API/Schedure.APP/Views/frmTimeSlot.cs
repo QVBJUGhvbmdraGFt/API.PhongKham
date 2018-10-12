@@ -24,8 +24,8 @@ namespace Schedure.APP.Views
             mDataGridView1.IsCellFormatting = false;
             mDataGridView1.BinDataPropertyName<TimeSlotDTO>(
                 new ColumnFormat<TimeSlotDTO>(q => q.Name),
-                new ColumnFormat<TimeSlotDTO>(q => q.HourStart,"hh\\:ss"),
-                new ColumnFormat<TimeSlotDTO>(q => q.HourEnd, "hh\\:ss")
+                new ColumnFormat<TimeSlotDTO>(q => q.HourStart, "hh\\:mm"),
+                new ColumnFormat<TimeSlotDTO>(q => q.HourEnd, "hh\\:mm")
                 );
 
             _reload();
@@ -55,7 +55,7 @@ namespace Schedure.APP.Views
             {
                 SetStatus(false, "Vui lòng nhập Tên.");
             }
-            else if ((mDataGridView1.DataSource as IList<TimeSlotDTO>).Any(q => q.Name.ToLower() == txtName.Text.Trim().ToLower()))
+            else if ((mDataGridView1.DataSource as IList<TimeSlotDTO>).Any(q => q.IDTimeSlot != (int)txtName.Tag && q.Name.ToLower() == txtName.Text.Trim().ToLower()))
             {
                 SetStatus(false, "Tên đã được sử dụng");
             }

@@ -28,6 +28,8 @@ namespace Schedure.API.Models
         public Nullable<int> BenhNhan_Id { get; set; }
         public string Token { get; set; }
         public Nullable<System.DateTime> TokenExpiration { get; set; }
+        public Nullable<int> Modified_Id { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Register> Registers { get; set; }
