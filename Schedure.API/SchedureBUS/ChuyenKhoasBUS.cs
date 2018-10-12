@@ -30,6 +30,10 @@ namespace SchedureBUS
             return new APIHelper().POST<List<ChuyenKhoaDTO>>($"apis/{controlerAPI}/JoinAllChuyenKhoa","").Value ?? new List<ChuyenKhoaDTO>();
         }
 
+        public List<ChuyenKhoaDTO> NVChuyenKhoaJoinBacSi()
+        {
+            return new APIHelper().POST<List<ChuyenKhoaDTO>>($"apis/{controlerAPI}/NVChuyenKhoaJoinBacSi","").Value ?? new List<ChuyenKhoaDTO>();
+        }
 
         public ChuyenKhoaDTO GetByID(int id)
         {

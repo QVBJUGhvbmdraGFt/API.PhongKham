@@ -80,6 +80,37 @@ namespace Schedure.API.Controllers
             }
         }
 
+        [ResponseType(typeof(List<ChuyenKhoaDTO>))]
+        [HttpPost]
+        public List<ChuyenKhoaDTO> NVChuyenKhoaJoinBacSi()
+        {
+            try
+            {
+                return db.ChuyenKhoas.ToList().Select(q => new ChuyenKhoaDTO
+                {
+                    Avatar = q.Avatar,
+                    IDChuyenKhoa = q.IDChuyenKhoa,
+                    Name = q.Name,
+                    Status = q.Status,
+                    TimeUse = q.TimeUse,
+                    PhongBans = q.PhongBans.Select(a => new PhongBanDTO
+                    {
+                        TenPhongBan = a.TenPhongBan,
+                        IDChuyenKhoa = a.IDChuyenKhoa,
+                        PhongBan_Id = a.PhongBan_Id,
+                        IDPhongBan = a.IDPhongBan,
+                        Status = a.Status,
+                    }).OrderBy(a => a.TenPhongBan).ToList()
+                }).OrderBy(q => q.Name).ToList();
+            }
+            catch (Exception ex)
+            {
+                ex.DebugLog();
+                return null;
+            }
+        }
+
+
         public static List<ChuyenKhoaDTO> GetJoin()
         {
             var data = new SchedureEntities().SP_ChuyenKhoa_GetAll().ToList();
